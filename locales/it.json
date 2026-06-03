@@ -1,0 +1,470 @@
+{
+  "general": {
+    "meta": {
+      "tags": "",
+      "page": ""
+    },
+    "announcement_bar": {
+      "close": "Chiudi"
+    },
+    "popup": {
+      "email_placeholder": "Inserisci la tua email",
+      "submit": "Iscriviti",
+      "success": "Grazie per l'iscrizione!"
+    },
+    "password": {
+      "enter_password": "Inserisci la password",
+      "password_input": "La tua password",
+      "password_submit": "Entra",
+      "newsletter_input": "La tua email",
+      "newsletter_submit": "Iscriviti",
+      "newsletter_success": "Grazie per l'iscrizione!",
+      "powered_by_html": "Powered by Shopify",
+      "login_title": "Accesso amministratore",
+      "login_link": "Accedi con la password"
+    },
+    "pagination": {
+      "previous_page": "Pagina precedente",
+      "next_page": "Pagina successiva",
+      "go_to_page": "Vai alla pagina"
+    }
+  },
+  "header": {
+    "navigation": {
+      "title": "Navigazione",
+      "sidebar_title": "Menu",
+      "open_sidebar": "Apri menu",
+      "close_sidebar": "Chiudi menu",
+      "account": "Account",
+      "search": "Cerca",
+      "cart": "Carrello",
+      "open_cart": "Apri carrello",
+      "close_cart": "Chiudi carrello",
+      "skip_to_content": "Vai al contenuto"
+    }
+  },
+  "footer": {
+    "general": {
+      "credits_html": "© {{ shop.name }}"
+    },
+    "newsletter": {
+      "success": "Grazie per l'iscrizione!",
+      "input": "La tua email",
+      "submit": "Iscriviti"
+    }
+  },
+  "search": {
+    "general": {
+      "title": "Cerca",
+      "content": "Cerca prodotti, articoli...",
+      "input_placeholder": "Cerca...",
+      "view_all": "Vedi tutti i risultati",
+      "no_results": "Nessun risultato trovato",
+      "no_results_with_terms": "Nessun risultato per",
+      "pages": "Pagine",
+      "articles": "Articoli",
+      "pages_and_articles": "Pagine e articoli",
+      "results_count": {
+        "zero": "Nessun risultato",
+        "one": "1 risultato",
+        "other": "{{ count }} risultati"
+      },
+      "results_with_terms_count": {
+        "zero": "Nessun risultato per",
+        "one": "1 risultato per",
+        "other": "{{ count }} risultati per"
+      }
+    }
+  },
+  "404": {
+    "general": {
+      "title": "Pagina non trovata",
+      "content": "La pagina che stai cercando non esiste.",
+      "button": "Torna alla home"
+    }
+  },
+  "home_page": {
+    "onboarding": {
+      "vendor_title": "AEQUO",
+      "product_title": "Anello Essenziale",
+      "product_description": "Gioiello artigianale in oro 18 carati. Design minimalista senza tempo, pensato per chi apprezza l'eleganza pura.",
+      "collection_title": "Collezione Essenziale",
+      "article_name": "L'Arte del Gioiello",
+      "article_category": "Design",
+      "article_excerpt": "Scopri la filosofia dietro ogni creazione AEQUO: materiali preziosi, forme essenziali e artigianalità italiana."
+    },
+    "featured_product": {
+      "view_product": "Vedi prodotto"
+    },
+    "shop_the_look": {
+      "view_product": "Vedi prodotto",
+      "view_products": "Vedi prodotti",
+      "popover_title": "Dettagli"
+    },
+    "featured_video": {
+      "play": "Play"
+    },
+    "newsletter": {
+      "input": "La tua email",
+      "submit": "Iscriviti",
+      "success": "Grazie per l'iscrizione!"
+    }
+  },
+  "collection_list": {
+    "general": {
+      "title": "Collezioni",
+      "empty_title": "Nessuna collezione",
+      "empty_button": "Crea una collezione"
+    }
+  },
+  "collection": {
+    "general": {
+      "all_products": "Tutti i prodotti",
+      "no_products": "Nessun prodotto in questa collezione.",
+      "empty": "Nessun prodotto trovato",
+      "empty_button": "Cancella filtri",
+      "reset": "Resetta",
+      "view_products": "Vedi prodotti"
+    },
+    "filter": {
+      "title": "Filtri",
+      "show_filter": "Mostra filtri",
+      "all": "Tutti",
+      "reset": "Resetta",
+      "apply": "Applica"
+    },
+    "sorting": {
+      "title": "Ordina per",
+      "show_sort": "Ordina",
+      "manual": "In primo piano",
+      "best_selling": "Più venduti",
+      "title_ascending": "Nome, A-Z",
+      "title_descending": "Nome, Z-A",
+      "price_ascending": "Prezzo, dal più basso",
+      "price_descending": "Prezzo, dal più alto",
+      "created_ascending": "Data, dal più vecchio",
+      "created_descending": "Data, dal più nuovo"
+    },
+    "layout": {
+      "show_one_per_row": "1 per riga",
+      "show_two_per_row": "2 per riga",
+      "show_four_per_row": "4 per riga"
+    },
+    "product": {
+      "from_price_html": "",
+      "view_product": ""
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Il mio account",
+      "welcome": "",
+      "logout": "Esci",
+      "back_to_account": "",
+      "no_orders_title": "",
+      "no_orders_content": "",
+      "no_addresses_title": "",
+      "no_addresses_content": "",
+      "default_address": "",
+      "edit_addresses": "",
+      "manage_addresses": "",
+      "details": "Dettagli account",
+      "view_addresses": "Gestisci indirizzi",
+      "order_history": "Storico ordini",
+      "login": "Accedi",
+      "register": "Registrati",
+      "forgot_password": "Password dimenticata?",
+      "submit": "Invia",
+      "cancel": "Annulla",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Conferma password"
+    },
+    "login": {
+      "title": "",
+      "description": "",
+      "email": "",
+      "password": "",
+      "forgot": "",
+      "submit": "",
+      "register_label": "",
+      "register_link": ""
+    },
+    "orders": {
+      "order_number": "",
+      "date": "",
+      "payment_status": "",
+      "fulfillment_status": "",
+      "total": ""
+    },
+    "order": {
+      "title": "Ordine {{ name }}",
+      "back_to_account": "",
+      "cancelled_at": "",
+      "placed_at": "",
+      "fulfillment_html": "",
+      "line_fulfillment_html": "",
+      "product": "",
+      "quantity": "",
+      "line_price": "",
+      "subtotal": "",
+      "discount": "",
+      "shipping": "",
+      "tax": "",
+      "total": "Totale",
+      "shipping_address": "Indirizzo di spedizione",
+      "billing_address": "Indirizzo di fatturazione",
+      "no_shipping_address": "",
+      "date": "Data",
+      "payment_status": "Stato pagamento",
+      "fulfillment_status": "Stato spedizione"
+    },
+    "activate_account": {
+      "title": "",
+      "description": "",
+      "password": "",
+      "password_confirmation": "",
+      "submit": "",
+      "decline": ""
+    },
+    "recover_password": {
+      "title": "",
+      "description": "",
+      "email": "",
+      "submit": "",
+      "success": "",
+      "login_label": "",
+      "login_link": ""
+    },
+    "reset_password": {
+      "title": "",
+      "description": "",
+      "password": "",
+      "password_confirmation": "",
+      "submit": ""
+    },
+    "addresses": {
+      "title": "I miei indirizzi",
+      "empty": "",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "add_address": "",
+      "edit_address": "",
+      "form_subtitle": "",
+      "default_address_label": "",
+      "address_label": "",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "company": "Azienda",
+      "address1": "Indirizzo",
+      "address2": "Appartamento, suite, ecc.",
+      "city": "Città",
+      "country": "Paese",
+      "province": "Provincia",
+      "zip": "CAP",
+      "phone": "Telefono",
+      "set_default": "",
+      "add_new": "Aggiungi nuovo indirizzo",
+      "default": "Predefinito",
+      "submit": "Salva indirizzo",
+      "cancel": "Annulla"
+    },
+    "register": {
+      "title": "",
+      "description": "",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "password": "",
+      "submit": ""
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Carrello",
+      "empty": "Il tuo carrello è vuoto",
+      "empty_button": "",
+      "add_note": "",
+      "edit_note": "",
+      "save_note": "",
+      "note_placeholder": "",
+      "free_shipping": "",
+      "free_shipping_remaining_html": "",
+      "shipping_and_taxes_notice": "",
+      "total": "",
+      "currency_notice": "",
+      "checkout": "Checkout",
+      "remove": "Rimuovi",
+      "note": "Note speciali",
+      "continue_shopping": "Continua a fare acquisti",
+      "subtotal": "Subtotale",
+      "shipping_taxes_calculated_at_checkout": "Spedizione e tasse calcolate al checkout"
+    },
+    "items": {
+      "product": "",
+      "quantity": "",
+      "total": "",
+      "set_quantity": "",
+      "remove": ""
+    },
+    "shipping_estimator": {
+      "title": "",
+      "country": "",
+      "province": "",
+      "zip_code": "",
+      "estimate": "",
+      "one_result_title": "",
+      "more_results_title": "",
+      "no_results_title": ""
+    },
+    "free_shipping": {
+      "message": "Hai la spedizione gratuita!",
+      "remaining_html": "Aggiungi <strong>{{ amount }}</strong> per la spedizione gratuita"
+    }
+  },
+  "product": {
+    "labels": {
+      "sold_out": "",
+      "on_sale": ""
+    },
+    "slideshow": {
+      "close": "",
+      "previous": "",
+      "next": "",
+      "image_loading_error": ""
+    },
+    "form": {
+      "variant_label": "",
+      "price": "",
+      "quantity": "",
+      "from_price_html": "",
+      "select_model": "",
+      "size_chart": "",
+      "inventory_quantity_count": {
+        "one": "",
+        "other": ""
+      },
+      "low_inventory_quantity_count": {
+        "one": "",
+        "other": ""
+      },
+      "colors_count": {
+        "one": "",
+        "other": ""
+      },
+      "add_to_cart": "",
+      "sold_out": "",
+      "pre_order": "",
+      "unavailable": "",
+      "view_info": "",
+      "view_images": "",
+      "notify_me_when_available": "Avvisami quando disponibile",
+      "notify_email": "La tua email",
+      "notify_success": "Grazie! Ti avviseremo quando il prodotto sarà disponibile.",
+      "notify_button": "Avvisami"
+    },
+    "tabs": {
+      "reviews": ""
+    },
+    "buy_it_with": {
+      "title": ""
+    },
+    "general": {
+      "from_price_html": "Da {{ price }}",
+      "sale_price": "Prezzo scontato",
+      "regular_price": "Prezzo normale",
+      "add_to_cart_button": "Aggiungi al carrello",
+      "sold_out": "Esaurito",
+      "unavailable": "Non disponibile",
+      "on_sale": "In saldo",
+      "quantity": "Quantità",
+      "share": "Condividi",
+      "add_to_wishlist": "Aggiungi alla lista desideri",
+      "vendor": "Brand",
+      "type": "Tipo",
+      "size": "Taglia",
+      "color": "Colore"
+    }
+  },
+  "gift_card": {
+    "issued": {
+      "subtext": "",
+      "illustration_alt": "",
+      "disabled": "",
+      "expired": "",
+      "expires_on": "",
+      "redeem_html": "",
+      "shop_link": "",
+      "print": "",
+      "initial_amount_html": "",
+      "remaining_balance_html": "",
+      "add_to_apple_wallet": ""
+    }
+  },
+  "blog": {
+    "general": {
+      "no_articles": "",
+      "empty_button": "",
+      "all_tag": "",
+      "title": "Blog",
+      "read_more": "Leggi tutto",
+      "author": "Autore",
+      "date": "Data",
+      "back_to_blog": "Torna al blog",
+      "comments": "Commenti",
+      "no_comments": "Nessun commento",
+      "write_comment": "Scrivi un commento",
+      "name": "Nome",
+      "email": "Email",
+      "message": "Messaggio",
+      "submit": "Invia"
+    },
+    "article": {
+      "read_more": "",
+      "written_by": "",
+      "now_reading": "",
+      "share": "",
+      "previous": "",
+      "next": "",
+      "comments_count": {
+        "zero": "",
+        "one": "",
+        "other": ""
+      }
+    },
+    "comments": {
+      "form_title": "",
+      "name_placeholder": "",
+      "email_placeholder": "",
+      "comment_placeholder": "",
+      "approval_notice": "",
+      "submit": "",
+      "success": "",
+      "success_moderated": ""
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Nome e Cognome",
+      "email": "Indirizzo Email",
+      "message": "Il tuo Messaggio",
+      "submit": "Invia Messaggio",
+      "successfully_sent": "Messaggio inviato con successo. Ti risponderemo al più presto."
+    }
+  },
+  "date_formats": {
+    "month_day_year": "",
+    "month_day_year_short": "",
+    "month_day_year_time": ""
+  },
+  "article": {
+    "general": {
+      "previous_article": "Articolo precedente",
+      "next_article": "Articolo successivo",
+      "tags": "Tag",
+      "read_more": "Leggi tutto"
+    }
+  }
+}
