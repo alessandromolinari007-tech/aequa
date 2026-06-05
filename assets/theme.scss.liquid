@@ -1476,7 +1476,7 @@ body:not(.is-tabbing) textarea:focus {
 
 [data-scrollable] {
   overflow: auto;
-  /*-webkit-overflow-scrolling: touch;*/
+  -webkit-overflow-scrolling: touch;
 }
 
 .Container {
@@ -3654,12 +3654,14 @@ select::-ms-expand {
   }
 }
 
-.AspectRatio > img {
+.AspectRatio > img,
+.AspectRatio > video.Slideshow__Image {
   max-height: 100%;
   max-width: 100%;
 }
 
-.AspectRatio--withFallback > img {
+.AspectRatio--withFallback > img,
+.AspectRatio--withFallback > video.Slideshow__Image {
   position: absolute;
   top: 0;
   left: 0;
@@ -3683,7 +3685,8 @@ select::-ms-expand {
   }
 
   .AspectRatio > img,
-  .no-js .AspectRatio > noscript img {
+  .no-js .AspectRatio > noscript img,
+  .AspectRatio > video.Slideshow__Image {
     position: absolute;
     top: 0;
     left: 0;
@@ -8117,7 +8120,7 @@ $vertical-spacing-two-products-per-row  : 0px;
 .Header .Text--subdued,
 .Header .Link--primary,
 .Header .Link--secondary:hover {
-  color: $header-light-text-color;
+  color: #111111;
 }
 
 .Header {
@@ -8141,7 +8144,7 @@ $vertical-spacing-two-products-per-row  : 0px;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 15px 18px;
+  padding: 25px 18px;
 }
 
 .Header__Logo {
@@ -8202,13 +8205,13 @@ $vertical-spacing-two-products-per-row  : 0px;
 }
 
 .Header__Icon .Icon--nav {
-  height: 14px;
-  width: 20px;
+  height: 12px;
+  width: 16px;
 }
 
 .Header__Icon .Icon--cart {
-  width: 17px;
-  height: 20px;
+  width: 14px;
+  height: 17px;
 }
 
 .Header__Icon .Icon--cart,
@@ -8246,7 +8249,7 @@ $vertical-spacing-two-products-per-row  : 0px;
 
 @include av-mq('tablet-and-up') {
   .Header__Wrapper {
-    padding: 18px 30px;
+    padding: 28px 30px;
   }
 
   .Header__LogoImage {
@@ -8254,13 +8257,13 @@ $vertical-spacing-two-products-per-row  : 0px;
   }
 
   .Header__Icon .Icon--nav-desktop {
-    height: 17px;
-    width: 24px;
+    height: 14px;
+    width: 20px;
   }
 
   .Header__Icon .Icon--cart-desktop {
-    height: 23px;
-    width: 19px;
+    height: 19px;
+    width: 16px;
   }
 }
 
@@ -8272,7 +8275,7 @@ $vertical-spacing-two-products-per-row  : 0px;
   }
 
   .Header:not(.Header--sidebar) .Header__Wrapper {
-    padding: 18px 50px;
+    padding: 28px 50px;
   }
 
   .Header__CurrencySelector,
@@ -11280,6 +11283,17 @@ $vertical-spacing-two-products-per-row  : 0px;
   height: 100%;
 }
 
+.Slideshow__ImageContainer video.Slideshow__Image {
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
 .Slideshow--fullscreen .Slideshow__Image {
   display: block;
   height: 100%;
@@ -12203,56 +12217,59 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #FFFFFF;
 }
 
-/* Desktop text cart link always visible */
-.HorizontalList__Item > .Heading,
-.HorizontalList__Item > a.Heading {
-  color: #111111 !important;
-}
-
 /* ------------------------------------------------------------------
  * AEQUO MOBILE-FIRST & LUXURY HEADER  (SAVA-inspired)
  * ------------------------------------------------------------------ */
 
-/* Logo — ultra thin, wide tracking, pure luxury */
+/* Logo — left aligned in new layout */
 .Header__LogoLink > .Heading {
   font-family: 'Montserrat', sans-serif;
   font-size: 22px;
   letter-spacing: 0.55em;
   font-weight: 200;
   color: #111111;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
 }
 
 .Header__LogoImage {
-  margin: 0 auto;
-  max-width: 260px;
+  margin: 0;
+  max-width: 108px !important;
   height: auto;
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
-/* Navigation links — tiny, airy, uppercase */
+/* Navigation links — readable, accessible, uppercase */
 .Header__MainNav a,
 .Header__SecondaryNav a,
-.HorizontalList__Item > a.Heading {
+.HorizontalList__Item > a.Heading,
+.Header__QuickNavItem > a.Heading {
   position: relative;
   font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #111111 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #444444 !important;
+}
+
+/* Center main nav on desktop */
+.Header__MainNav {
+  text-align: center;
 }
 
 /* Push underline slightly below text */
 .Header__LinkSpacer::after {
   bottom: -4px !important;
+  border-bottom-width: 1px !important;
 }
 
-/* Active page — tonal contrast only, no markers */
+/* Active page and hover — clear visual feedback */
 .Header__MainNav .HorizontalList__Item > a.Heading {
-  color: #888888 !important;
-  -webkit-transition: color 0.25s ease;
-  transition: color 0.25s ease;
+  color: #444444 !important;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .Header__MainNav .HorizontalList__Item.is-active > a.Heading,
@@ -12260,36 +12277,103 @@ h1, h2, h3, h4, h5, h6 {
   color: #111111 !important;
 }
 
-/* Header wrapper — tight, compact */
-.Header,
+.Header__MainNav .HorizontalList__Item:hover .Header__LinkSpacer::after,
+.Header__MainNav .HorizontalList__Item.is-active .Header__LinkSpacer::after {
+  opacity: 1 !important;
+  -webkit-transform: scale(1, 1) !important;
+  transform: scale(1, 1) !important;
+}
+
+/* Header wrapper — symmetric safe area */
 .Header__Wrapper {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .Header {
   border-bottom: 1px solid #E5E7EB !important;
 }
 
-.Header__Wrapper {
-  padding-left: 30px !important;
-  padding-right: 30px !important;
+/* Balanced nav spacing */
+.Header__MainNav .HorizontalList--spacingExtraLoose {
+  margin-left: -25px;
+  margin-right: -25px;
+}
+
+.Header__MainNav .HorizontalList--spacingExtraLoose .HorizontalList__Item {
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+/* Header icons — clear and accessible */
+.Header__Icon {
+  padding: 4px;
+  min-width: 32px;
+  min-height: 32px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.Header__Icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.Header__SecondaryNav .Header__Icon svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2px;
+}
+
+/* Right utilities aligned as a tight icon row */
+.Header__SecondaryNav .HorizontalList {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
 }
 
-/* Mobile: ensure hamburger and cart are large enough touch targets */
-.Header__Icon {
-  padding: 10px;
-  min-width: 44px;
-  min-height: 44px;
+.Header__SecondaryNav .HorizontalList--spacingLoose {
+  margin-left: -5px;
+  margin-right: -5px;
 }
 
-/* Slimmer, more refined cart / nav icons */
-.Header__Icon svg {
-  width: 18px;
-  height: 18px;
+.Header__SecondaryNav .HorizontalList--spacingLoose .HorizontalList__Item {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.Header__SecondaryNav .Header__Icon {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px;
+}
+
+.Header__SecondaryNav .Header__Icon:hover {
+  opacity: 0.6;
+}
+
+/* Ensure first and last flex items sit flush to wrapper padding */
+.Header__FlexItem:first-child .Header__LogoImage {
+  margin-left: 0;
+}
+
+.Header__FlexItem:last-child .Header__SecondaryNav {
+  text-align: right;
 }
 
 /* Sidebar menu — pure white, no warm tints */
@@ -12344,28 +12428,50 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Product info block — luxury breathing room */
 .ProductItem__Info {
-  margin-top: 28px;
+  margin-top: 16px;
   margin-bottom: 40px;
-  text-align: left;
+  text-align: center;
 }
 
 .ProductItem__Title {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #111111;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   line-height: 1.4;
 }
 
 .ProductItem__Price {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 300;
-  letter-spacing: 0.08em;
-  color: #555555;
+  letter-spacing: 0.06em;
+  color: #444444;
+}
+
+/* Hover interactions — whole card feels clickable */
+.ProductItem {
+  cursor: pointer;
+}
+
+.ProductItem__ImageWrapper {
+  transition: opacity 0.35s ease;
+}
+
+.ProductItem:hover .ProductItem__ImageWrapper {
+  opacity: 0.85;
+}
+
+.ProductItem:hover .ProductItem__Title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ProductItem:hover .ProductItem__Price {
+  color: #111111;
 }
 
 /* Sale price must NOT be red — keep monochrome */
@@ -12638,6 +12744,14 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0 !important;
 }
 
+.Slideshow--fullscreen {
+  min-height: 100vh !important;
+}
+
+.Slideshow__ImageContainer {
+  min-height: 500px !important;
+}
+
 .Slideshow__Content .Heading {
   color: #111111 !important;
 }
@@ -12653,6 +12767,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .Slideshow__Content .Button:hover {
   color: #FFFFFF !important;
+}
+
+.Slideshow__Content.Slideshow__Content--bottomLeft,
+.Slideshow__Content.Slideshow__Content--middleLeft {
+  text-align: center !important;
 }
 
 /* ------------------------------------------------------------------
@@ -12853,8 +12972,8 @@ h1, h2, h3, h4, h5, h6 {
   .Header__MainNav a,
   .Header__SecondaryNav a,
   .HorizontalList__Item > a.Heading {
-    font-size: 9px !important;
-    letter-spacing: 0.12em !important;
+    font-size: 14px !important;
+    letter-spacing: 0.08em !important;
   }
 
   .Heading.u-h1,

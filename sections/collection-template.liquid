@@ -37,7 +37,7 @@
     <div class="EmptyState">
       <div class="Container">
         <h1 class="EmptyState__Title Heading u-h5">{{ 'collection.general.no_products' | t }}</h1>
-        <button class="EmptyState__Action Button Button--primary" data-action="reset-tags">{{ 'collection.general.reset' | t }}</button>
+        <button type="button" class="EmptyState__Action Button Button--primary" data-action="reset-tags">{{ 'collection.general.reset' | t }}</button>
       </div>
     </div>
   {%- endif -%}
@@ -177,7 +177,7 @@
             {%- if show_filters or section.settings.show_sort_by -%}
               <div class="CollectionToolbar__Group">
                 {%- if show_filters -%}
-                  <button class="CollectionToolbar__Item CollectionToolbar__Item--filter Heading {% unless current_tags %}Text--subdued{% endunless %} u-h6 {% if section.settings.filter_position != 'drawer' %}hidden-lap-and-up{% endif %}"
+                  <button type="button" class="CollectionToolbar__Item CollectionToolbar__Item--filter Heading {% unless current_tags %}Text--subdued{% endunless %} u-h6 {% if section.settings.filter_position != 'drawer' %}hidden-lap-and-up{% endif %}"
                           data-action="open-drawer"
                           data-drawer-id="collection-filter-drawer"
                           aria-label="{{ 'collection.filter.show_filter' | t }}">
@@ -186,7 +186,7 @@
                 {%- endif -%}
 
                 {%- if section.settings.show_sort_by -%}
-                  <button class="CollectionToolbar__Item CollectionToolbar__Item--sort Heading Text--subdued u-h6"
+                  <button type="button" class="CollectionToolbar__Item CollectionToolbar__Item--sort Heading Text--subdued u-h6"
                           aria-label="{{ 'collection.sorting.show_sort' | t }}"
                           aria-haspopup="true"
                           aria-expanded="false"

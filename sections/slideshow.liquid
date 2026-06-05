@@ -25,9 +25,12 @@
 
           {%- assign mobile_image = block.settings.mobile_image | default: block.settings.image -%}
 
-          {%- if mobile_image -%}
+          {%- if mobile_image or block.settings.video_mp4 != blank -%}
             <div class="Slideshow__ImageContainer {% if block.settings.apply_overlay %}Image--contrast{% endif %} {% unless section.settings.show_fullscreen %}AspectRatio{% endunless %} hidden-tablet-and-up"
-                 style="{% unless section.settings.show_fullscreen %}--aspect-ratio: {{ mobile_image.aspect_ratio }};{% endunless %} background-image: url({{ mobile_image | img_url: '1x1', format: 'jpg' }})">
+                 style="{% unless section.settings.show_fullscreen %}--aspect-ratio: {{ mobile_image.aspect_ratio | default: 1.777 }};{% endunless %}{% if mobile_image %} background-image: url({{ mobile_image | img_url: '1x1', format: 'jpg' }}){% endif %}">
+              {%- if block.settings.video_mp4 != blank -%}
+                <video class="Slideshow__Image" src="{{ block.settings.video_mp4 }}" autoplay muted loop playsinline></video>
+              {%- else -%}
                 <img class="Slideshow__Image Image--lazyLoad"
                      src="{{ mobile_image | img_url: '1x1' }}"
                      data-src="{{ mobile_image | img_url: 'x800' }}"
@@ -36,24 +39,29 @@
                 <noscript>
                   <img class="Slideshow__Image" src="{{ mobile_image | img_url: 'x800' }}" alt="{{ mobile_image.alt | escape }}">
                 </noscript>
+              {%- endif -%}
             </div>
           {%- endif -%}
 
-          {%- if block.settings.image -%}
+          {%- if block.settings.image or block.settings.video_mp4 != blank -%}
             <div class="Slideshow__ImageContainer {% if block.settings.apply_overlay %}Image--contrast{% endif %} {% unless section.settings.show_fullscreen %}AspectRatio{% endunless %} hidden-phone"
-                 style="{% unless section.settings.show_fullscreen %}--aspect-ratio: {{ block.settings.image.aspect_ratio }};{% endunless %} background-image: url({{ block.settings.image | img_url: '1x1', format: 'jpg' }})">
-              {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                 style="{% unless section.settings.show_fullscreen %}--aspect-ratio: {{ block.settings.image.aspect_ratio | default: 1.777 }};{% endunless %}{% if block.settings.image %} background-image: url({{ block.settings.image | img_url: '1x1', format: 'jpg' }}){% endif %}">
+              {%- if block.settings.video_mp4 != blank -%}
+                <video class="Slideshow__Image" src="{{ block.settings.video_mp4 }}" autoplay muted loop playsinline></video>
+              {%- else -%}
+                {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
-              <img class="Slideshow__Image Image--lazyLoad hide-no-js"
-                   data-src="{{ image_url }}"
-                   data-optimumx="1.2"
-                   data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800]"
-                   data-sizes="auto"
-                   alt="{{ block.settings.image.alt | escape }}">
+                <img class="Slideshow__Image Image--lazyLoad hide-no-js"
+                     data-src="{{ image_url }}"
+                     data-optimumx="1.2"
+                     data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800]"
+                     data-sizes="auto"
+                     alt="{{ block.settings.image.alt | escape }}">
 
-              <noscript>
-                <img class="Slideshow__Image" src="{{ block.settings.image | img_url: '1000x' }}" alt="{{ block.settings.image.alt | escape }}">
-              </noscript>
+                <noscript>
+                  <img class="Slideshow__Image" src="{{ block.settings.image | img_url: '1000x' }}" alt="{{ block.settings.image.alt | escape }}">
+                </noscript>
+              {%- endif -%}
             </div>
           {%- else -%}
             <div class="Slideshow__ImageContainer {% if block.settings.apply_overlay %}Image--contrast{% endif %} {% if section.settings.show_fullscreen %}PlaceholderBackground{% endif %} PlaceholderSvg--dark">
@@ -100,7 +108,7 @@
     </div>
 
     {%- if section.settings.show_arrow -%}
-      <button data-href="#section-{{ section.id }}-end" class="Slideshow__ScrollButton RoundButton RoundButton--medium" data-animate-bottom>
+      <button type="button" data-href="#section-{{ section.id }}-end" class="Slideshow__ScrollButton RoundButton RoundButton--medium" data-animate-bottom>
         {%- include 'icon' with 'arrow-bottom' -%}
       </button>
     {%- endif -%}
@@ -174,6 +182,12 @@
           "id": "mobile_image",
           "label": "Mobile image",
           "info": "750 x 1100px jpg recommended. If none is set, desktop image will be cropped."
+        },
+        {
+          "type": "text",
+          "id": "video_mp4",
+          "label": "Video MP4 URL",
+          "info": "Incolla l'URL di un file MP4 caricato su Shopify (Contenuto > Files). Se impostato, sostituirà l'immagine."
         },
         {
           "type": "checkbox",

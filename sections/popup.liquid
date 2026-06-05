@@ -9,7 +9,7 @@
       {% endcapture %}
 
       <aside class="NewsletterPopup" data-section-id="{{ section.id }}" data-section-type="newsletter-popup" data-section-settings='{{ section_settings }}' aria-hidden="true">
-        <button class="NewsletterPopup__Close" data-action="close-popup">{% include 'icon' with 'close' %}</button>
+        <button type="button" class="NewsletterPopup__Close" data-action="close-popup">{% include 'icon' with 'close' %}</button>
 
         {%- if section.settings.title != blank -%}
           <h2 class="NewsletterPopup__Heading Heading u-h2">{{ section.settings.title | escape }}</h2>

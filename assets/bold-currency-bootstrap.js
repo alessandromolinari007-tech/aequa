@@ -56,9 +56,16 @@ function BOLD_mc_bootstrap(options) {
 
   if (BOLD && typeof BOLD.helpers !== 'undefined') {
     BOLD.helpers.setupMutationObservers = function (target, eventToEmit) {
+      var pending = false;
       var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
-          var variantId = parseInt(document.querySelector('select[name=id]').value);
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(function () {
+          pending = false;
+          var select = document.querySelector('select[name=id]');
+          if (!select) return;
+          var variantId = parseInt(select.value, 10);
+          if (isNaN(variantId)) return;
           BOLD.helpers.shopify.getVariant(BOLD.helpers.shopify.getProductHandleById(variantId), variantId)
             .then(function (data) {
               BOLD.common.eventEmitter.emit(eventToEmit, {
@@ -70,7 +77,7 @@ function BOLD_mc_bootstrap(options) {
         });
       });
 
-      var config = {attributes: true, childList: true, characterData: true};
+      var config = {childList: true, subtree: true};
 
       observer.observe(target, config);
     };
@@ -87,9 +94,11 @@ function BOLD_mc_bootstrap(options) {
   });
 
   function injectCssAssets(assets) {
+    var fragment = document.createDocumentFragment();
     assets.forEach(function (asset) {
-      document.head.appendChild(asset);
+      fragment.appendChild(asset);
     });
+    document.head.appendChild(fragment);
   }
 
   function initPickers() {

@@ -184,7 +184,7 @@ for size, we use it to display a size chart (if applicable)
     {%- if section.settings.show_quantity_selector -%}
       <div class="ProductForm__QuantitySelector">
         <div class="QuantitySelector QuantitySelector--large">
-          {%- assign quantity_minus_one = line_item.quantity | minus: 1 -%}
+          {%- assign quantity_minus_one = 1 | minus: 1 -%}
 
           <span class="QuantitySelector__Button Link Link--secondary" data-action="decrease-quantity">{% include 'icon' with 'minus' %}</span>
           <input type="text" class="QuantitySelector__CurrentQuantity" pattern="[0-9]*" name="quantity" value="1">

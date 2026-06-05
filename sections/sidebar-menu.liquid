@@ -3,7 +3,7 @@
 
 <section id="sidebar-menu" class="SidebarMenu Drawer Drawer--small Drawer--fromLeft" aria-hidden="true" data-section-id="{{ section.id }}" data-section-type="sidebar-menu">
     <header class="Drawer__Header" data-drawer-animated-left>
-      <button class="Drawer__Close Icon-Wrapper--clickable" data-action="close-drawer" data-drawer-id="sidebar-menu" aria-label="{{ 'header.navigation.close_sidebar' | t }}">
+      <button type="button" class="Drawer__Close Icon-Wrapper--clickable" data-action="close-drawer" data-drawer-id="sidebar-menu" aria-label="{{ 'header.navigation.close_sidebar' | t }}">
         {%- include 'icon' with 'close' -%}
       </button>
     </header>
@@ -15,7 +15,7 @@
             {%- for link in main_menu.links -%}
               <div class="Collapsible">
                 {%- if link.links != blank -%}
-                  <button class="Collapsible__Button Heading u-h6" data-action="toggle-collapsible" {% if link.links != blank %}aria-expanded="false"{% endif %}>
+                  <button type="button" class="Collapsible__Button Heading u-h6" data-action="toggle-collapsible" {% if link.links != blank %}aria-expanded="false"{% endif %}>
                     {{- link.title | escape -}} <span class="Collapsible__Plus"></span>
                   </button>
 
@@ -24,7 +24,7 @@
                       {%- for sub_link in link.links -%}
                         <div class="Collapsible">
                           {%- if sub_link.links != blank -%}
-                            <button class="Collapsible__Button Heading Text--subdued Link--primary u-h7" data-action="toggle-collapsible" {% if sub_link.links != blank %}aria-expanded="false"{% endif %}>
+                            <button type="button" class="Collapsible__Button Heading Text--subdued Link--primary u-h7" data-action="toggle-collapsible" {% if sub_link.links != blank %}aria-expanded="false"{% endif %}>
                               {{- sub_link.title | escape -}} <span class="Collapsible__Plus"></span>
                             </button>
 
