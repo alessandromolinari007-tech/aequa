@@ -72,21 +72,79 @@ HEADER CONTENT
   {%- capture header_logo -%}
     <a href="/" class="Header__LogoLink">
       {%- if section.settings.logo != blank -%}
+        {%- assign logo_width = section.settings.logo.width | default: 300 -%}
+        {%- assign logo_height = section.settings.logo.height | default: 80 -%}
         <img class="Header__LogoImage Header__LogoImage--primary"
-             src="{{ section.settings.logo | img_url: 'master' }}"
+             src="{{ section.settings.logo | img_url: '300x' }}"
              alt="{{ shop.name | escape }}"
+             width="{{ logo_width }}"
+             height="{{ logo_height }}"
+             decoding="async"
              style="max-width: {{ section.settings.logo_max_width }}px">
       {%- else -%}
         <img class="Header__LogoImage Header__LogoImage--primary"
              src="{{ 'logo-aequo.png' | asset_url }}"
-             alt="{{ shop.name | escape }}">
+             alt="{{ shop.name | escape }}"
+             decoding="async">
       {%- endif -%}
     </a>
   {%- endcapture -%}
 
   <div class="Header__Wrapper">
-    <!-- LEFT: Logo -->
-    <div class="Header__FlexItem">
+    <!-- LEFT: Navigation -->
+    <div class="Header__FlexItem Header__FlexItem--left">
+      <button type="button" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable {% unless use_sidebar_menu %}hidden-desk{% endunless %}" aria-expanded="false" data-action="open-drawer" data-drawer-id="sidebar-menu" aria-label="{{ 'header.navigation.open_sidebar' | t }}">
+        <span class="hidden-tablet-and-up">{%- include 'icon' with 'nav' -%}</span>
+        <span class="hidden-phone">{%- include 'icon' with 'nav-desktop' -%}</span>
+      </button>
+
+      {%- unless use_sidebar_menu -%}
+        <nav class="Header__MainNav Header__MainNav--left hidden-pocket hidden-lap" aria-label="{{ 'header.navigation.title' | t }}">
+          <ul class="HorizontalList HorizontalList--spacingTight">
+            <li class="HorizontalList__Item">
+              <a href="/" class="Heading u-h6">HOME<span class="Header__LinkSpacer">HOME</span></a>
+            </li>
+            <li class="HorizontalList__Item has-megamenu">
+              <a href="/collections/all" class="Heading u-h6">COLLEZIONE<span class="Header__LinkSpacer">COLLEZIONE</span></a>
+              <div class="MegaMenu" aria-hidden="true">
+                <div class="MegaMenu__Inner">
+                  <div class="MegaMenu__Item MegaMenu__Item--fit">
+                    <a href="/collections/orologi" class="MegaMenu__Title Heading Text--subdued u-h7">Orologi</a>
+                  </div>
+                  <div class="MegaMenu__Item MegaMenu__Item--fit">
+                    <a href="/collections/collane" class="MegaMenu__Title Heading Text--subdued u-h7">Collane</a>
+                  </div>
+                  <div class="MegaMenu__Item MegaMenu__Item--fit">
+                    <a href="/collections/bracciali" class="MegaMenu__Title Heading Text--subdued u-h7">Bracciali</a>
+                  </div>
+                  <div class="MegaMenu__Item MegaMenu__Item--fit">
+                    <a href="/collections/anelli" class="MegaMenu__Title Heading Text--subdued u-h7">Anelli</a>
+                  </div>
+                  <div class="MegaMenu__Item MegaMenu__Item--fit">
+                    <a href="/collections/argento" class="MegaMenu__Title Heading Text--subdued u-h7">Argento</a>
+                  </div>
+                  <div class="MegaMenu__Item MegaMenu__Item--fit">
+                    <a href="/collections/oro" class="MegaMenu__Title Heading Text--subdued u-h7">Oro</a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="HorizontalList__Item">
+              <a href="/collections/best-sellers" class="Heading u-h6">BEST SELLERS<span class="Header__LinkSpacer">BEST SELLERS</span></a>
+            </li>
+            <li class="HorizontalList__Item">
+              <a href="/collections/uomo" class="Heading u-h6">UOMO<span class="Header__LinkSpacer">UOMO</span></a>
+            </li>
+            <li class="HorizontalList__Item">
+              <a href="/collections/donna" class="Heading u-h6">DONNA<span class="Header__LinkSpacer">DONNA</span></a>
+            </li>
+          </ul>
+        </nav>
+      {%- endunless -%}
+    </div>
+
+    <!-- CENTER: Logo -->
+    <div class="Header__FlexItem Header__FlexItem--logo">
       {%- if template == 'index' -%}
         <h1 class="Header__Logo">{{ header_logo }}</h1>
       {%- else -%}
@@ -94,244 +152,41 @@ HEADER CONTENT
       {%- endif -%}
     </div>
 
-    <!-- CENTER: Main Navigation -->
-    <div class="Header__FlexItem Header__FlexItem--fill">
-      <button type="button" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable {% unless use_sidebar_menu %}hidden-desk{% endunless %}" aria-expanded="false" data-action="open-drawer" data-drawer-id="sidebar-menu" aria-label="{{ 'header.navigation.open_sidebar' | t }}">
-        <span class="hidden-tablet-and-up">{%- include 'icon' with 'nav' -%}</span>
-        <span class="hidden-phone">{%- include 'icon' with 'nav-desktop' -%}</span>
-      </button>
-
-      {%- unless use_sidebar_menu -%}
-        {%- assign main_menu_handle = section.settings.navigation_menu | default: 'main-menu' -%}
-        {%- assign main_menu = linklists[main_menu_handle] -%}
-
-        {%- assign mega_menu_names = '' -%}
-
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'mega_menu' -%}
-            {%- assign mega_menu_names = mega_menu_names | append: block.settings.navigation_mega_menu | append: ',' -%}
-          {%- endif -%}
-        {%- endfor -%}
-
-        {%- assign mega_menu_names = mega_menu_names | downcase | split: ',' | compact -%}
-
-        <nav class="Header__MainNav hidden-pocket hidden-lap" aria-label="{{ 'header.navigation.title' | t }}">
-          <ul class="HorizontalList HorizontalList--spacingExtraLoose">
-            {%- for link in main_menu.links -%}
-              {%- assign downcased_link_title = link.title | downcase -%}
-              {%- assign use_mega_menu = false -%}
-
-              {%- unless downcased_link_title == 'home' or downcased_link_title == 'contatti' -%}
-
-              {%- capture menu_item_dropdown -%}
-                {%- if mega_menu_names contains downcased_link_title -%}
-                  {%- for block in section.blocks -%}
-                    {%- assign downcased_mega_menu_name = block.settings.navigation_mega_menu | downcase -%}
-
-                    {%- if downcased_mega_menu_name != downcased_link_title -%}
-                      {%- continue -%}
-                    {%- endif -%}
-
-                    {%- assign use_mega_menu = true -%}
-                    {%- assign push_image_count = 0 -%}
-
-                    {%- if block.settings.push_1_image -%}
-                      {%- assign push_image_count = push_image_count | plus: 1 -%}
-                    {%- endif -%}
-
-                    {%- if block.settings.push_2_image -%}
-                      {%- assign push_image_count = push_image_count | plus: 1 -%}
-                    {%- endif -%}
-
-                    {%- assign should_space_evenly = false -%}
-
-                    {%- if push_image_count == 0 and link.links.size <= 3 -%}
-                      {%- assign should_space_evenly = true -%}
-                    {%- endif -%}
-
-                    {%- if push_image_count == 1 and link.links.size == 1 -%}
-                      {%- assign should_space_evenly = true -%}
-                    {%- endif -%}
-
-                    {%- if push_image_count == 2 and link.links.size == 1 -%}
-                      {%- assign should_space_evenly = true -%}
-                    {%- endif -%}
-
-                    <div class="MegaMenu {% if push_image_count != 0 and link.links.size == 0 %}MegaMenu--spacingCenter{% elsif should_space_evenly %}MegaMenu--spacingEvenly{% endif %} {% if push_image_count == 0 and link.links.size > 4 %}MegaMenu--grid{% endif %}" aria-hidden="true" {{ block.shopify_attributes }}>
-                      <div class="MegaMenu__Inner">
-                        {%- for sub_link in link.links -%}
-                          <div class="MegaMenu__Item MegaMenu__Item--fit">
-                            <a href="{{ sub_link.url }}" class="MegaMenu__Title Heading Text--subdued u-h7">{{ sub_link.title | title }}</a>
-
-                            {%- if sub_link.links != blank -%}
-                              <ul class="Linklist">
-                                {%- for sub_sub_link in sub_link.links -%}
-                                  <li class="Linklist__Item">
-                                    <a href="{{ sub_sub_link.url }}" class="Link Link--secondary">{{ sub_sub_link.title | escape }}</a>
-                                  </li>
-                                {%- endfor -%}
-                              </ul>
-                            {%- endif -%}
-                          </div>
-                        {%- endfor -%}
-
-                        {%- if push_image_count > 0 -%}
-                          <div class="MegaMenu__Item" style="{% if push_image_count == 1 %}width: 370px; min-width: 250px;{% else %}width: 660px; min-width: 425px;{% endif %}">
-                            {%- if block.settings.push_1_image -%}
-                              <div class="MegaMenu__Push {% if push_image_count == 2 %}MegaMenu__Push--shrink{% endif %}">
-                                {%- if block.settings.push_1_url != blank -%}
-                                  <a class="MegaMenu__PushLink" href="{{ block.settings.push_1_url }}">
-                                {%- endif -%}
-
-                                {%- assign max_width = 370 | at_most: block.settings.push_1_image.width -%}
-
-                                <div class="MegaMenu__PushImageWrapper AspectRatio" style="background: url({{ block.settings.push_1_image | img_url: '1x1', format: 'jpg' }}); max-width: {{ max_width }}px; --aspect-ratio: {{ block.settings.push_1_image.aspect_ratio }}">
-                                  <img class="Image--lazyLoad Image--fadeIn"
-                                       data-src="{{ block.settings.push_1_image | img_url: '370x230', scale: 2 }}"
-                                       alt="{{ block.settings.push_1_image.alt | escape }}">
-
-                                  <span class="Image__Loader"></span>
-                                </div>
-
-                                {%- if block.settings.push_1_heading != blank -%}
-                                  <p class="MegaMenu__PushHeading Heading u-h6">{{ block.settings.push_1_heading | escape }}</p>
-                                {%- endif -%}
-
-                                {%- if block.settings.push_1_subheading != blank -%}
-                                  <p class="MegaMenu__PushSubHeading Heading Text--subdued u-h7">{{ block.settings.push_1_subheading | escape }}</p>
-                                {%- endif -%}
-
-                                {%- if block.settings.push_1_url != blank -%}
-                                  </a>
-                                {%- endif -%}
-                              </div>
-                            {%- endif -%}
-
-                            {%- if block.settings.push_2_image -%}
-                              <div class="MegaMenu__Push {% if push_image_count == 2 %}MegaMenu__Push--shrink{% endif %}">
-                                {%- if block.settings.push_2_url != blank -%}
-                                  <a class="MegaMenu__PushLink" href="{{ block.settings.push_2_url }}">
-                                {%- endif -%}
-
-                                {%- assign max_width = 370 | at_most: block.settings.push_2_image.width -%}
-
-                                <div class="MegaMenu__PushImageWrapper AspectRatio" style="background: url({{ block.settings.push_2_image | img_url: '1x1', format: 'jpg' }}); max-width: {{ max_width }}px; --aspect-ratio: {{ block.settings.push_2_image.aspect_ratio }}">
-                                  <img class="Image--lazyLoad Image--fadeIn"
-                                       data-src="{{ block.settings.push_2_image | img_url: '370x230', scale: 2 }}"
-                                       alt="{{ block.settings.push_2_image.alt | escape }}">
-
-                                  <span class="Image__Loader"></span>
-                                </div>
-
-                                {%- if block.settings.push_2_heading != blank -%}
-                                  <p class="MegaMenu__PushHeading Heading u-h6">{{ block.settings.push_2_heading | escape }}</p>
-                                {%- endif -%}
-
-                                {%- if block.settings.push_2_subheading != blank -%}
-                                  <p class="MegaMenu__PushSubHeading Heading Text--subdued u-h7">{{ block.settings.push_2_subheading | escape }}</p>
-                                {%- endif -%}
-
-                                {%- if block.settings.push_2_url != blank -%}
-                                  </a>
-                                {%- endif -%}
-                              </div>
-                            {%- endif -%}
-                          </div>
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  {%- endfor -%}
-                {%- elsif link.links != blank -%}
-                  <div class="DropdownMenu" aria-hidden="true">
-                    <ul class="Linklist">
-                      {%- for sub_link in link.links -%}
-                        <li class="Linklist__Item" {% if sub_link.links != blank %}aria-haspopup="true"{% endif %}>
-                          <a href="{{ sub_link.url }}" class="Link Link--secondary">{{ sub_link.title | escape }} {% if sub_link.links != blank %}{% include 'icon' with 'select-arrow-right' %}{% endif %}</a>
-
-                          {%- if sub_link.links != blank -%}
-                            <div class="DropdownMenu" aria-hidden="true">
-                              <ul class="Linklist">
-                                {%- for sub_sub_link in sub_link.links -%}
-                                  <li class="Linklist__Item">
-                                    <a href="{{ sub_sub_link.url }}" class="Link Link--secondary">{{ sub_sub_link.title | escape }}</a>
-                                  </li>
-                                {%- endfor -%}
-                              </ul>
-                            </div>
-                          {%- endif -%}
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </div>
-                {%- endif -%}
-              {%- endcapture -%}
-
-              <li class="HorizontalList__Item {% if link.links == blank and link.active %}is-active{% endif %}" {% if menu_item_dropdown != blank %}aria-haspopup="true"{% endif %}>
-                <a href="{{ link.url }}" class="Heading u-h6">
-                  {{- link.title | escape -}}
-                  <span class="Header__LinkSpacer">{{ link.title | escape }}</span>
-                </a>
-
-                {{- menu_item_dropdown -}}
-              </li>
-
-              {%- endunless -%}
-            {%- endfor -%}
-
-            {%- if section.settings.show_quick_links -%}
-              {%- for i in (1..4) -%}
-                {%- assign text_setting = 'quick_link_' | append: i | append: '_text' -%}
-                {%- assign url_setting = 'quick_link_' | append: i | append: '_url' -%}
-                {%- assign link_text = section.settings[text_setting] -%}
-                {%- assign link_url = section.settings[url_setting] -%}
-
-                {%- if link_text != blank -%}
-                  <li class="Header__QuickNavItem HorizontalList__Item {% if link_url == request.path %}is-active{% endif %}">
-                    <a href="{{ link_url | default: '#' }}" class="Heading u-h6">{{ link_text | escape }}<span class="Header__LinkSpacer">{{ link_text | escape }}</span></a>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endif -%}
-          </ul>
-        </nav>
-      {%- endunless -%}
-    </div>
-
-    <!-- RIGHT: Utilities -->
-    <div class="Header__FlexItem">
-      {%- unless use_sidebar_menu -%}
-        <nav class="Header__SecondaryNav">
-          <ul class="HorizontalList HorizontalList--spacingLoose hidden-pocket hidden-lap">
-            {%- if shop.customer_accounts_enabled -%}
+    <!-- RIGHT: Icons only -->
+    <div class="Header__FlexItem Header__FlexItem--right">
+      <div class="Header__Utilities">
+        {%- unless use_sidebar_menu -%}
+          <nav class="Header__SecondaryNav">
+            <ul class="HorizontalList HorizontalList--spacingLoose hidden-pocket hidden-lap">
               <li class="HorizontalList__Item">
-                <a href="{% if customer %}/account{% else %}/account/login{% endif %}" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" aria-label="{{ 'header.navigation.account' | t }}">
-                  {%- include 'icon' with 'account' -%}
+                <a href="/search" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" data-action="open-modal" aria-controls="Search" aria-label="{{ 'header.navigation.search' | t }}">
+                  {%- include 'icon' with 'search' -%}
                 </a>
               </li>
-            {%- endif -%}
+              {%- if shop.customer_accounts_enabled -%}
+                <li class="HorizontalList__Item">
+                  <a href="{% if customer %}/account{% else %}/account/login{% endif %}" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" aria-label="{{ 'header.navigation.account' | t }}">
+                    {%- include 'icon' with 'account' -%}
+                  </a>
+                </li>
+              {%- endif -%}
+              <li class="HorizontalList__Item">
+                <a href="/cart" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" {% unless template == 'cart' or settings.cart_type == 'page' %}data-action="open-drawer" data-drawer-id="sidebar-cart" aria-label="{{ 'header.navigation.open_cart' | t }}"{% endunless %}>
+                  <span class="hidden-tablet-and-up">{%- include 'icon' with 'cart' -%}</span>
+                  <span class="hidden-phone">{%- include 'icon' with 'cart-desktop' -%}</span>
+                  <span class="Header__CartCount {% if cart.item_count > 0 %}is-visible{% endif %}">{{ cart.item_count }}</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        {%- endunless -%}
 
-            <li class="HorizontalList__Item">
-              <a href="/search" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" data-action="open-modal" aria-controls="Search" aria-label="{{ 'header.navigation.search' | t }}">
-                {%- include 'icon' with 'search' -%}
-              </a>
-            </li>
-
-            <li class="HorizontalList__Item">
-              <a href="/cart" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" {% unless template == 'cart' or settings.cart_type == 'page' %}data-action="open-drawer" data-drawer-id="sidebar-cart" aria-label="{{ 'header.navigation.open_cart' | t }}"{% endunless %}>
-                <span class="hidden-tablet-and-up">{%- include 'icon' with 'cart' -%}</span>
-                <span class="hidden-phone">{%- include 'icon' with 'cart-desktop' -%}</span>
-                <span class="Header__CartCount {% if cart.item_count > 0 %}is-visible{% endif %}">{{ cart.item_count }}</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      {%- endunless -%}
-
-      <a href="/cart" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable {% unless use_sidebar_menu %}hidden-desk{% endunless %}" {% if settings.cart_type == 'drawer' %}data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="{{ 'header.navigation.open_cart' | t }}"{% endif %}>
-        <span class="hidden-tablet-and-up">{%- include 'icon' with 'cart' -%}</span>
-        <span class="hidden-phone">{%- include 'icon' with 'cart-desktop' -%}</span>
-        <span class="Header__CartDot {% if cart.item_count > 0 %}is-visible{% endif %}"></span>
-      </a>
+        <a href="/cart" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable {% unless use_sidebar_menu %}hidden-desk{% endunless %}" {% if settings.cart_type == 'drawer' %}data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="{{ 'header.navigation.open_cart' | t }}"{% endif %}>
+          <span class="hidden-tablet-and-up">{%- include 'icon' with 'cart' -%}</span>
+          <span class="hidden-phone">{%- include 'icon' with 'cart-desktop' -%}</span>
+          <span class="Header__CartDot {% if cart.item_count > 0 %}is-visible{% endif %}"></span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -412,40 +267,7 @@ HEADER CONTENT
   }
 </style>
 
-<script>
-  (function() {
-    var headerSection = document.getElementById('shopify-section-header');
-    if (headerSection) {
-      document.documentElement.style.setProperty('--header-height', headerSection.offsetHeight + 'px');
-    }
-
-    var header = document.getElementById('section-{{ section.id }}');
-    var lastScrollY = window.scrollY;
-    var ticking = false;
-
-    function updateHeader() {
-      var currentScrollY = window.scrollY;
-      var scrollDelta = currentScrollY - lastScrollY;
-      var threshold = 8;
-
-      if (scrollDelta > threshold && currentScrollY > header.offsetHeight) {
-        header.classList.add('Header--hidden');
-      } else if (scrollDelta < -threshold) {
-        header.classList.remove('Header--hidden');
-      }
-
-      lastScrollY = currentScrollY;
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateHeader);
-        ticking = true;
-      }
-    });
-  })();
-</script>
+<script src="{{ 'header-scroll.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

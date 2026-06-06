@@ -15,9 +15,7 @@
     </section>
 
 
-    <script>
-      document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-announcement').offsetHeight + 'px');
-    </script>
+    <script src="{{ 'announcement-bar.js' | asset_url }}" defer></script>
   {%- endunless -%}
 {%- endif -%}
 

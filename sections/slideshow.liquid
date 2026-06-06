@@ -16,6 +16,9 @@
     <div class="Slideshow__Carousel {% if section.settings.show_arrow %}Slideshow__Carousel--withScrollButton{% endif %} Carousel Carousel--fadeIn {% if section.settings.show_fullscreen %}Carousel--fixed{% endif %} Carousel--insideDots"
          data-flickity-config='{{ flickity_options }}'>
       {%- for block in section.blocks -%}
+        {%- if forloop.first and block.settings.image -%}
+          <link rel="preload" as="image" href="{{ block.settings.image | img_url: '1600x' }}" imagesrcset="{{ block.settings.image | img_url: '400x' }} 400w, {{ block.settings.image | img_url: '800x' }} 800w, {{ block.settings.image | img_url: '1200x' }} 1200w, {{ block.settings.image | img_url: '1600x' }} 1600w, {{ block.settings.image | img_url: '2000x' }} 2000w" imagesizes="100vw">
+        {%- endif -%}
         <div id="Slide{{ block.id }}" class="Slideshow__Slide Carousel__Cell {% if forloop.first %}is-selected{% endif %}" {% if forloop.first %}style="visibility: visible"{% endif %} data-slide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
           {%- comment -%}
             Implementation note: this is an art driven image selection so it would have been better to be able to use the "picture" tag instead. However,
@@ -31,10 +34,18 @@
               {%- if block.settings.video_mp4 != blank -%}
                 <video class="Slideshow__Image" src="{{ block.settings.video_mp4 }}" autoplay muted loop playsinline></video>
               {%- else -%}
-                <img class="Slideshow__Image Image--lazyLoad"
-                     src="{{ mobile_image | img_url: '1x1' }}"
-                     data-src="{{ mobile_image | img_url: 'x800' }}"
-                     alt="{{ mobile_image.alt | escape }}">
+                {%- if forloop.first -%}
+                  <img class="Slideshow__Image"
+                       loading="eager"
+                       fetchpriority="high"
+                       src="{{ mobile_image | img_url: 'x800' }}"
+                       alt="{{ mobile_image.alt | escape }}">
+                {%- else -%}
+                  <img class="Slideshow__Image Image--lazyLoad"
+                       src="{{ mobile_image | img_url: '1x1' }}"
+                       data-src="{{ mobile_image | img_url: 'x800' }}"
+                       alt="{{ mobile_image.alt | escape }}">
+                {%- endif -%}
 
                 <noscript>
                   <img class="Slideshow__Image" src="{{ mobile_image | img_url: 'x800' }}" alt="{{ mobile_image.alt | escape }}">
@@ -49,14 +60,24 @@
               {%- if block.settings.video_mp4 != blank -%}
                 <video class="Slideshow__Image" src="{{ block.settings.video_mp4 }}" autoplay muted loop playsinline></video>
               {%- else -%}
-                {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                {%- if forloop.first -%}
+                  <img class="Slideshow__Image hide-no-js"
+                       loading="eager"
+                       fetchpriority="high"
+                       src="{{ block.settings.image | img_url: '1600x' }}"
+                       srcset="{{ block.settings.image | img_url: '400x' }} 400w, {{ block.settings.image | img_url: '800x' }} 800w, {{ block.settings.image | img_url: '1200x' }} 1200w, {{ block.settings.image | img_url: '1600x' }} 1600w, {{ block.settings.image | img_url: '2000x' }} 2000w"
+                       sizes="100vw"
+                       alt="{{ block.settings.image.alt | escape }}">
+                {%- else -%}
+                  {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
-                <img class="Slideshow__Image Image--lazyLoad hide-no-js"
-                     data-src="{{ image_url }}"
-                     data-optimumx="1.2"
-                     data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800]"
-                     data-sizes="auto"
-                     alt="{{ block.settings.image.alt | escape }}">
+                  <img class="Slideshow__Image Image--lazyLoad hide-no-js"
+                       data-src="{{ image_url }}"
+                       data-optimumx="1.2"
+                       data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800]"
+                       data-sizes="auto"
+                       alt="{{ block.settings.image.alt | escape }}">
+                {%- endif -%}
 
                 <noscript>
                   <img class="Slideshow__Image" src="{{ block.settings.image | img_url: '1000x' }}" alt="{{ block.settings.image.alt | escape }}">
