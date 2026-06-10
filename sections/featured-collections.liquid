@@ -27,38 +27,64 @@
       <h3 class="SectionHeader__SubHeading Heading u-h6">{{ section.settings.title | escape }}</h3>
     {%- endif -%}
 
-    {%- if section.blocks.size > 1 -%}
+    {%- assign show_tabs = false -%}
+    {%- assign first_title = '' -%}
+    {%- for block in section.blocks -%}
+      {%- assign collection = collections[block.settings.collection] -%}
+      {%- capture current_title -%}
+        {%- if block.settings.title != blank -%}{{ block.settings.title }}{%- elsif collection != empty -%}{{ collection.title }}{%- else -%}{{ 'home_page.onboarding.collection_title' | t }}{%- endif -%}
+      {%- endcapture -%}
+      {%- assign current_title = current_title | downcase | strip -%}
+      {%- if forloop.first -%}
+        {%- assign first_title = current_title -%}
+      {%- elsif current_title != first_title -%}
+        {%- assign show_tabs = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if show_tabs -%}
       <div class="SectionHeader__TabList TabList" role="tablist">
         {%- for block in section.blocks -%}
           {%- assign collection = collections[block.settings.collection] -%}
+          {%- capture tab_title -%}
+            {%- if block.settings.title != blank -%}{{ block.settings.title }}{%- elsif collection != empty -%}{{ collection.title }}{%- else -%}{{ 'home_page.onboarding.collection_title' | t }}{%- endif -%}
+          {%- endcapture -%}
 
           <button class="Heading u-h1 TabList__Item {% if forloop.first %}is-active{% endif %}" data-action="toggle-tab" aria-controls="block-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" role="tab">
-            {%- if collection != empty -%}
-              {{- block.settings.title | default: collection.title -}}
-            {%- else -%}
-              {{- 'home_page.onboarding.collection_title' | t -}}
-            {%- endif -%}
+            {{- tab_title -}}
           </button>
         {%- endfor -%}
       </div>
     {%- else -%}
       {%- assign collection = collections[section.blocks.first.settings.collection] -%}
+      {%- capture heading_text -%}
+        {%- if section.blocks.first.settings.title != blank -%}{{ section.blocks.first.settings.title }}{%- elsif collection != empty -%}{{ collection.title }}{%- else -%}{{ 'home_page.onboarding.collection_title' | t }}{%- endif -%}
+      {%- endcapture -%}
 
-      {%- if collection != empty -%}
-        <h2 class="SectionHeader__Heading Heading u-h1">{{ section.blocks.first.settings.title | default: collection.title }}</h2>
+      {%- if collection != empty or section.blocks.first.settings.title == blank -%}
+        {%- capture heading_url -%}{%- if collection != empty -%}{{ collection.url }}{%- else -%}/collections/all{%- endif -%}{%- endcapture -%}
+        <h2 class="SectionHeader__Heading Heading u-h1"><a href="{{ heading_url }}" class="FeaturedCollections__TitleLink">{{ heading_text }}</a></h2>
       {%- else -%}
-        <h2 class="SectionHeader__Heading Heading u-h1">{{ 'home_page.onboarding.collection_title' | t }}</h2>
+        <h2 class="SectionHeader__Heading Heading u-h1">{{ heading_text }}</h2>
       {%- endif -%}
     {%- endif -%}
     </div>
   </header>
 
   {%- for block in section.blocks -%}
+    {%- unless show_tabs or forloop.first -%}
+      {%- continue -%}
+    {%- endunless -%}
+
     {%- assign collection = collections[block.settings.collection] -%}
+
+    {%- if collection == empty and block.settings.collection == blank -%}
+      {%- assign collection = collections.all -%}
+    {%- endif -%}
 
     <div class="TabPanel" id="block-{{ block.id }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" role="tabpanel" {{ block.shopify_attributes }}>
       <div class="ProductListWrapper">
-        {%- if collection != empty -%}
+        {%- if collection != empty and collection.products_count > 0 -%}
           {%- assign item_count = block.settings.grid_items_count -%}
 
           {%- if collection.products_count < block.settings.grid_items_count -%}

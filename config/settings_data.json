@@ -190,7 +190,7 @@
           "featured-collection-0": {
             "type": "collection",
             "settings": {
-              "collection": "humidifiers",
+              "collection": "",
               "title": "",
               "grid_items_count": 8,
               "button_text": "Scopri Tutto"
@@ -215,7 +215,7 @@
           "collection-0": {
             "type": "collection",
             "settings": {
-              "collection": "kitchen-appliances",
+              "collection": "",
               "image_alignment": "center center",
               "content_position": "bottomLeft",
               "subheading": "Collezione Essenziale in Oro e Argento",
@@ -227,7 +227,7 @@
           "collection-1": {
             "type": "collection",
             "settings": {
-              "collection": "cleaning-appliances",
+              "collection": "",
               "image_alignment": "center center",
               "content_position": "bottomLeft",
               "subheading": "Ogni Dettaglio, un Capolavoro di Artigianalità",
@@ -239,7 +239,7 @@
           "collection-2": {
             "type": "collection",
             "settings": {
-              "collection": "humidifiers",
+              "collection": "",
               "image_alignment": "center center",
               "content_position": "bottomLeft",
               "subheading": "Forme Essenziali, Luce Senza Tempo",
@@ -251,7 +251,7 @@
           "collection_YgxVUF": {
             "type": "collection",
             "settings": {
-              "collection": "flower-vases",
+              "collection": "",
               "image_alignment": "center center",
               "content_position": "bottomLeft",
               "subheading": "Creazioni esclusive per chi apprezza il vero lusso",
@@ -419,25 +419,15 @@
           "1536066003542": {
             "type": "collection",
             "settings": {
-              "collection": "cleaning-appliances",
+              "collection": "",
               "title": "",
-              "grid_items_count": 5,
-              "button_text": "Scopri Tutto"
-            }
-          },
-          "1536065970902-0": {
-            "type": "collection",
-            "settings": {
-              "collection": "kitchen-appliances",
-              "title": "Gioielli d'Alta Gamma",
               "grid_items_count": 5,
               "button_text": "Scopri Tutto"
             }
           }
         },
         "block_order": [
-          "1536066003542",
-          "1536065970902-0"
+          "1536066003542"
         ],
         "settings": {
           "title": "La Selezione Esclusiva del Nostro Atelier",

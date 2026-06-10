@@ -80,12 +80,14 @@ HEADER CONTENT
              width="{{ logo_width }}"
              height="{{ logo_height }}"
              decoding="async"
+             fetchpriority="high"
              style="max-width: {{ section.settings.logo_max_width }}px">
       {%- else -%}
         <img class="Header__LogoImage Header__LogoImage--primary"
              src="{{ 'logo-aequo.png' | asset_url }}"
              alt="{{ shop.name | escape }}"
-             decoding="async">
+             decoding="async"
+             fetchpriority="high">
       {%- endif -%}
     </a>
   {%- endcapture -%}
@@ -104,28 +106,16 @@ HEADER CONTENT
             <li class="HorizontalList__Item">
               <a href="/" class="Heading u-h6">HOME<span class="Header__LinkSpacer">HOME</span></a>
             </li>
+            {%- assign collezione_menu = linklists[section.settings.collezione_menu] -%}
             <li class="HorizontalList__Item has-megamenu">
               <a href="/collections/all" class="Heading u-h6">COLLEZIONE<span class="Header__LinkSpacer">COLLEZIONE</span></a>
               <div class="MegaMenu" aria-hidden="true">
                 <div class="MegaMenu__Inner">
-                  <div class="MegaMenu__Item MegaMenu__Item--fit">
-                    <a href="/collections/orologi" class="MegaMenu__Title Heading Text--subdued u-h7">Orologi</a>
-                  </div>
-                  <div class="MegaMenu__Item MegaMenu__Item--fit">
-                    <a href="/collections/collane" class="MegaMenu__Title Heading Text--subdued u-h7">Collane</a>
-                  </div>
-                  <div class="MegaMenu__Item MegaMenu__Item--fit">
-                    <a href="/collections/bracciali" class="MegaMenu__Title Heading Text--subdued u-h7">Bracciali</a>
-                  </div>
-                  <div class="MegaMenu__Item MegaMenu__Item--fit">
-                    <a href="/collections/anelli" class="MegaMenu__Title Heading Text--subdued u-h7">Anelli</a>
-                  </div>
-                  <div class="MegaMenu__Item MegaMenu__Item--fit">
-                    <a href="/collections/argento" class="MegaMenu__Title Heading Text--subdued u-h7">Argento</a>
-                  </div>
-                  <div class="MegaMenu__Item MegaMenu__Item--fit">
-                    <a href="/collections/oro" class="MegaMenu__Title Heading Text--subdued u-h7">Oro</a>
-                  </div>
+                  {%- for link in collezione_menu.links -%}
+                    <div class="MegaMenu__Item MegaMenu__Item--fit">
+                      <a href="{{ link.url }}" class="MegaMenu__Title Heading Text--subdued u-h7">{{ link.title }}</a>
+                    </div>
+                  {%- endfor -%}
                 </div>
               </div>
             </li>
@@ -192,80 +182,7 @@ HEADER CONTENT
 
 </header>
 
-<style>
-  {%- if section.settings.use_sticky_header -%}
-    :root {
-      --use-sticky-header: 1;
-    }
-
-    .shopify-section--header {
-      position: -webkit-sticky;
-      position: sticky;
-    }
-  {%- endif -%}
-
-  {%- if use_transparent_header -%}
-    :root {
-      --header-is-not-transparent: 0;
-      --header-is-transparent: 1;
-    }
-
-    .shopify-section--header {
-      margin-bottom: calc(-1 * var(--header-height));
-    }
-
-    .supports-sticky .Header--transparent {
-      box-shadow: 0 -1px {{ section.settings.transparent_text_color | color_modify: 'alpha', 0.25 }} inset;
-      color: {{ section.settings.transparent_text_color }};
-    }
-  {%- else -%}
-    :root {
-      --header-is-not-transparent: 1;
-      --header-is-transparent: 0;
-    }
-  {%- endif -%}
-
-  /* Cart count badge for desktop icon nav */
-  .Header__CartCount {
-    position: absolute;
-    top: -2px;
-    right: -4px;
-    min-width: 16px;
-    height: 16px;
-    padding: 0 4px;
-    border-radius: 100px;
-    background: #111111;
-    color: #ffffff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 16px;
-    text-align: center;
-    display: inline-block;
-    opacity: 0;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .Header__CartCount.is-visible {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-
-  .Header {
-    background: #ffffff !important;
-    border-bottom: 1px solid #e9e9e9;
-    transition: background 0.35s ease, border-color 0.35s ease, transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
-  }
-
-  .Header--hidden {
-    transform: translateY(-100%);
-  }
-</style>
+<style>{%- if section.settings.use_sticky_header -%}:root{--use-sticky-header:1}.shopify-section--header{position:-webkit-sticky;position:sticky}{%- endif -%}{%- if use_transparent_header -%}:root{--header-is-not-transparent:0;--header-is-transparent:1}.shopify-section--header{margin-bottom:calc(-1*var(--header-height))}.supports-sticky .Header--transparent{box-shadow:0 -1px {{ section.settings.transparent_text_color | color_modify: 'alpha', 0.25 }} inset;color:{{ section.settings.transparent_text_color }}}{%- else -%}:root{--header-is-not-transparent:1;--header-is-transparent:0}{%- endif -%}.Header__CartCount{position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:100px;background:#111;color:#fff;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:500;letter-spacing:0;line-height:16px;text-align:center;display:inline-block;opacity:0;-webkit-transform:scale(0);transform:scale(0);-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out}.Header__CartCount.is-visible{opacity:1;-webkit-transform:scale(1);transform:scale(1)}.Header{background:#fff!important;border-bottom:1px solid #e9e9e9;transition:background .35s ease,border-color .35s ease,transform .6s cubic-bezier(.32,.72,0,1)}.Header--hidden{transform:translateY(-100%)}</style>
 
 <script src="{{ 'header-scroll.js' | asset_url }}" defer></script>
 
@@ -304,6 +221,13 @@ HEADER CONTENT
       "type": "link_list",
       "id": "navigation_menu",
       "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "collezione_menu",
+      "label": "Collezione submenu",
+      "info": "Menu per il dropdown 'COLLEZIONE'. Crea un menu in Navigazione > Menu Shopify.",
       "default": "main-menu"
     },
     {

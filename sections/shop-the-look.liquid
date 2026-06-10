@@ -59,7 +59,7 @@
           {%- endif -%}
 
           <div class="ShopTheLook__ImageWrapper" style="width: {{ max_width }}px; {% if block.settings.image %}background: url({{ block.settings.image | img_url: '1x1', format: 'jpg' }}){% endif %}">
-            <div class="{% if block.settings.image %}AspectRatio AspectRatio--withFallback{% endif %}" {% if block.settings.image %}style="max-width: {{ block.settings.image.width }}px; padding-bottom: {{ 100.0 | divided_by: block.settings.image.aspect_ratio }}%; --aspect-ratio: {{ block.settings.image.aspect_ratio }}"{% endif %}>
+            <div class="{% if block.settings.image %}AspectRatio AspectRatio--square{% endif %}">
               {%- comment -%}If we have no image and no product for the block, we display a placeholder{%- endcomment -%}
               {%- if show_on_boarding -%}
                 {%- capture placeholder -%}{% cycle 'collection-1', 'collection-2', 'collection-3', 'collection-4' %}{%- endcapture -%}
@@ -75,7 +75,8 @@
                        data-src="{{ image_url }}"
                        data-widths="[{{ supported_sizes }}]"
                        data-sizes="auto"
-                       alt="{{ block.settings.image.alt | escape }}">
+                       alt="{{ block.settings.image.alt | escape }}"
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
 
                   <noscript>
                     <img class="ShopTheLook__Image" src="{{ block.settings.image | img_url: '600x' }}" alt="{{ block.settings.image.alt | escape }}">

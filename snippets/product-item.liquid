@@ -17,14 +17,14 @@
       {%- assign has_alternate_image = false -%}
     {%- endif -%}
 
-    <a href="{{ product.url | within: collection }}" class="ProductItem__ImageWrapper {% if has_alternate_image %}ProductItem__ImageWrapper--withAlternateImage{% endif %}">
+    <a href="{{ product.url | within: collection }}" class="ProductItem__ImageWrapper {% if has_alternate_image %}ProductItem__ImageWrapper--withAlternateImage{% endif %}" {% unless use_horizontal %}style="max-width: 260px; margin: 0 auto; display: block;"{% endunless %}>
       {%- if use_horizontal -%}
         {%- assign max_width = 125 -%}
       {%- else -%}
         {%- assign max_width = product.featured_image.width -%}
       {%- endif -%}
 
-      <div class="AspectRatio AspectRatio--{% if use_natural_size %}withFallback{% else %}{{ settings.product_image_size }}{% endif %}" style="max-width: {{ max_width }}px; {% if use_natural_size %}padding-bottom: {{ 100.0 | divided_by: product.featured_image.aspect_ratio }}%;{% endif %} --aspect-ratio: {{ product.featured_image.aspect_ratio }}">
+      <div class="AspectRatio AspectRatio--square">
         {%- comment -%}
         IMPLEMENTATION NOTE: The alternate image (not visible by default) should be the first in the DOM, as the spinner (Image__Loader element) is
         displayed based on the immediately previously shown image.
@@ -34,13 +34,13 @@
           {%- include 'image-size', sizes: '200,300,400,600,800,900,1000,1200', image: product.images[1] -%}
           {%- assign image_url = product.images[1] | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-          <img class="ProductItem__Image ProductItem__Image--alternate Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ product.images[1].alt | escape }}" data-image-id="{{ product.images[1].id }}">
+          <img class="ProductItem__Image ProductItem__Image--alternate Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ product.images[1].alt | escape }}" data-image-id="{{ product.images[1].id }}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" decoding="async">
         {%- endif -%}
 
         {%- include 'image-size', sizes: '200,400,600,700,800,900,1000,1200', image: product.featured_image -%}
         {%- assign image_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-        <img class="ProductItem__Image Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ product.featured_image.alt | escape }}" data-image-id="{{ product.featured_image.id }}">
+        <img class="ProductItem__Image Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ product.featured_image.alt | escape }}" data-image-id="{{ product.featured_image.id }}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" decoding="async">
         <span class="Image__Loader"></span>
 
         <noscript>

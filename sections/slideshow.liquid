@@ -91,15 +91,15 @@
             </div>
           {%- endif -%}
 
-          <div class="Slideshow__Content Slideshow__Content--{{ block.settings.content_position }}">
+          <div class="Slideshow__Content Slideshow__Content--middleCenter">
             {%- if block.settings.subheading != blank or block.settings.title != blank -%}
               <header class="SectionHeader">
-                {%- if block.settings.subheading != blank -%}
-                  <h3 class="SectionHeader__SubHeading Heading u-h6">{{ block.settings.subheading | escape }}</h3>
-                {%- endif -%}
-
                 {%- if block.settings.title != blank -%}
                   <h2 class="SectionHeader__Heading SectionHeader__Heading--emphasize Heading u-h1">{{ block.settings.title | escape }}</h2>
+                {%- endif -%}
+
+                {%- if block.settings.subheading != blank -%}
+                  <h3 class="SectionHeader__SubHeading Heading u-h6">{{ block.settings.subheading | escape }}</h3>
                 {%- endif -%}
 
                 {%- if block.settings.button_1_text != blank and block.settings.button_2_text != blank -%}

@@ -74,7 +74,7 @@
              {% unless is_video %}data-image-position-ignoring-video="{% increment image_position_without_video %}"{% endunless %}
              data-image-position="{% increment image_position %}"
              data-image-id="{{ image.id }}">
-          <div class="AspectRatio AspectRatio--withFallback" style="padding-bottom: {{ 100.0 | divided_by: image.aspect_ratio }}%; --aspect-ratio: {{ image.aspect_ratio }};">
+          <div class="AspectRatio AspectRatio--withFallback AspectRatio--square" style="--aspect-ratio: 1;">
             {% assign image_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
             <img class="Image--lazyLoad Image--fadeIn"
