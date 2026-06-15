@@ -45,33 +45,6 @@
     <noscript><link rel="stylesheet" href="{{ 'custom-overrides.css' | asset_url }}"></noscript>
 
     <script>
-      // This allows to expose several variables to the global scope, to be used in scripts
-      window.theme = {
-        template: {{ template.name | json }},
-        shopCurrency: {{ shop.currency | json }},
-        moneyFormat: {{ shop.money_format | json }},
-        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
-        currencyConversionEnabled: {{ settings.currency_conversion_enabled | json }},
-        currencyConversionMoneyFormat: {{ settings.currency_conversion_money_format | json }},
-        currencyConversionRoundAmounts: {{ settings.currency_conversion_round_amounts | json }},
-        searchMode: {{ settings.search_mode | json }},
-        showPageTransition: {{ settings.show_page_transition | json }},
-        showElementStaggering: {{ settings.show_element_staggering | json }},
-        showImageZooming: {{ settings.show_image_zooming | json }}
-      };
-
-      window.languages = {
-        cartAddNote: {{ 'cart.general.add_note' | t | json }},
-        cartEditNote: {{ 'cart.general.edit_note' | t | json }},
-        productImageLoadingError: {{ 'product.slideshow.image_loading_error' | t | json }},
-        productFormAddToCart: {% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | json }}{% else %}{{ 'product.form.add_to_cart' | t | json }}{% endif %},
-        productFormUnavailable: {{ 'product.form.unavailable' | t | json }},
-        productFormSoldOut: {{ 'product.form.sold_out' | t | json }},
-        shippingEstimatorOneResult: {{ 'cart.shipping_estimator.one_result_title' | t | json }},
-        shippingEstimatorMoreResults: {{ 'cart.shipping_estimator.more_results_title' | t | json }},
-        shippingEstimatorNoResults: {{ 'cart.shipping_estimator.no_results_title' | t | json }}
-      };
-
       window.lazySizesConfig = {
         loadHidden: false,
         hFac: 0.5,
@@ -83,26 +56,11 @@
       };
 
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-      (function() {
-        var setWindowHeight = function() {
-          document.documentElement.style.setProperty('--window-height', window.innerHeight + 'px');
-        };
-        setWindowHeight();
-        window.addEventListener('resize', setWindowHeight);
-        window.addEventListener('orientationchange', setWindowHeight);
-      })();
 
-      // We do a quick detection of some features (we could use Modernizr but for so little...)
       (function() {
         document.documentElement.className += ((window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')) ? ' supports-sticky' : ' no-supports-sticky');
         document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-supports-hover' : ' supports-hover';
       }());
-
-      window.onpageshow = function (event) {
-        if (event.persisted) {
-          window.location.reload();
-        }
-      };
     </script>
 
     <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
@@ -118,6 +76,7 @@
 
     <script src="{{ 'libs.min.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'custom.js' | asset_url }}" defer></script>
     {% include 'microdata-schema' %}
 
   </head>
@@ -173,6 +132,55 @@
   {% include 'banana-stand-footer' %}
 
 {% include 'adolab-get-clicked-seo' %}
+
+    <script>
+      window.theme = {
+        template: {{ template.name | json }},
+        shopCurrency: {{ shop.currency | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+        currencyConversionEnabled: {{ settings.currency_conversion_enabled | json }},
+        currencyConversionMoneyFormat: {{ settings.currency_conversion_money_format | json }},
+        currencyConversionRoundAmounts: {{ settings.currency_conversion_round_amounts | json }},
+        searchMode: {{ settings.search_mode | json }},
+        showPageTransition: {{ settings.show_page_transition | json }},
+        showElementStaggering: {{ settings.show_element_staggering | json }},
+        showImageZooming: {{ settings.show_image_zooming | json }}
+      };
+
+      window.languages = {
+        cartAddNote: {{ 'cart.general.add_note' | t | json }},
+        cartEditNote: {{ 'cart.general.edit_note' | t | json }},
+        productImageLoadingError: {{ 'product.slideshow.image_loading_error' | t | json }},
+        productFormAddToCart: {% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | json }}{% else %}{{ 'product.form.add_to_cart' | t | json }}{% endif %},
+        productFormUnavailable: {{ 'product.form.unavailable' | t | json }},
+        productFormSoldOut: {{ 'product.form.sold_out' | t | json }},
+        shippingEstimatorOneResult: {{ 'cart.shipping_estimator.one_result_title' | t | json }},
+        shippingEstimatorMoreResults: {{ 'cart.shipping_estimator.more_results_title' | t | json }},
+        shippingEstimatorNoResults: {{ 'cart.shipping_estimator.no_results_title' | t | json }}
+      };
+
+      (function() {
+        var resizeTick = false;
+        var setWindowHeight = function() {
+          document.documentElement.style.setProperty('--window-height', window.innerHeight + 'px');
+          resizeTick = false;
+        };
+        setWindowHeight();
+        window.addEventListener('resize', function() {
+          if (!resizeTick) {
+            window.requestAnimationFrame(setWindowHeight);
+            resizeTick = true;
+          }
+        }, { passive: true });
+        window.addEventListener('orientationchange', function() {
+          if (!resizeTick) {
+            window.requestAnimationFrame(setWindowHeight);
+            resizeTick = true;
+          }
+        }, { passive: true });
+      })();
+    </script>
 
 </body>
 </html>

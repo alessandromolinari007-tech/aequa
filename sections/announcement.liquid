@@ -15,7 +15,14 @@
     </section>
 
 
-    <script src="{{ 'announcement-bar.js' | asset_url }}" defer></script>
+    <script>
+      (function() {
+        var section = document.getElementById('section-{{ section.id }}');
+        if (section) {
+          document.documentElement.style.setProperty('--announcement-bar-height', section.offsetHeight + 'px');
+        }
+      })();
+    </script>
   {%- endunless -%}
 {%- endif -%}
 

@@ -40,7 +40,7 @@
 {%- capture language_selector -%}
   <div class="Header__LanguageSelector Text--subdued Heading Link Link--primary u-h8 hidden-pocket hidden-lap">
     <div class="Select Select--transparent">
-      <select class="LanguageSelector__Select u-h8" onchange="window.location.href=this.value">
+      <select class="LanguageSelector__Select u-h8" aria-label="{{ 'header.navigation.language' | t | default: 'Select language' }}">
         <option value="?locale=it" {% if shop.locale == 'it' %}selected{% endif %}>IT</option>
         <option value="?locale=en" {% if shop.locale == 'en' %}selected{% endif %}>EN</option>
       </select>
