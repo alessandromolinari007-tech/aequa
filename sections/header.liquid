@@ -14,41 +14,6 @@
   {%- assign use_sidebar_menu = true -%}
 {%- endif -%}
 
-{%- if settings.currency_conversion_enabled -%}
-  {%- capture currency_conversion_select -%}
-    <div class="Header__CurrencySelector Text--subdued Heading Link Link--primary u-h8 hidden-pocket hidden-lap">
-      <div class="Select Select--transparent">
-        <select class="CurrencySelector__Select u-h8">
-          {%- capture codes -%}USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK{%- endcapture -%}
-          {%- assign supported_codes = settings.currency_conversion_supported_currencies | remove_first: shop.currency | upcase | split: ' ' | uniq -%}
-
-          <option value="{{ shop.currency }}" selected="selected">{{ shop.currency }}</option>
-
-          {%- for code in supported_codes -%}
-            {%- if codes contains code -%}
-              <option value="{{ code }}">{{ code }}</option>
-            {%- endif -%}
-          {%- endfor -%}
-        </select>
-
-        {%- include 'icon' with 'select-arrow' -%}
-      </div>
-    </div>
-  {%- endcapture -%}
-{%- endif -%}
-
-{%- capture language_selector -%}
-  <div class="Header__LanguageSelector Text--subdued Heading Link Link--primary u-h8 hidden-pocket hidden-lap">
-    <div class="Select Select--transparent">
-      <select class="LanguageSelector__Select u-h8" aria-label="{{ 'header.navigation.language' | t | default: 'Select language' }}">
-        <option value="?locale=it" {% if shop.locale == 'it' %}selected{% endif %}>IT</option>
-        <option value="?locale=en" {% if shop.locale == 'en' %}selected{% endif %}>EN</option>
-      </select>
-      {%- include 'icon' with 'select-arrow' -%}
-    </div>
-  </div>
-{%- endcapture -%}
-
 {%- comment -%}
 --------------------------------------------------------------------------------------------------------------------
 HEADER CONTENT
@@ -184,7 +149,7 @@ HEADER CONTENT
 
 <style>{%- if section.settings.use_sticky_header -%}:root{--use-sticky-header:1}.shopify-section--header{position:-webkit-sticky;position:sticky}{%- endif -%}{%- if use_transparent_header -%}:root{--header-is-not-transparent:0;--header-is-transparent:1}.shopify-section--header{margin-bottom:calc(-1*var(--header-height))}.supports-sticky .Header--transparent{box-shadow:0 -1px {{ section.settings.transparent_text_color | color_modify: 'alpha', 0.25 }} inset;color:{{ section.settings.transparent_text_color }}}{%- else -%}:root{--header-is-not-transparent:1;--header-is-transparent:0}{%- endif -%}.Header__CartCount{position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:100px;background:#111;color:#fff;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:500;letter-spacing:0;line-height:16px;text-align:center;display:inline-block;opacity:0;-webkit-transform:scale(0);transform:scale(0);-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out}.Header__CartCount.is-visible{opacity:1;-webkit-transform:scale(1);transform:scale(1)}.Header{background:#fff!important;border-bottom:1px solid #e9e9e9;transition:background .35s ease,border-color .35s ease,transform .6s cubic-bezier(.32,.72,0,1)}.Header--hidden{transform:translateY(-100%)}</style>
 
-<script src="{{ 'header-scroll.js' | asset_url }}" defer></script>
+<script>(function(){var e=document.getElementById("shopify-section-header");e&&document.documentElement.style.setProperty("--header-height",e.offsetHeight+"px");var t=document.querySelector(".Header");if(t){var n=window.scrollY,i=!1;function a(){var e=window.scrollY,a=e-n,s=8;a>s&&e>t.offsetHeight?t.classList.add("Header--hidden"):a<-s&&t.classList.remove("Header--hidden"),n=e,i=!1}window.addEventListener("scroll",function(){i||(window.requestAnimationFrame(a),i=!0)},{passive:!0})}})();</script>
 
 {% schema %}
 {

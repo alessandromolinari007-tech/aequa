@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (p.textContent.toLowerCase().indexOf('cookie') !== -1 ||
           p.textContent.toLowerCase().indexOf('partner') !== -1 ||
           p.textContent.toLowerCase().indexOf('tecnologie') !== -1) {
-        p.innerHTML = 'Utilizziamo cookie e tecnologie simili per garantirti un\'esperienza di navigazione fluida, personalizzare i contenuti e analizzare il traffico sul nostro sito. Questo ci permette di raffinare le nostre collezioni e offrirti un servizio sempre più su misura per te. Cliccando su "Accetta", acconsenti all\'uso di tutti i cookie.';
+        p.innerHTML = 'Utilizziamo i cookie per offrirti un\'esperienza di shopping impeccabile, personalizzare i contenuti e perfezionare le nostre collezioni. Cliccando su "Accetta", acconsenti al loro utilizzo.';
         p.style.display = 'block';
         break;
       }
@@ -116,10 +116,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+    banner.classList.add('aequo-cookie-ready');
     return true;
   }
 
-  var schedule = window.requestIdleCallback || function(cb) { setTimeout(cb, 1); };
+  var schedule = window.requestIdleCallback || function(cb) { setTimeout(cb, 100); };
   schedule(function() {
     if (!styleCookieBanner()) {
       var obs = new MutationObserver(function() {
@@ -130,4 +131,5 @@ document.addEventListener('DOMContentLoaded', function() {
       obs.observe(document.body, { childList: true, subtree: true });
     }
   });
+
 });

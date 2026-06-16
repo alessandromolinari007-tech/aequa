@@ -12761,18 +12761,199 @@ h1, h2, h3, h4, h5, h6 {
   background: #F9F9F9 !important;
   color: #555555 !important;
   border-top: 1px solid #E5E7EB !important;
+  padding: 0 !important;
+}
+
+.Footer .Container {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.Footer__Inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.Footer__Block {
+  margin-top: 0 !important;
+}
+
+.Footer__Block:first-child {
+  margin-top: 0 !important;
+}
+
+.Footer__Inner + .Footer__Aside {
+  margin-top: 0 !important;
+}
+
+.Footer__PaymentList {
+  margin: 16px 0 0 0 !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .Footer__Title {
   color: #111111 !important;
   letter-spacing: 0.2em;
   font-size: 13px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
 .Footer__Content,
 .Footer__Content p,
 .Footer__Content a {
   color: #555555 !important;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.Footer__Linklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Footer__LinklistItem {
+  margin-bottom: 12px;
+}
+
+.Footer__LinklistItem:last-child {
+  margin-bottom: 0;
+}
+
+.Footer__LinklistItem a {
+  color: #555555 !important;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.Footer__LinklistItem a:hover {
+  color: #111111 !important;
+}
+
+/* Newsletter minimale */
+.Footer__NewsletterField {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 1px solid #111111;
+}
+
+.Footer__NewsletterField .Form__Input {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 0;
+  font-size: 13px;
+  color: #111111;
+  outline: none;
+}
+
+.Footer__NewsletterField .Form__Input::-webkit-input-placeholder {
+  color: #888888;
+}
+
+.Footer__NewsletterField .Form__Input::-moz-placeholder {
+  color: #888888;
+}
+
+.Footer__NewsletterField .Form__Input:-ms-input-placeholder {
+  color: #888888;
+}
+
+.Footer__NewsletterField .Form__Input::placeholder {
+  color: #888888;
+}
+
+.Footer__NewsletterSubmit {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #111111;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.Footer__NewsletterSubmit .Icon {
+  width: 14px;
+  height: 14px;
+}
+
+.Footer__NewsletterSubmit:hover {
+  color: #555555;
+}
+
+/* Social */
+.Footer__Social {
+  margin-top: 24px;
+}
+
+.Footer__SocialList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 18px;
+}
+
+.Footer__SocialLink {
+  color: #111111;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.Footer__SocialLink:hover {
+  color: #555555;
+}
+
+.Footer__SocialLink .Icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Sub-footer */
+.Footer__Aside {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 24px;
+  margin-top: 0;
+  border-top: 1px solid #eeeeee;
+  text-align: center;
+}
+
+.Footer__Copyright {
+  text-align: center;
 }
 
 .Footer__CopyrightText {
@@ -12784,21 +12965,99 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .Footer__LegalList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  margin-top: 8px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.Footer__LegalList a {
+.Footer__LegalItem a {
   color: #888888 !important;
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.Footer__LegalList a:hover {
+.Footer__LegalItem a:hover {
   color: #111111 !important;
+}
+
+.Footer__PaymentList {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.Footer__PaymentList svg {
+  opacity: 0.8;
+  width: 38px;
+  height: 24px;
+}
+
+@include av-mq('tablet-and-up') {
+  .Footer__Inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding: 80px 0;
+  }
+
+  .Footer__Aside {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: left;
+  }
+
+  .Footer__Copyright {
+    text-align: left;
+  }
+
+  .Footer__LegalList {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+
+  .Footer__PaymentList {
+    margin: 0;
+  }
+}
+
+@include av-mq('desk') {
+  .Footer__Inner {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    padding: 80px 5%;
+  }
+
+  .Footer .Container {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 /* ------------------------------------------------------------------

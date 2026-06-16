@@ -1,3 +1,189 @@
 ﻿html body .Header .Header__Wrapper{padding-top:8px!important;padding-bottom:8px!important}html body .Header .Header__Icon{padding:4px!important;min-width:32px!important;min-height:32px!important}html body .Header .Header__Icon svg{width:18px!important;height:18px!important}html body .Header__SecondaryNav .Header__Icon svg.Icon--search,html body .Header__SecondaryNav .Header__Icon svg.Icon--account,html body .Header__SecondaryNav .Header__Icon svg.Icon--cart-desktop{stroke-width:.8!important;fill:none!important}html body .Header__MainNav a.Heading,html body .Header__SecondaryNav a.Heading,html body .HorizontalList__Item>a.Heading,html body .Header__MainNav .HorizontalList__Item>a{font-size:11px!important;font-weight:600!important;letter-spacing:.08em!important;text-transform:uppercase!important}
 
 .ProductItem__Info{margin-top:28px!important;margin-bottom:40px!important}.Section{padding-top:60px!important;padding-bottom:60px!important}.SectionHeader{margin-bottom:40px!important}.TestimonialList{padding-top:60px!important;padding-bottom:60px!important}.Testimonial__Content{padding-top:30px!important;padding-bottom:30px!important}.FeaturedCollection .SectionHeader,.CollectionList .SectionHeader{padding-top:40px!important;padding-bottom:20px!important}.shopify-section:empty,.shopify-section .Section:empty{display:none!important;min-height:0!important;padding:0!important;margin:0!important}.CollectionItem__Wrapper{background-color:#FFF!important}.CollectionItem__ImageWrapper--placeholder,.CollectionItem__Wrapper:empty,.CollectionItem__ImageWrapper:empty{display:none!important}.CollectionList{margin-top:40px!important;margin-bottom:40px!important}.CollectionItem__Wrapper{height:280px!important}.CollectionItem__Wrapper--small{height:220px!important}.CollectionItem__Wrapper--large{height:340px!important}.PlaceholderBackground,.PlaceholderSvg--dark,.PlaceholderSvg--light{display:block!important;background:#E5E5E5!important;width:100%!important;height:100%!important}.PlaceholderBackground__Svg{display:block!important;width:100%!important;height:100%!important;fill:#AAA!important}#shopify-section-slideshow+#shopify-section-collection-list,#shopify-section-slideshow+#shopify-section-featured-collections{margin-top:60px!important}#shopify-section-collection-list,#shopify-section-featured-collections{margin-bottom:60px!important}.ImageHero__ImageWrapper--hasOverlay::before,.Slideshow__ImageContainer::before,.PageHeader--withBackground::before{content:''!important;position:absolute!important;inset:0!important;background:rgba(17,17,17,.45)!important;z-index:1!important;pointer-events:none!important}.ImageHero__TextContent .Heading,.Slideshow__Content .Heading,.PageHeader--withBackground .Heading{color:#FFF!important}.ImageHero__TextContent .Rte,.Slideshow__Content .Rte,.PageHeader--withBackground .Rte{color:rgba(255,255,255,.85)!important}
+
+/* ============================================
+   AEQUO COOKIE BANNER — Glassmorphism Card
+   ============================================ */
+
+/* 1. Wrapper reset — remove any full-screen overlay */
+#shopify-pc__banner-wrapper,
+.shopify-pc__banner-wrapper {
+  position: fixed !important;
+  bottom: 32px !important;
+  left: 32px !important;
+  right: auto !important;
+  top: auto !important;
+  background: transparent !important;
+  width: auto !important;
+  max-width: 520px !important;
+  z-index: 9999 !important;
+  display: block !important;
+  align-items: normal !important;
+  justify-content: normal !important;
+  pointer-events: none !important;
+}
+
+#shopify-pc__banner-wrapper *,
+.shopify-pc__banner-wrapper * {
+  pointer-events: auto !important;
+}
+
+/* 2. Main card container */
+.shopify-pc__banner,
+#shopify-pc__banner {
+  position: fixed !important;
+  bottom: 32px !important;
+  left: 32px !important;
+  right: auto !important;
+  top: auto !important;
+  z-index: 9999 !important;
+  max-width: 520px !important;
+  width: 100% !important;
+  padding: 40px !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08) !important;
+  text-align: left !important;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.shopify-pc__banner.aequo-cookie-ready,
+#shopify-pc__banner.aequo-cookie-ready {
+  animation: aequoCookieSlideIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) 1s forwards;
+}
+
+@keyframes aequoCookieSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 3. Typography */
+.shopify-pc__banner p,
+#shopify-pc__banner p,
+.shopify-pc__banner__body,
+#shopify-pc__banner__body,
+.shopify-pc__banner .shopify-pc__banner__body p {
+  line-height: 1.6 !important;
+  color: #555555 !important;
+  text-align: left !important;
+  font-size: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Title inside banner */
+.shopify-pc__banner h2,
+#shopify-pc__banner h2,
+.shopify-pc__banner__title,
+#shopify-pc__banner__title {
+  text-align: left !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #111 !important;
+  margin-bottom: 12px !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* 4. Primary Accept Button */
+.aequo-cookie-accept,
+.shopify-pc__banner button.aequo-cookie-accept,
+#shopify-pc__banner button.aequo-cookie-accept {
+  display: block !important;
+  width: 100% !important;
+  padding: 14px 0 !important;
+  margin-top: 24px !important;
+  background-color: #111 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+  transition: transform 0.5s ease, box-shadow 0.5s ease !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+}
+
+.aequo-cookie-accept:hover,
+.shopify-pc__banner button.aequo-cookie-accept:hover,
+#shopify-pc__banner button.aequo-cookie-accept:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* 5. Secondary Links */
+.aequo-cookie-link,
+.shopify-pc__banner button.aequo-cookie-link,
+#shopify-pc__banner button.aequo-cookie-link {
+  display: inline !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #111111 !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  font-family: inherit !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  letter-spacing: 0.02em !important;
+  transition: opacity 0.3s ease, text-decoration 0.3s ease !important;
+  text-align: center !important;
+  line-height: 1.4 !important;
+}
+
+.aequo-cookie-link:hover,
+.shopify-pc__banner button.aequo-cookie-link:hover,
+#shopify-pc__banner button.aequo-cookie-link:hover {
+  text-decoration: underline !important;
+  opacity: 0.7 !important;
+}
+
+/* 6. Link Row */
+.aequo-cookie-linkrow {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  width: 100% !important;
+}
+
+/* 7. Separator */
+.aequo-cookie-sep {
+  color: #999999 !important;
+  font-size: 13px !important;
+  user-select: none !important;
+  line-height: 1 !important;
+}
+
+/* 8. Button container adjustments */
+.shopify-pc__banner__btns,
+#shopify-pc__banner__btns,
+.shopify-pc__banner .shopify-pc__banner__btns {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border: none !important;
+  background: none !important;
+}
+
+/* Remove any default Shopify banner overlay / backdrop */
+.shopify-pc__banner__overlay,
+#shopify-pc__banner__overlay,
+.shopify-pc__banner-wrapper::before,
+#shopify-pc__banner-wrapper::before {
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}

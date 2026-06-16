@@ -4,96 +4,116 @@
   {%- assign add_top_margin = false -%}
 {%- endif -%}
 
-<footer id="section-{{ section.id }}" class="Footer {% if section.blocks.size <= 2 %}Footer--center{% endif %} {% if add_top_margin %}Footer--withMargin{% endif %}" role="contentinfo">
+<footer id="section-{{ section.id }}" class="Footer {% if add_top_margin %}Footer--withMargin{% endif %}" role="contentinfo">
   <div class="Container">
-    {%- if section.blocks.size > 0 -%}
-      <div class="Footer__Inner">
-        {%- for block in section.blocks -%}
-          <div class="Footer__Block Footer__Block--{{ block.type }}" {{ block.shopify_attributes }}>
-            {%- case block.type -%}
-              {%- when 'text' -%}
-                {%- if block.settings.title != blank -%}
-                  <h2 class="Footer__Title Heading u-h6">{{ block.settings.title | escape }}</h2>
-                {%- endif -%}
-
-                {%- if block.settings.content != blank -%}
-                  <div class="Footer__Content Rte">
-                    {{ block.settings.content }}
-                  </div>
-                {%- endif -%}
-
-                {%- if block.settings.show_social_media -%}
-                  {% include 'social-media', class: 'Footer__Social', spacing: 'loose' %}
-                {%- endif -%}
-
-              {%- when 'links' -%}
-                {%- assign linklist = linklists[block.settings.menu] -%}
-
-                {%- if linklist != empty -%}
-                  <h2 class="Footer__Title Heading u-h6">{{ linklist.title | escape }}</h2>
-
-                  <ul class="Linklist">
-                    {%- for link in linklist.links -%}
-                      <li class="Linklist__Item">
-                        <a href="{{ link.url }}" class="Link Link--primary">{{ link.title | escape }}</a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                {%- endif -%}
-
-              {%- when 'newsletter' -%}
-                {%- if block.settings.title != blank -%}
-                  <h2 class="Footer__Title Heading u-h6">{{ block.settings.title | escape }}</h2>
-                {%- endif -%}
-
-                {%- if block.settings.content != blank -%}
-                  <div class="Footer__Content Rte">
-                    {{ block.settings.content }}
-                  </div>
-                {%- endif -%}
-
-                {%- form 'customer', id: 'footer-newsletter', class: 'Footer__Newsletter Form' -%}
-                  {%- if form.posted_successfully? -%}
-                    <p class="Form__Alert Alert Alert--success">{{ 'footer.newsletter.success' | t }}</p>
-                  {%- else -%}
-                    {%- if form.errors -%}
-                      <p class="Form__Alert Alert Alert--error">{{ form.errors.messages['email'] }}</p>
-                    {%- endif -%}
-
-                    <input type="hidden" name="contact[tags]" value="newsletter">
-                    <input type="email" name="contact[email]" class="Form__Input" aria-label="{{ 'footer.newsletter.input' | t }}" placeholder="{{ 'footer.newsletter.input' | t }}" required>
-                    <button type="submit" class="Form__Submit Button Button--primary">{{ 'footer.newsletter.submit' | t }}</button>
-                  {%- endif -%}
-                {%- endform -%}
-            {%- endcase -%}
-          </div>
-        {%- endfor -%}
+    <div class="Footer__Inner">
+      {% comment %} Colonna 1 - IL BRAND {% endcomment %}
+      <div class="Footer__Block Footer__Block--text">
+        <h2 class="Footer__Title Heading u-h6">IL BRAND</h2>
+        <div class="Footer__Content Rte">
+          <p>AEQUO nasce dall'intuizione e dalla passione di due fratelli uniti da una visione condivisa: democratizzare l'eleganza. Crediamo che indossare un gioiello dal design raffinato non debba essere un privilegio esclusivo. La nostra missione &egrave; creare bellezza senza tempo, offrendo a tutti creazioni curate in ogni dettaglio a un prezzo accessibile e giusto.</p>
+        </div>
       </div>
-    {%- endif -%}
 
+      {% comment %} Colonna 2 - ESPLORA {% endcomment %}
+      <div class="Footer__Block Footer__Block--links">
+        <h2 class="Footer__Title Heading u-h6">ESPLORA</h2>
+        <ul class="Footer__Linklist">
+          <li class="Footer__LinklistItem"><a href="/collections" class="Link Link--primary">Collezioni</a></li>
+          <li class="Footer__LinklistItem"><a href="/collections/all?sort_by=best-selling" class="Link Link--primary">Best Sellers</a></li>
+          <li class="Footer__LinklistItem"><a href="/collections/uomo" class="Link Link--primary">Uomo</a></li>
+          <li class="Footer__LinklistItem"><a href="/collections/donna" class="Link Link--primary">Donna</a></li>
+        </ul>
+      </div>
+
+      {% comment %} Colonna 3 - SERVIZIO CLIENTI {% endcomment %}
+      <div class="Footer__Block Footer__Block--links">
+        <h2 class="Footer__Title Heading u-h6">SERVIZIO CLIENTI</h2>
+        <ul class="Footer__Linklist">
+          <li class="Footer__LinklistItem"><a href="/search" class="Link Link--primary">Cerca</a></li>
+          <li class="Footer__LinklistItem"><a href="/pages/contattaci" class="Link Link--primary">Contattaci</a></li>
+          <li class="Footer__LinklistItem"><a href="/pages/spedizioni-e-resi" class="Link Link--primary">Spedizioni e Resi</a></li>
+          <li class="Footer__LinklistItem"><a href="/pages/faq" class="Link Link--primary">FAQ</a></li>
+        </ul>
+      </div>
+
+      {% comment %} Colonna 4 - RESTA IN CONTATTO {% endcomment %}
+      <div class="Footer__Block Footer__Block--newsletter">
+        <h2 class="Footer__Title Heading u-h6">RESTA IN CONTATTO</h2>
+
+        {%- form 'customer', id: 'footer-newsletter', class: 'Footer__Newsletter Form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="Form__Alert Alert Alert--success">{{ 'footer.newsletter.success' | t }}</p>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="Form__Alert Alert Alert--error">{{ form.errors.messages['email'] }}</p>
+            {%- endif -%}
+
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="Footer__NewsletterField">
+              <input type="email" name="contact[email]" class="Form__Input" aria-label="{{ 'footer.newsletter.input' | t }}" placeholder="{{ 'footer.newsletter.input' | t }}" required>
+              <button type="submit" class="Footer__NewsletterSubmit" aria-label="{{ 'footer.newsletter.submit' | t }}">
+                <svg class="Icon Icon--arrow-right" role="presentation" viewBox="0 0 11 21">
+                  <polyline fill="none" stroke="currentColor" points="0.5 0.5 10.5 10.5 0.5 20.5" stroke-width="1.25"></polyline>
+                </svg>
+              </button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+
+        <div class="Footer__Social">
+          <ul class="Footer__SocialList">
+            <li class="Footer__SocialItem">
+              <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="Footer__SocialLink">
+                <svg class="Icon Icon--instagram" role="presentation" viewBox="0 0 32 32">
+                  <path d="M15.994 2.886c4.273 0 4.775.019 6.464.095 1.562.07 2.406.33 2.971.552.749.292 1.283.635 1.841 1.194s.908 1.092 1.194 1.841c.216.565.483 1.41.552 2.971.076 1.689.095 2.19.095 6.464s-.019 4.775-.095 6.464c-.07 1.562-.33 2.406-.552 2.971-.292.749-.635 1.283-1.194 1.841s-1.092.908-1.841 1.194c-.565.216-1.41.483-2.971.552-1.689.076-2.19.095-6.464.095s-4.775-.019-6.464-.095c-1.562-.07-2.406-.33-2.971-.552-.749-.292-1.283-.635-1.841-1.194s-.908-1.092-1.194-1.841c-.216-.565-.483-1.41-.552-2.971-.076-1.689-.095-2.19-.095-6.464s.019-4.775.095-6.464c.07-1.562.33-2.406.552-2.971.292-.749.635-1.283 1.194-1.841s1.092-.908 1.841-1.194c.565-.216 1.41-.483 2.971-.552 1.689-.083 2.19-.095 6.464-.095zm0-2.883c-4.343 0-4.889.019-6.597.095-1.702.076-2.864.349-3.879.743-1.054.406-1.943.959-2.832 1.848S1.251 4.473.838 5.521C.444 6.537.171 7.699.095 9.407.019 11.109 0 11.655 0 15.997s.019 4.889.095 6.597c.076 1.702.349 2.864.743 3.886.406 1.054.959 1.943 1.848 2.832s1.784 1.435 2.832 1.848c1.016.394 2.178.667 3.886.743s2.248.095 6.597.095 4.889-.019 6.597-.095c1.702-.076 2.864-.349 3.886-.743 1.054.406 1.943.959 2.832 1.848s1.435 1.784 1.848 2.832c.394 1.016.667 2.178.743 3.886s.095 2.248.095 6.597-.019 4.889-.095 6.597c-.076 1.702-.349 2.864-.743 3.886-.406 1.054-.959 1.943-1.848 2.832S27.532 31.247 26.484 31.66C25.468 32.054 24.306 32.327 22.598 32.403c-1.714-.07-2.26-.089-6.603-.089zm0 7.778c-4.533 0-8.216 3.676-8.216 8.216s3.683 8.216 8.216 8.216 8.216-3.683 8.216-8.216-3.683-8.216-8.216-8.216zm0 13.549c-2.946 0-5.333-2.387-5.333-5.333s2.387-5.333 5.333-5.333 5.333 2.387 5.333 5.333-2.387 5.333-5.333 5.333zM26.451 7.457c0 1.059-.858 1.917-1.917 1.917s-1.917-.858-1.917-1.917c0-1.059.858-1.917 1.917-1.917s1.917.858 1.917 1.917z"></path>
+                </svg>
+              </a>
+            </li>
+            <li class="Footer__SocialItem">
+              <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="Footer__SocialLink">
+                <svg class="Icon Icon--tiktok" role="presentation" viewBox="0 0 32 32">
+                  <path d="M28.857 13.41a8.643 8.643 0 0 1-5.05-1.614v7.324a6.856 6.856 0 1 1-5.914-6.8v3.799a3.059 3.059 0 1 0 2.158 2.914V0h3.756a8.63 8.63 0 0 0 1.614 5.05 8.66 8.66 0 0 0 4.436 3.117v5.243z"></path>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {% comment %} Sub-footer {% endcomment %}
     <div class="Footer__Aside">
       <div class="Footer__Copyright">
-        <p class="Footer__CopyrightText Heading u-h8">© {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+        <p class="Footer__CopyrightText Heading u-h8">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
 
-        <ul class="Footer__LegalList HorizontalList HorizontalList--spacingLoose">
-          <li class="HorizontalList__Item"><a href="/pages/privacy-policy" class="Link Link--secondary u-h8">Privacy Policy</a></li>
-          <li class="HorizontalList__Item"><a href="/pages/terms-of-service" class="Link Link--secondary u-h8">Termini e Condizioni</a></li>
-          <li class="HorizontalList__Item"><a href="/pages/cookie-policy" class="Link Link--secondary u-h8">Cookie Policy</a></li>
+        <ul class="Footer__LegalList">
+          <li class="Footer__LegalItem"><a href="/pages/privacy-policy" class="Link Link--secondary u-h8">PRIVACY POLICY</a></li>
+          <li class="Footer__LegalItem"><a href="/pages/terms-of-service" class="Link Link--secondary u-h8">TERMINI E CONDIZIONI</a></li>
+          <li class="Footer__LegalItem"><a href="/pages/cookie-policy" class="Link Link--secondary u-h8">COOKIE POLICY</a></li>
         </ul>
       </div>
 
       {%- if section.settings.show_payment_methods -%}
-        {%- capture payment_methods -%}
+        <ul class="Footer__PaymentList">
           {%- for type in shop.enabled_payment_types -%}
-            <li class="HorizontalList__Item">{{ type | payment_type_svg_tag }}</li>
+            <li class="Footer__PaymentItem">{{ type | payment_type_svg_tag }}</li>
           {%- endfor -%}
-        {%- endcapture -%}
-
-        {%- if payment_methods != blank -%}
-          <ul class="Footer__PaymentList HorizontalList">
-            {{ payment_methods }}
-          </ul>
-        {%- endif -%}
+          <li class="Footer__PaymentItem Footer__PaymentItem--visa" aria-label="Visa">
+            <svg viewBox="0 0 48 32" width="38" height="24">
+              <rect width="48" height="32" rx="4" fill="#1A1F71"/>
+              <text x="24" y="21" text-anchor="middle" font-size="12" fill="#FFFFFF" font-family="Arial, sans-serif" font-weight="bold">VISA</text>
+            </svg>
+          </li>
+          <li class="Footer__PaymentItem Footer__PaymentItem--mastercard" aria-label="Mastercard">
+            <svg viewBox="0 0 48 32" width="38" height="24">
+              <rect width="48" height="32" rx="4" fill="#F5F5F5"/>
+              <circle cx="19" cy="16" r="10" fill="#EB001B"/>
+              <circle cx="29" cy="16" r="10" fill="#F79E1B"/>
+              <path d="M24 9.5a10 10 0 0 1 0 13" fill="#FF5F00"/>
+            </svg>
+          </li>
+        </ul>
       {%- endif -%}
     </div>
   </div>
