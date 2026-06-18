@@ -1,4 +1,4 @@
-﻿html body .Header .Header__Wrapper{padding-top:18px!important;padding-bottom:18px!important}html body .Header .Header__Icon{padding:4px!important;min-width:32px!important;min-height:32px!important}html body .Header .Header__Icon svg{width:18px!important;height:18px!important}html body .Header__SecondaryNav .Header__Icon svg.Icon--search,html body .Header__SecondaryNav .Header__Icon svg.Icon--account,html body .Header__SecondaryNav .Header__Icon svg.Icon--cart-desktop{stroke-width:.8!important;fill:none!important}html body .Header__MainNav a.Heading,html body .Header__SecondaryNav a.Heading,html body .HorizontalList__Item>a.Heading,html body .Header__MainNav .HorizontalList__Item>a{font-size:11px!important;font-weight:600!important;letter-spacing:.08em!important;text-transform:uppercase!important}
+﻿<style>html body .Header .Header__Wrapper{padding-top:18px!important;padding-bottom:18px!important}html body .Header .Header__Icon{padding:4px!important;min-width:32px!important;min-height:32px!important}html body .Header .Header__Icon svg{width:18px!important;height:18px!important}html body .Header__SecondaryNav .Header__Icon svg.Icon--search,html body .Header__SecondaryNav .Header__Icon svg.Icon--account,html body .Header__SecondaryNav .Header__Icon svg.Icon--cart-desktop{stroke-width:.8!important;fill:none!important}html body .Header__MainNav a.Heading,html body .Header__SecondaryNav a.Heading,html body .HorizontalList__Item>a.Heading,html body .Header__MainNav .HorizontalList__Item>a{font-size:11px!important;font-weight:600!important;letter-spacing:.08em!important;text-transform:uppercase!important}
 
 .ProductItem__Info{margin-top:28px!important;margin-bottom:40px!important}.Section{padding-top:60px!important;padding-bottom:60px!important}.SectionHeader{margin-bottom:40px!important}.TestimonialList{padding-top:60px!important;padding-bottom:60px!important}.Testimonial__Content{padding-top:30px!important;padding-bottom:30px!important}.FeaturedCollection .SectionHeader,.CollectionList .SectionHeader{padding-top:40px!important;padding-bottom:20px!important}.shopify-section:empty,.shopify-section .Section:empty{display:none!important;min-height:0!important;padding:0!important;margin:0!important}.CollectionItem__Wrapper{background-color:#FFF!important}.CollectionItem__ImageWrapper--placeholder,.CollectionItem__Wrapper:empty,.CollectionItem__ImageWrapper:empty{display:none!important}.CollectionList{margin-top:40px!important;margin-bottom:40px!important}.CollectionItem__Wrapper{height:280px!important}.CollectionItem__Wrapper--small{height:220px!important}.CollectionItem__Wrapper--large{height:340px!important}.PlaceholderBackground,.PlaceholderSvg--dark,.PlaceholderSvg--light{display:block!important;background:#E5E5E5!important;width:100%!important;height:100%!important}.PlaceholderBackground__Svg{display:block!important;width:100%!important;height:100%!important;fill:#AAA!important}#shopify-section-slideshow+#shopify-section-collection-list,#shopify-section-slideshow+#shopify-section-featured-collections{margin-top:60px!important}#shopify-section-collection-list,#shopify-section-featured-collections{margin-bottom:60px!important}.ImageHero__ImageWrapper--hasOverlay::before,.Slideshow__ImageContainer::before,.PageHeader--withBackground::before{content:''!important;position:absolute!important;inset:0!important;background:rgba(17,17,17,.45)!important;z-index:1!important;pointer-events:none!important}.ImageHero__TextContent .Heading,.Slideshow__Content .Heading,.PageHeader--withBackground .Heading{color:#FFF!important}.ImageHero__TextContent .Rte,.Slideshow__Content .Rte,.PageHeader--withBackground .Rte{color:rgba(255,255,255,.85)!important}
 
@@ -395,6 +395,7 @@
 .Product__Gallery {
   padding-top: 60px;
 }
+.Cart__ContinueShopping{display:block;width:100%;text-align:center;padding:14px 0;color:#111;background:transparent;border:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;font-family:inherit}.Cart__ContinueShopping:hover{text-decoration:underline}
 
 /* Evita jump del layout quando il drawer blocca lo scroll */
 html {
@@ -506,39 +507,6 @@ html.no-scroll body {
   flex-wrap: nowrap !important;
 }
 
-/* Trash icon remove button — top-right of product */
-.CartItem__Info {
-  position: relative !important;
-}
-
-.CartItem__RemoveIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  color: #00BCD4;
-  transition: color 0.25s ease, transform 0.2s ease;
-  z-index: 1;
-}
-
-.CartItem__RemoveIcon:hover {
-  color: #0097A7;
-  transform: scale(1.1);
-}
-
-.CartItem__RemoveIcon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.CartItem__Title {
-  padding-right: 32px !important;
-}
-
 /* 3. Quantity Selector Elegant */
 .CartItem__QuantitySelector .QuantitySelector {
   border: 1px solid #eaeaea !important;
@@ -632,3 +600,4 @@ html.no-scroll body {
   color: #111 !important;
   text-decoration: underline !important;
 }
+</style>

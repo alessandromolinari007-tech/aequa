@@ -38,17 +38,25 @@
                   <img class="Slideshow__Image"
                        loading="eager"
                        fetchpriority="high"
+                       decoding="async"
                        src="{{ mobile_image | img_url: 'x800' }}"
+                       srcset="{{ mobile_image | img_url: '400x' }} 400w, {{ mobile_image | img_url: '600x' }} 600w, {{ mobile_image | img_url: '800x' }} 800w"
+                       sizes="100vw"
+                       width="{{ mobile_image.width }}"
+                       height="{{ mobile_image.height }}"
                        alt="{{ mobile_image.alt | escape }}">
                 {%- else -%}
                   <img class="Slideshow__Image Image--lazyLoad"
                        src="{{ mobile_image | img_url: '1x1' }}"
                        data-src="{{ mobile_image | img_url: 'x800' }}"
+                       width="{{ mobile_image.width }}"
+                       height="{{ mobile_image.height }}"
+                       decoding="async"
                        alt="{{ mobile_image.alt | escape }}">
                 {%- endif -%}
 
                 <noscript>
-                  <img class="Slideshow__Image" src="{{ mobile_image | img_url: 'x800' }}" alt="{{ mobile_image.alt | escape }}">
+                  <img class="Slideshow__Image" src="{{ mobile_image | img_url: 'x800' }}" width="{{ mobile_image.width }}" height="{{ mobile_image.height }}" alt="{{ mobile_image.alt | escape }}">
                 </noscript>
               {%- endif -%}
             </div>
@@ -76,7 +84,8 @@
                        data-optimumx="1.2"
                        data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800]"
                        data-sizes="auto"
-                       alt="{{ block.settings.image.alt | escape }}">
+                       alt="{{ block.settings.image.alt | escape }}"
+                       fetchpriority="low">
                 {%- endif -%}
 
                 <noscript>

@@ -22,14 +22,18 @@
     <div class="Drawer__Main" data-scrollable>
       {%- if settings.cart_show_free_shipping_threshold -%}
         {%- assign threshold_in_cents = settings.cart_free_shipping_threshold | times: 100 -%}
+        {%- assign progress_percent = cart.total_price | times: 100.0 | divided_by: threshold_in_cents | round -%}
+        {%- if progress_percent > 100 -%}{%- assign progress_percent = 100 -%}{%- endif -%}
 
         <div class="Cart__ShippingNotice Text--subdued">
           <div class="Drawer__Container">
             {%- if cart.total_price >= threshold_in_cents -%}
-              <p>{{- 'cart.general.free_shipping' | t -}}</p>
+              <p class="Cart__ShippingText">{{ 'cart.general.free_shipping' | t }}</p>
+              <div class="Cart__ShippingBar"><div class="Cart__ShippingProgress" style="width: 100%;"></div></div>
             {%- else -%}
-              {%- capture remaining_amount -%}<span>{{ cart.total_price | minus: threshold_in_cents | abs | money_without_trailing_zeros }}</span>{%- endcapture -%}
-              <p>{{- 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount -}}</p>
+              {%- capture remaining_amount -%}{{ cart.total_price | minus: threshold_in_cents | abs | money_without_trailing_zeros }}{%- endcapture -%}
+              <p class="Cart__ShippingText">{{ 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount }}</p>
+              <div class="Cart__ShippingBar"><div class="Cart__ShippingProgress" style="width: {{ progress_percent }}%;"></div></div>
             {%- endif -%}
           </div>
         </div>
@@ -65,11 +69,22 @@
           {%- endif -%}
         {%- endif -%}
 
+        <div class="Cart__RecapDrawer">
+          <div class="Cart__RecapRow">
+            <span class="Cart__RecapLabel">{{ 'cart.general.subtotal' | t }}</span>
+            <span class="Cart__RecapPrice" data-money-convertible>{{ cart.total_price | money_without_trailing_zeros }}</span>
+          </div>
+        </div>
+
         <button type="submit" name="checkout" class="Cart__Checkout Button Button--primary Button--full">
           <span>{{- 'cart.general.checkout' | t -}}</span>
           <span class="Button__SeparatorDot"></span>
           <span data-money-convertible>{{ cart.total_price | money_without_trailing_zeros }}</span>
         </button>
+
+        <a href="/collections/all" class="Cart__ContinueShopping" data-action="close-drawer" data-drawer-id="sidebar-cart">
+          {{- 'cart.general.continue_shopping' | t -}}
+        </a>
 
         {%- if settings.cart_enable_notes -%}
           <div class="Cart__OffscreenNoteContainer" aria-hidden="true">

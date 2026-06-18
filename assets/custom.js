@@ -120,6 +120,53 @@ document.addEventListener('DOMContentLoaded', function() {
     return true;
   }
 
+  /* ------------------------------------------------------------------
+   * AEQUO PDP — Share toggle handler
+   * ------------------------------------------------------------------ */
+  var shareToggles = document.querySelectorAll('.js-aequo-share-toggle');
+  shareToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      var parent = toggle.closest('.ProductForm__Share');
+      if (!parent) return;
+      var list = parent.querySelector('.ProductForm__ShareList');
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !expanded);
+      if (list) {
+        list.style.display = !expanded ? 'flex' : 'none';
+      }
+    });
+  });
+
+  /* ------------------------------------------------------------------
+   * AEQUO PDP — Copy link handler
+   * ------------------------------------------------------------------ */
+  var copyLinks = document.querySelectorAll('.js-aequo-copy-link');
+  copyLinks.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var url = btn.getAttribute('data-url');
+      var label = btn.querySelector('.js-aequo-copy-label');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+          if (label) { label.textContent = 'Link Copiato!'; }
+          setTimeout(function() { if (label) { label.textContent = 'Copia Link'; } }, 2000);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          if (label) { label.textContent = 'Link Copiato!'; }
+          setTimeout(function() { if (label) { label.textContent = 'Copia Link'; } }, 2000);
+        } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
   var schedule = window.requestIdleCallback || function(cb) { setTimeout(cb, 100); };
   schedule(function() {
     if (!styleCookieBanner()) {

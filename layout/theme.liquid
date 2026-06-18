@@ -3,7 +3,7 @@
 <html class="no-js" lang="{{ shop.locale }}">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="{{ settings.accent_color }}">
 
     <title>
@@ -31,17 +31,12 @@
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <link rel="preload" href="{{ 'theme.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'theme.scss.css' | asset_url }}" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="{{ 'theme.scss.css' | asset_url }}"></noscript>
 
-    <link rel="preload" href="{{ 'lazysizes.min.js' | asset_url }}" as="script">
-    <link rel="preload" href="{{ 'libs.min.js' | asset_url }}" as="script">
-    <link rel="preload" href="{{ 'theme.min.js' | asset_url }}" as="script">
+    {% include 'custom-overrides-inline' %}
 
-    <link rel="preload" href="{{ 'custom-overrides.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ 'custom-overrides.css' | asset_url }}"></noscript>
-
-    <link rel="preload" href="{{ 'aequo-cookie-modal.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="{{ 'aequo-cookie-modal.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ 'aequo-cookie-modal.css' | asset_url }}"></noscript>
 
     <script>
@@ -62,8 +57,6 @@
         document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-supports-hover' : ' supports-hover';
       }());
     </script>
-
-    <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
 
     {% if settings.currency_conversion_enabled %}
       <script src="//cdn.shopify.com/s/javascripts/currencies.js" defer></script>
@@ -132,6 +125,8 @@
   {% include 'banana-stand-footer' %}
 
 {% include 'adolab-get-clicked-seo' %}
+
+    <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
 
     <script>
       window.theme = {

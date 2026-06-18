@@ -19,12 +19,16 @@
       <div class="CartItemWrapper">
     {%- endif -%}
 
-    <div class="CartItem">
+    <div class="CartItem{% if for_drawer %} CartItem--drawer{% endif %}">
       <div class="CartItem__ImageWrapper AspectRatio AspectRatio--square">
         <img class="CartItem__Image" src="{{ line_item.image | img_url: '240x' }}" alt="{{ line_item.image.alt | escape }}" style="width:100%;height:100%;object-fit:cover;">
       </div>
 
       <div class="CartItem__Info">
+        <a href="/cart/change?quantity=0&id={{ line_item.key }}" class="CartItem__RemoveIcon" data-quantity="0" data-line-id="{{ line_item.key }}" data-action="remove-item" aria-label="{{ 'cart.items.remove' | t }}">
+          {%- include 'icon' with 'trash' -%}
+        </a>
+
         <h2 class="CartItem__Title Heading">
           <a href="{{ line_item.url }}">{{ line_item.product.title }}</a>
         </h2>
@@ -56,33 +60,46 @@
               <span class="CartItem__Price Price" data-money-convertible>{{ line_item.price | money_without_trailing_zeros }}</span>
             {%- endif -%}
           </div>
+
+          {%- if for_drawer -%}
+            <a href="/cart/change?quantity=0&id={{ line_item.key }}" class="CartItem__Remove CartItem__Remove--drawer Link Link--underline Link--underlineShort" data-quantity="0" data-line-id="{{ line_item.key }}" data-action="remove-item">{{ 'cart.items.remove' | t }}</a>
+          {%- endif -%}
         </div>
+
+        {%- capture quantity_selector -%}
+          <div class="CartItem__QuantitySelector">
+            <div class="QuantitySelector">
+              {%- assign quantity_minus_one = line_item.quantity | minus: 1 -%}
+
+              <a class="QuantitySelector__Button Link Link--primary" title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_minus_one }}" href="/cart/change?quantity={{ quantity_minus_one }}&id={{ line_item.key }}" data-quantity="{{ quantity_minus_one }}" data-line-id="{{ line_item.key }}" data-action="update-item-quantity">
+                {%- include 'icon' with 'minus' -%}
+              </a>
+
+              <input type="text" name="updates[]" id="updates_{{ line_item.key }}" class="QuantitySelector__CurrentQuantity" pattern="[0-9]*" data-line-id="{{ line_item.key }}" value="{{ line_item.quantity }}">
+
+              {%- assign quantity_plus_one = line_item.quantity | plus: 1 -%}
+
+              <a class="QuantitySelector__Button Link Link--primary" title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_plus_one }}" href="/cart/change?quantity={{ quantity_plus_one }}&id={{ line_item.key }}" data-quantity="{{ quantity_plus_one }}" data-line-id="{{ line_item.key }}" data-action="update-item-quantity">
+                {%- include 'icon' with 'plus' -%}
+              </a>
+            </div>
+          </div>
+        {%- endcapture -%}
 
         {%- capture item_actions -%}
           <div class="CartItem__Actions Heading Text--subdued" style="text-align: center">
-            <div class="CartItem__QuantitySelector">
-              <div class="QuantitySelector">
-                {%- assign quantity_minus_one = line_item.quantity | minus: 1 -%}
-
-                <a class="QuantitySelector__Button Link Link--primary" title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_minus_one }}" href="/cart/change?quantity={{ quantity_minus_one }}&id={{ line_item.key }}" data-quantity="{{ quantity_minus_one }}" data-line-id="{{ line_item.key }}" data-action="update-item-quantity">
-                  {%- include 'icon' with 'minus' -%}
-                </a>
-
-                <input type="text" name="updates[]" id="updates_{{ line_item.key }}" class="QuantitySelector__CurrentQuantity" pattern="[0-9]*" data-line-id="{{ line_item.key }}" value="{{ line_item.quantity }}">
-
-                {%- assign quantity_plus_one = line_item.quantity | plus: 1 -%}
-
-                <a class="QuantitySelector__Button Link Link--primary" title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_plus_one }}" href="/cart/change?quantity={{ quantity_plus_one }}&id={{ line_item.key }}" data-quantity="{{ quantity_plus_one }}" data-line-id="{{ line_item.key }}" data-action="update-item-quantity">
-                  {%- include 'icon' with 'plus' -%}
-                </a>
-              </div>
-            </div>
-
+            {{ quantity_selector }}
             <a href="/cart/change?quantity=0&id={{ line_item.key }}" class="CartItem__Remove Link Link--underline Link--underlineShort" data-quantity="0" data-line-id="{{ line_item.key }}" data-action="remove-item">{{ 'cart.items.remove' | t }}</a>
           </div>
         {%- endcapture -%}
 
-        {{ item_actions }}
+        {%- if for_drawer -%}
+          <div class="CartItem__Actions CartItem__Actions--drawer Heading Text--subdued">
+            {{ quantity_selector }}
+          </div>
+        {%- else -%}
+          {{ item_actions }}
+        {%- endif -%}
       </div>
 
       {%- unless for_drawer -%}
