@@ -20,13 +20,7 @@ HEADER CONTENT
 --------------------------------------------------------------------------------------------------------------------
 {%- endcomment -%}
 
-{%- capture section_settings -%}
-{
-  "navigationStyle": {{ section.settings.navigation_style | json }},
-  "hasTransparentHeader": {% if use_transparent_header %}true{% else %}false{% endif %},
-  "isSticky": {% if section.settings.use_sticky_header %}true{% else %}false{% endif %}
-}
-{%- endcapture -%}
+{%- capture section_settings -%}{"navigationStyle":{{ section.settings.navigation_style | json }},"hasTransparentHeader":{% if use_transparent_header %}true{% else %}false{% endif %},"isSticky":{% if section.settings.use_sticky_header %}true{% else %}false{% endif %}}{%- endcapture -%}
 
 <header id="section-{{ section.id }}"
         class="Header Header--inline {% unless section.settings.navigation_style == 'inline' %}Header--initialized{% endunless %} {% if use_transparent_header %}Header--transparent{% endif %}"
@@ -94,7 +88,7 @@ HEADER CONTENT
               <a href="/collections/uomo" class="Heading u-h6">UOMO<span class="Header__LinkSpacer">UOMO</span></a>
             </li>
             <li class="HorizontalList__Item">
-              <a href="/collections/donna" class="Heading u-h6">DONNA<span class="Header__LinkSpacer">DONNA</span></a>
+              <a href="/pages/donna" class="Heading u-h6">DONNA<span class="Header__LinkSpacer">DONNA</span></a>
             </li>
           </ul>
         </nav>
@@ -117,7 +111,7 @@ HEADER CONTENT
           <nav class="Header__SecondaryNav">
             <ul class="HorizontalList HorizontalList--spacingLoose hidden-pocket hidden-lap">
               <li class="HorizontalList__Item">
-                <a href="/search" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" data-action="open-modal" aria-controls="Search" aria-label="{{ 'header.navigation.search' | t }}">
+                <a href="/search" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable" aria-label="{{ 'header.navigation.search' | t }}">
                   {%- include 'icon' with 'search' -%}
                 </a>
               </li>
@@ -142,7 +136,7 @@ HEADER CONTENT
         <a href="/cart" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable {% unless use_sidebar_menu %}hidden-desk{% endunless %}" {% if settings.cart_type == 'drawer' %}data-action="open-drawer" data-drawer-id="sidebar-cart" aria-expanded="false" aria-label="{{ 'header.navigation.open_cart' | t }}"{% endif %}>
           <span class="hidden-tablet-and-up">{%- include 'icon' with 'cart' -%}</span>
           <span class="hidden-phone">{%- include 'icon' with 'cart-desktop' -%}</span>
-          <span class="Header__CartDot {% if cart.item_count > 0 %}is-visible{% endif %}"></span>
+          <span class="Header__CartCount {% if cart.item_count > 0 %}is-visible{% endif %}">{{ cart.item_count }}</span>
         </a>
       </div>
     </div>
@@ -150,9 +144,49 @@ HEADER CONTENT
 
 </header>
 
-<style>{%- if section.settings.use_sticky_header -%}:root{--use-sticky-header:1}.shopify-section--header{position:-webkit-sticky;position:sticky}{%- endif -%}{%- if use_transparent_header -%}:root{--header-is-not-transparent:0;--header-is-transparent:1}.shopify-section--header{margin-bottom:calc(-1*var(--header-height))}.supports-sticky .Header--transparent{box-shadow:0 -1px {{ section.settings.transparent_text_color | color_modify: 'alpha', 0.25 }} inset;color:{{ section.settings.transparent_text_color }}}{%- else -%}:root{--header-is-not-transparent:1;--header-is-transparent:0}{%- endif -%}.Header__CartCount{position:absolute;top:-1px;right:-2px;min-width:12px;height:12px;padding:0 2px;border-radius:100px;background:#111;color:#fff;font-family:'Montserrat',sans-serif;font-size:7px;font-weight:500;letter-spacing:0;line-height:12px;text-align:center;display:inline-block;opacity:0;-webkit-transform:scale(0);transform:scale(0);-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out}.Header__CartCount.is-visible{opacity:1;-webkit-transform:scale(1);transform:scale(1)}.Header{background:#fff!important;border-bottom:1px solid #e9e9e9;transition:background .35s ease,border-color .35s ease,transform .6s cubic-bezier(.32,.72,0,1)}.Header--hidden{transform:translateY(-100%)}</style>
+<style>{%- if section.settings.use_sticky_header -%}:root{--use-sticky-header:1}.shopify-section--header{position:-webkit-sticky;position:sticky;top:0;z-index:50}{%- endif -%}{%- if use_transparent_header -%}:root{--header-is-not-transparent:0;--header-is-transparent:1}.shopify-section--header{margin-bottom:calc(-1*var(--header-height))}.supports-sticky .Header--transparent{box-shadow:0 -1px {{ section.settings.transparent_text_color | color_modify: 'alpha', 0.25 }} inset;color:{{ section.settings.transparent_text_color }}}{%- else -%}:root{--header-is-not-transparent:1;--header-is-transparent:0}{%- endif -%}.Header__CartCount{position:absolute;top:-4px;right:0;font-family:'Didot','Bodoni MT','Times New Roman',serif;font-size:11px;font-weight:700;color:#000;background:transparent;border:none;box-shadow:none;border-radius:0;padding:0;line-height:1;opacity:0;-webkit-transform:scale(0);transform:scale(0);-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out;display:block}.Header__CartCount.is-visible{opacity:1;-webkit-transform:scale(1);transform:scale(1)}.Header{background:#fff!important;border-bottom:1px solid #e9e9e9;-webkit-transition:-webkit-transform .5s cubic-bezier(.32,.72,0,1),background .35s ease,border-color .35s ease;transition:transform .5s cubic-bezier(.32,.72,0,1),background .35s ease,border-color .35s ease}.Header--hidden{-webkit-transform:translateY(-100%);transform:translateY(-100%)}.Header--compact .Header__Wrapper{padding-top:8px!important;padding-bottom:8px!important}.Header--compact .Header__LogoImage{max-width:72px!important}.Header--compact .Header__MainNav a.Heading,.Header--compact .Header__SecondaryNav a{font-size:9px!important}.Header--compact .Header__Icon svg{width:16px;height:16px}.Header--compact .Header__SecondaryNav .Header__Icon svg{width:18px;height:18px}</style>
 
-<script>(function(){var e=document.getElementById("shopify-section-header");e&&document.documentElement.style.setProperty("--header-height",e.offsetHeight+"px");var t=document.querySelector(".Header");if(t){var n=window.scrollY,i=!1;function a(){var e=window.scrollY,a=e-n,s=8;a>s&&e>t.offsetHeight?t.classList.add("Header--hidden"):a<-s&&t.classList.remove("Header--hidden"),n=e,i=!1}window.addEventListener("scroll",function(){i||(window.requestAnimationFrame(a),i=!0)},{passive:!0});var d=document.getElementById("sidebar-cart");if(d){var o=new MutationObserver(function(m){m.forEach(function(v){if(v.attributeName==="aria-hidden"&&d.getAttribute("aria-hidden")==="true"){t.classList.remove("Header--hidden");n=window.scrollY;}});});o.observe(d,{attributes:true});}})();</script>
+<script>(function(){
+  var headerSection=document.getElementById("shopify-section-header");
+  if(headerSection){document.documentElement.style.setProperty("--header-height",headerSection.offsetHeight+"px");}
+  var header=document.querySelector(".Header");
+  if(!header)return;
+  var lastScrollY=window.scrollY;
+  var ticking=false;
+  var threshold=2;
+  function update(){
+    var currentScrollY=window.scrollY;
+    var delta=currentScrollY-lastScrollY;
+    if(delta>threshold){
+      header.classList.add("Header--hidden");
+      header.classList.remove("Header--compact");
+    }else if(delta<0){
+      header.classList.remove("Header--hidden");
+      if(currentScrollY>0){header.classList.add("Header--compact");}
+    }
+    if(currentScrollY<=0){
+      header.classList.remove("Header--hidden");
+      header.classList.remove("Header--compact");
+    }
+    lastScrollY=currentScrollY;
+    ticking=false;
+  }
+  window.addEventListener("scroll",function(){
+    if(!ticking){window.requestAnimationFrame(update);ticking=true;}
+  },{passive:true});
+  var cartDrawer=document.getElementById("sidebar-cart");
+  if(cartDrawer){
+    var observer=new MutationObserver(function(mutations){
+      mutations.forEach(function(mutation){
+        if(mutation.attributeName==="aria-hidden"&&cartDrawer.getAttribute("aria-hidden")==="true"){
+          header.classList.remove("Header--hidden");
+          lastScrollY=window.scrollY;
+        }
+      });
+    });
+    observer.observe(cartDrawer,{attributes:true});
+  }
+})();</script>
 
 {% schema %}
 {
@@ -184,12 +218,6 @@ HEADER CONTENT
     {
       "type": "header",
       "content": "Navigation"
-    },
-    {
-      "type": "link_list",
-      "id": "navigation_menu",
-      "label": "Menu",
-      "default": "main-menu"
     },
     {
       "type": "link_list",
@@ -248,64 +276,6 @@ HEADER CONTENT
       "label": "Logo image",
       "info": "200 x 60px png recommended"
     },
-    {
-      "type": "header",
-      "content": "Quick category links"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_quick_links",
-      "label": "Show quick category links",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "quick_link_1_text",
-      "label": "Link 1 text",
-      "default": "Uomo"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_1_url",
-      "label": "Link 1 URL",
-      "default": "/collections/uomo"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_2_text",
-      "label": "Link 2 text",
-      "default": "Donna"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_2_url",
-      "label": "Link 2 URL",
-      "default": "/collections/donna"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_3_text",
-      "label": "Link 3 text",
-      "default": "Nuovi Arrivi"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_3_url",
-      "label": "Link 3 URL",
-      "default": "/collections/all?sort_by=created-descending"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_4_text",
-      "label": "Link 4 text",
-      "default": "Saldi"
-    },
-    {
-      "type": "text",
-      "id": "quick_link_4_url",
-      "label": "Link 4 URL",
-      "default": "/collections/saldi"
-    }
   ],
   "blocks": [
     {

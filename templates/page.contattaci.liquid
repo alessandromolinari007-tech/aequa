@@ -1,0 +1,59 @@
+<div class="Container">
+  <header class="PageHeader">
+    <div class="SectionHeader SectionHeader--center">
+      <h1 class="SectionHeader__Heading Heading u-h1">Contattaci</h1>
+    </div>
+  </header>
+
+  <div class="PageContent PageContent--narrow Rte">
+    <p>Hai una domanda, un dubbio o vuoi semplicemente scriverci? Siamo a tua disposizione.</p>
+
+    <div class="Contact__Info" style="margin: 2rem 0;">
+      <p><strong>Email:</strong> <a href="mailto:aequoita@gmail.com">aequoita@gmail.com</a></p>
+      <p><strong>Ragione sociale:</strong> {{ shop.name }}</p>
+      <p><strong>Sito:</strong> <a href="{{ shop.url }}">{{ shop.domain }}</a></p>
+    </div>
+
+    <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #e8e8e8;">
+
+    <h2>Scrivici un messaggio</h2>
+
+    {%- form 'contact', id: 'ContactForm', class: 'Form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="Form__Alert Alert Alert--success">Grazie per averci contattato. Ti risponderemo al più presto.</p>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <div class="Form__Alert Alert Alert--error">
+          <ul>
+            {%- for field in form.errors -%}
+              <li>{{ form.errors.messages[field] }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="Form__Group">
+        <label class="Form__Label" for="ContactFormName">Nome</label>
+        <input type="text" id="ContactFormName" name="contact[name]" class="Form__Input" placeholder="Il tuo nome" required>
+      </div>
+
+      <div class="Form__Group">
+        <label class="Form__Label" for="ContactFormEmail">Email</label>
+        <input type="email" id="ContactFormEmail" name="contact[email]" class="Form__Input" placeholder="La tua email" required>
+      </div>
+
+      <div class="Form__Group">
+        <label class="Form__Label" for="ContactFormPhone">Telefono (opzionale)</label>
+        <input type="tel" id="ContactFormPhone" name="contact[phone]" class="Form__Input" placeholder="Il tuo numero di telefono">
+      </div>
+
+      <div class="Form__Group">
+        <label class="Form__Label" for="ContactFormMessage">Messaggio</label>
+        <textarea id="ContactFormMessage" name="contact[body]" class="Form__Textarea" rows="6" placeholder="Scrivi qui il tuo messaggio..." required></textarea>
+      </div>
+
+      <button type="submit" class="Form__Submit Button Button--primary">Invia messaggio</button>
+    {%- endform -%}
+  </div>
+</div>

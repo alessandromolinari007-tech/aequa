@@ -1,16 +1,4 @@
-{%- capture flickity_options -%}
-{
-  "prevNextButtons": true,
-  "pageDots": false,
-  "wrapAround": false,
-  "contain": true,
-  "cellAlign": "center",
-  "watchCSS": true,
-  "dragThreshold": 8,
-  "groupCells": true,
-  "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
-}
-{%- endcapture -%}
+{%- capture flickity_options -%}{"prevNextButtons":true,"pageDots":false,"wrapAround":false,"contain":true,"cellAlign":"center","watchCSS":true,"dragThreshold":8,"groupCells":true,"arrowShape":{"x0":20,"x1":60,"y1":40,"x2":60,"y2":35,"x3":25}}{%- endcapture -%}
 
 {%- if section.settings.show_section -%}
   <section class="Section Section--spacingNormal" data-section-id="{{ section.id }}" data-section-type="related-products">

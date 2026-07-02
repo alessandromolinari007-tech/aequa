@@ -1,0 +1,32 @@
+<section class="Section Section--spacingNormal" id="section-{{ section.id }}">
+  <div class="Container">
+    <form action="/search" method="get" role="search" class="SearchBar__Form">
+      <input type="search" class="SearchBar__Input Heading" name="q" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="CERCA.." aria-label="Cerca">
+      <input type="hidden" name="type" value="product">
+    </form>
+  </div>
+</section>
+
+<style>#section-{{section.id}}{padding-top:40px;padding-bottom:40px}.SearchBar__Form{width:100%;max-width:520px;margin:0 auto}.SearchBar__Input{width:100%;border:none;border-bottom:1px solid #111;background:transparent;padding:8px 0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:#111;outline:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;text-align:center}.SearchBar__Input::placeholder{color:#CCC}.SearchBar__Input:focus{border-bottom-color:#111}</style>
+
+{% schema %}
+{
+  "name": "Barra di Ricerca",
+  "class": "shopify-section--search-bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder",
+      "default": "CERCA.."
+    }
+  ],
+  "presets": [
+    {
+      "category": "Text",
+      "name": "Barra di Ricerca",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

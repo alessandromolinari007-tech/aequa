@@ -143,28 +143,12 @@
           "slide-1": {
             "type": "image",
             "settings": {
-              "image": "shopify://shop_images/open-plan-kitchen-with-wooden-fixtures.jpg",
-              "mobile_image": "shopify://shop_images/open-plan-kitchen-with-wooden-fixtures.jpg",
-              "apply_overlay": true,
+              "video_mp4": "https://cdn.shopify.com/videos/c/o/v/c4f836e07dea469d8bc73872616829bd.mov",
+              "apply_overlay": false,
               "content_position": "bottomLeft",
-              "subheading": "L'Eleganza Senza Tempo dei Gioielli AEQUO",
-              "title": "L'Eleganza Complementare, il Lusso Essenziale",
-              "button_1_text": "ESPLORA",
-              "button_1_link": "shopify://collections/all",
-              "button_2_text": "",
-              "button_2_link": ""
-            }
-          },
-          "1536064794716": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/pexels-vince-2227832.jpg",
-              "mobile_image": "shopify://shop_images/pexels-vince-2227832.jpg",
-              "apply_overlay": true,
-              "content_position": "bottomLeft",
-              "subheading": "Gioielli che Raccontano la Tua Eleganza",
-              "title": "Design Puro, Materie Prime Preziose",
-              "button_1_text": "ESPLORA",
+              "subheading": "Stile senza tempo, valore reale. AEQUO è il punto d'incontro perfetto tra qualità superiore e prezzi onesti. Perché il vero lusso è poter scegliere senza rinunce.",
+              "title": "L'essenza del lusso quotidiano.",
+              "button_1_text": "SCOPRI LA COLLEZIONE",
               "button_1_link": "shopify://collections/all",
               "button_2_text": "",
               "button_2_link": ""
@@ -172,13 +156,12 @@
           }
         },
         "block_order": [
-          "slide-1",
-          "1536064794716"
+          "slide-1"
         ],
         "settings": {
           "show_fullscreen": true,
           "show_arrow": false,
-          "autoplay": true,
+          "autoplay": false,
           "cycle_speed": 5,
           "text_color": "#ffffff",
           "button_color": "#363636"
@@ -466,15 +449,53 @@
           "inventory_quantity_threshold": 0,
           "show_payment_button": false
         }
+      },
+      "multi-collection-products-home": {
+        "type": "multi-collection-products",
+        "settings": {
+          "title": "La Selezione Esclusiva",
+          "collection": "",
+          "heading": "",
+          "grid_items_count": 8,
+          "layout_mode": "grid",
+          "show_product_info": true,
+          "show_color_swatch": false,
+          "grid_mobile_items_per_row": "2",
+          "grid_desktop_items_per_row": 4,
+          "button_text": "Scopri Tutto"
+        }
+      },
+      "featured-collections-uomo": {
+        "type": "featured-collections",
+        "blocks": {
+          "featured-collection-uomo-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "uomo",
+              "title": "",
+              "grid_items_count": 8,
+              "button_text": "Scopri Tutto"
+            }
+          }
+        },
+        "block_order": [
+          "featured-collection-uomo-0"
+        ],
+        "settings": {
+          "title": "Collezione Uomo",
+          "layout_mode": "grid",
+          "show_product_info": true,
+          "show_color_swatch": false,
+          "grid_mobile_items_per_row": "2",
+          "grid_desktop_items_per_row": 4
+        }
       }
     },
     "content_for_index": [
       "slideshow",
       "featured-collections",
-      "1536065219503",
-      "collection-list",
+      "featured-collections-uomo",
       "featured_product_Pd9AT9",
-      "1536065970902",
       "1536065842202",
       "1536067011368"
     ]
@@ -602,20 +623,10 @@
                 "subheading": "Slide title",
                 "title": "Tell your story"
               }
-            },
-            "slide-1": {
-              "type": "image",
-              "settings": {
-                "apply_overlay": true,
-                "content_position": "bottomLeft",
-                "subheading": "Slide title",
-                "title": "Tell your story"
-              }
             }
           },
           "block_order": [
-            "slide-0",
-            "slide-1"
+            "slide-0"
           ],
           "settings": {
             "show_fullscreen": true,
@@ -994,20 +1005,10 @@
                 "subheading": "Slide title",
                 "title": "Tell your story"
               }
-            },
-            "slide-1": {
-              "type": "image",
-              "settings": {
-                "apply_overlay": true,
-                "content_position": "bottomLeft",
-                "subheading": "Slide title",
-                "title": "Tell your story"
-              }
             }
           },
           "block_order": [
-            "slide-0",
-            "slide-1"
+            "slide-0"
           ],
           "settings": {
             "show_fullscreen": true,
@@ -1387,20 +1388,10 @@
                 "subheading": "Slide title",
                 "title": "Tell your story"
               }
-            },
-            "slide-1": {
-              "type": "image",
-              "settings": {
-                "apply_overlay": true,
-                "content_position": "bottomLeft",
-                "subheading": "Slide title",
-                "title": "Tell your story"
-              }
             }
           },
           "block_order": [
-            "slide-0",
-            "slide-1"
+            "slide-0"
           ],
           "settings": {
             "show_fullscreen": true,

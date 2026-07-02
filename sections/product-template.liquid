@@ -1,14 +1,4 @@
-{%- capture section_settings -%}
-{
-  "enableHistoryState": true,
-  "showInventoryQuantity": {% if section.settings.show_inventory_quantity %}true{% else %}false{% endif %},
-  "showThumbnails": {% if section.settings.show_thumbnails %}true{% else %}false{% endif %},
-  "inventoryQuantityThreshold": {{ section.settings.inventory_quantity_threshold }},
-  "enableImageZoom": {% if section.settings.enable_image_zoom %}true{% else %}false{% endif %},
-  "showPaymentButton": {{ section.settings.show_payment_button | json }},
-  "useAjaxCart": {% if settings.cart_type == 'drawer' %}true{% else %}false{% endif %}
-}
-{%- endcapture -%}
+{%- capture section_settings -%}{"enableHistoryState":true,"showInventoryQuantity":{% if section.settings.show_inventory_quantity %}true{% else %}false{% endif %},"showThumbnails":{% if section.settings.show_thumbnails %}true{% else %}false{% endif %},"inventoryQuantityThreshold":{{ section.settings.inventory_quantity_threshold }},"enableImageZoom":{% if section.settings.enable_image_zoom %}true{% else %}false{% endif %},"showPaymentButton":{{ section.settings.show_payment_button | json }},"useAjaxCart":{% if settings.cart_type == 'drawer' %}true{% else %}false{% endif %}}{%- endcapture -%}
 
 <section class="Product Product--{{ section.settings.image_size }}" data-section-id="{{ section.id }}" data-section-type="product" data-section-settings='{{ section_settings }}'>
   <div class="Product__Wrapper">
@@ -59,7 +49,7 @@
             {% assign image_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
             <img class="Image--lazyLoad Image--fadeIn"
-                 {% if initial_image_id == image.id %}src="{{ image | img_url: '250x' }}"{% endif %}
+                 {% if initial_image_id == image.id %}src="{{ image | img_url: '250x' }}" loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
                  data-src="{{ image_url }}"
                  data-widths="[{{ supported_sizes }}]"
                  data-sizes="auto"
@@ -138,17 +128,7 @@
           </div>
         {%- endif -%}
 
-        {%- capture flickity_options -%}
-        {
-          "prevNextButtons": false,
-          "pageDots": {% if image_count > 1 %}true{% else %}false{% endif %},
-          "adaptiveHeight": true,
-          "wrapAround": false,
-          "watchCSS": true,
-          "dragThreshold": 8,
-          "initialIndex": {{ initial_image_index }}
-        }
-        {%- endcapture -%}
+        {%- capture flickity_options -%}{"prevNextButtons":false,"pageDots":{% if image_count > 1 %}true{% else %}false{% endif %},"adaptiveHeight":true,"wrapAround":false,"watchCSS":true,"dragThreshold":8,"initialIndex":{{ initial_image_index }}}{%- endcapture -%}
 
         <div class="Product__Slideshow {% if section.settings.enable_image_zoom %}Product__Slideshow--zoomable{% endif %} Carousel" data-flickity-config='{{ flickity_options }}'>
           {{ slideshow_images }}
@@ -282,25 +262,9 @@ We allow merchants to use one image as a "featured image" by adding the alt tag 
     </noscript>
   </div>
 
-  <style>
-    #shopify-section-{{ section.id }} + .shopify-section--bordered {
-      border-top: 0;
-    }
-  </style>
+  <style>#shopify-section-{{ section.id }}+.shopify-section--bordered{border-top:0}</style>
 {%- else -%}
-  <style>
-    /* Very ugly haha */
-
-    @media screen and (max-width: 640px) {
-      #shopify-section-{{ section.id }} + .shopify-section--bordered {
-        border-top: 0;
-      }
-
-      #shopify-section-{{ section.id }} + .shopify-section--bordered > .Section {
-        padding-top: 0;
-      }
-    }
-  </style>
+  <style>@media screen and (max-width:640px){#shopify-section-{{ section.id }}+.shopify-section--bordered{border-top:0}#shopify-section-{{ section.id }}+.shopify-section--bordered>.Section{padding-top:0}}</style>
 {%- endif -%}
 
 {%- comment -%}
@@ -318,9 +282,9 @@ If we have some videos, we implement them as modal
         <div class="Container Container--narrow">
           <div class="VideoWrapper">
             {% if image.alt contains 'youtube.com/embed' %}
-              <iframe class="Image--lazyLoad" data-src="{{ image.alt }}?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+              <iframe class="Image--lazyLoad" loading="lazy" data-src="{{ image.alt }}?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
             {% else %}
-              <iframe class="Image--lazyLoad" data-src="{{ image.alt }}?autoplay=1&portrait=0&byline=0&color={{ settings.accent_color | remove_first: '#' }}" frameborder="0"></iframe>
+              <iframe class="Image--lazyLoad" loading="lazy" data-src="{{ image.alt }}?autoplay=1&portrait=0&byline=0&color={{ settings.accent_color | remove_first: '#' }}" frameborder="0"></iframe>
             {% endif %}
           </div>
         </div>

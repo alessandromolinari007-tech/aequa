@@ -55,7 +55,7 @@
       <div class="Drawer__Footer" data-drawer-animated-bottom>
         {%- capture shipping_and_taxes_notice -%}{{ 'cart.general.shipping_and_taxes_notice' | t }}{%- endcapture -%}
 
-        {%- if settings.cart_enable_notes or shipping_and_taxes_notices != blank -%}
+        {%- if settings.cart_enable_notes or shipping_and_taxes_notice != blank -%}
           {%- if settings.cart_enable_notes -%}
             {%- if cart.note == blank -%}
               <button type="button" class="Cart__NoteButton" data-action="toggle-cart-note">{{ 'cart.general.add_note' | t }}</button>

@@ -45,9 +45,9 @@
     <div class="Container Container--narrow">
       <div class="VideoWrapper">
         {% if section.settings.video_url.type == 'youtube' %}
-          <iframe class="Image--lazyLoad" data-src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+          <iframe class="Image--lazyLoad" loading="lazy" data-src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
           {% elsif section.settings.video_url.type == 'vimeo' %}
-          <iframe class="Image--lazyLoad" data-src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&portrait=0&byline=0&color={{ settings.accent_color | remove_first: '#' }}" frameborder="0"></iframe>
+          <iframe class="Image--lazyLoad" loading="lazy" data-src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&portrait=0&byline=0&color={{ settings.accent_color | remove_first: '#' }}" frameborder="0"></iframe>
         {% endif %}
       </div>
     </div>

@@ -1,12 +1,7 @@
 {%- if section.settings.show_popup -%}
   {%- unless section.settings.show_only_on_index and template != 'index' -%}
     {%- unless section.settings.show_only_for_visitors and customer -%}
-      {% capture section_settings %}
-        {
-          "apparitionDelay": {{ section.settings.apparition_delay | json }},
-          "showOnlyOnce": {{ section.settings.show_only_once | json }}
-        }
-      {% endcapture %}
+      {%- capture section_settings -%}{"apparitionDelay":{{ section.settings.apparition_delay | json }},"showOnlyOnce":{{ section.settings.show_only_once | json }}}{%- endcapture -%}
 
       <aside class="NewsletterPopup" data-section-id="{{ section.id }}" data-section-type="newsletter-popup" data-section-settings='{{ section_settings }}' aria-hidden="true">
         <button type="button" class="NewsletterPopup__Close" data-action="close-popup">{% include 'icon' with 'close' %}</button>

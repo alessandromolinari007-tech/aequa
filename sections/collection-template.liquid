@@ -71,14 +71,7 @@
     {%- endunless -%}
   {%- endfor -%}
 
-  {%- capture section_settings -%}
-  {
-    "collectionUrl": {{ collection.url | default: '/collections/all' | json }},
-    "currentTags": {% if active_tags != blank %}{{ active_tags | split: '+' | json }}{% else %}[]{% endif %},
-    "sortBy": {{ collection.sort_by | default: collection.default_sort_by | json }},
-    "filterPosition": {{ section.settings.filter_position | json }}
-  }
-  {%- endcapture -%}
+  {%- capture section_settings -%}{"collectionUrl":{{ collection.url | default: '/collections/all' | json }},"currentTags":{% if active_tags != blank %}{{ active_tags | split: '+' | json }}{% else %}[]{% endif %},"sortBy":{{ collection.sort_by | default: collection.default_sort_by | json }},"filterPosition":{{ section.settings.filter_position | json }}}{%- endcapture -%}
 
   <section data-section-id="{{ section.id }}" data-section-type="collection" data-section-settings='{{ section_settings }}'>
     {%- comment -%}

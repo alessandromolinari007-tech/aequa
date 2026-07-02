@@ -1,14 +1,5 @@
 {%- if section.settings.show_section -%}
-  {%- capture flickity_config -%}
-  {
-    "prevNextButtons": true,
-    "pageDots": false,
-    "wrapAround": true,
-    "cellAlign": "left",
-    "groupCells": true,
-    "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
-  }
-  {%- endcapture -%}
+  {%- capture flickity_config -%}{"prevNextButtons":true,"pageDots":false,"wrapAround":true,"cellAlign":"left","groupCells":true,"arrowShape":{"x0":20,"x1":60,"y1":40,"x2":60,"y2":35,"x3":25}}{%- endcapture -%}
 
   <section class="Section Section--spacingLarge" data-section-id="{{ section.id }}" data-section-type="shop-now">
     <div class="Container Container--narrow">

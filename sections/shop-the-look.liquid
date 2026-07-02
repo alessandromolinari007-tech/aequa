@@ -1,26 +1,4 @@
-{%- capture flickity_options -%}
-{
-  "prevNextButtons": false,
-  "pageDots": false,
-  "draggable": {% if section.blocks.size == 1 %}false{% else %}true{% endif %},
-  "cellAlign": "center",
-  "wrapAround": false,
-  "percentPosition": false,
-  "dragThreshold": 10,
-  "cellSelector": ".ShopTheLook__Item",
-  "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25},
-  "breakpoints": [
-    {
-      "matches": "lap-and-up",
-      "settings": {
-        "prevNextButtons": true,
-        "draggable": false,
-        "wrapAround": true
-      }
-    }
-  ]
-}
-{%- endcapture -%}
+{%- capture flickity_options -%}{"prevNextButtons":false,"pageDots":false,"draggable":{% if section.blocks.size == 1 %}false{% else %}true{% endif %},"cellAlign":"center","wrapAround":false,"percentPosition":false,"dragThreshold":10,"cellSelector":".ShopTheLook__Item","arrowShape":{"x0":20,"x1":60,"y1":40,"x2":60,"y2":35,"x3":25},"breakpoints":[{"matches":"lap-and-up","settings":{"prevNextButtons":true,"draggable":false,"wrapAround":true}}]}{%- endcapture -%}
 
 <section class="Section Section--spacingNormal" data-section-id="{{ section.id }}" data-section-type="shop-the-look">
   {%- if section.settings.subheading != blank or section.settings.title != blank -%}
@@ -80,7 +58,7 @@
                        height="{{ block.settings.image.height }}"
                        decoding="async"
                        fetchpriority="low"
-                       style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" loading="lazy">
 
                   <noscript>
                     <img class="ShopTheLook__Image" src="{{ block.settings.image | img_url: '600x' }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt | escape }}">

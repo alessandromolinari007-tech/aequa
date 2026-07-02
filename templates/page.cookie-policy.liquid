@@ -1,0 +1,71 @@
+<div class="Container">
+  <header class="PageHeader">
+    <div class="SectionHeader SectionHeader--center">
+      <h1 class="SectionHeader__Heading Heading u-h1">Cookie Policy</h1>
+    </div>
+  </header>
+
+  <div class="PageContent PageContent--narrow Rte">
+    <p><strong>Ultimo aggiornamento:</strong> {{ 'now' | date: '%d/%m/%Y' }}</p>
+
+    <h2>1. Cosa sono i cookie</h2>
+    <p>I cookie sono piccoli file di testo che i siti web visitati dall'utente inviano e registrano sul suo computer o dispositivo mobile, per essere poi ritrasmessi agli stessi siti alla visita successiva. I cookie consentono al sito di riconoscere il dispositivo dell'utente, memorizzare preferenze e migliorare l'esperienza di navigazione.</p>
+
+    <h2>2. Tipologie di cookie utilizzati</h2>
+    <p>Sul sito <strong>{{ shop.domain }}</strong> utilizziamo le seguenti categorie di cookie:</p>
+
+    <h3>2.1 Cookie tecnici (necessari)</h3>
+    <p>Questi cookie sono essenziali per il funzionamento del sito e non possono essere disattivati nei nostri sistemi. Vengono generalmente impostati solo in risposta ad azioni compiute dall'utente (come l'impostazione delle preferenze privacy, l'accesso all'account o la compilazione di moduli). È possibile bloccarli tramite le impostazioni del browser, ma ciò comprometterebbe il corretto funzionamento del sito.</p>
+
+    <h3>2.2 Cookie analitici</h3>
+    <p>Utilizziamo strumenti di analisi (come Google Analytics) per raccogliere informazioni sul modo in cui gli utenti interagiscono con il sito, quali pagine visitano, il tempo di permanenza e le fonti di traffico. Questi dati sono aggregati e anonimi e ci aiutano a migliorare le prestazioni del sito. Questi cookie vengono installati solo previo consenso dell'utente.</p>
+
+    <h3>2.3 Cookie di marketing e profilazione</h3>
+    <p>Questi cookie sono utilizzati per tracciare le preferenze di navigazione dell'utente e mostrare contenuti pubblicitari pertinenti. Possono essere impostati da {{ shop.name }} o da terze parti (social network, piattaforme pubblicitarie). Questi cookie vengono installati solo previo consenso esplicito dell'utente.</p>
+
+    <h3>2.4 Cookie di terze parti</h3>
+    <p>Il nostro sito utilizza servizi di terze parti che possono installare cookie sul dispositivo dell'utente, tra cui:</p>
+    <ul>
+      <li><strong>Shopify:</strong> piattaforma di e-commerce per la gestione del sito e degli ordini.</li>
+      <li><strong>Google Analytics:</strong> analisi del traffico e comportamento degli utenti.</li>
+      <li><strong>Meta (Facebook/Instagram):</strong> tracciamento per campagne pubblicitarie e remarketing.</li>
+      <li><strong>Corrieri e servizi di pagamento:</strong> necessari per la gestione delle spedizioni e dei pagamenti.</li>
+    </ul>
+
+    <h2>3. Gestione delle preferenze sui cookie</h2>
+    <p>All'accesso al sito, viene mostrato un banner informativo che permette di gestire le preferenze sui cookie. L'utente può:</p>
+    <ul>
+      <li>Accettare tutti i cookie.</li>
+      <li>Rifiutare i cookie non necessari.</li>
+      <li>Personalizzare le preferenze per categoria.</li>
+    </ul>
+    <p>In qualsiasi momento è possibile modificare le preferenze accedendo nuovamente al banner dei cookie o tramite le impostazioni del browser.</p>
+
+    <h2>4. Disabilitazione dei cookie dal browser</h2>
+    <p>L'utente può configurare il proprio browser per rifiutare tutti i cookie o per essere avvisato quando un cookie viene inviato. Le istruzioni per i principali browser sono disponibili ai seguenti link:</p>
+    <ul>
+      <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+      <li><a href="https://support.mozilla.org/it/kb/Attivare%20e%20disattivare%20i%20cookie" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+      <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+      <li><a href="https://support.microsoft.com/it-it/help/17442/windows-internet-explorer-delete-manage-cookies" target="_blank" rel="noopener">Microsoft Edge / Internet Explorer</a></li>
+    </ul>
+    <p>La disabilitazione dei cookie tecnici potrebbe compromettere alcune funzionalità del sito.</p>
+
+    <h2>5. Durata dei cookie</h2>
+    <p>I cookie possono essere di sessione (eliminati alla chiusura del browser) o persistenti (rimangono sul dispositivo per un periodo predefinito). La durata dei cookie di terze parti è stabilita dai rispettivi provider.</p>
+
+    <h2>6. Dati raccolti tramite cookie</h2>
+    <p>I cookie possono raccogliere informazioni quali: indirizzo IP, tipo di browser, sistema operativo, pagine visitate, tempo di permanenza, azioni compiute sul sito, provenienza geografica approssimativa. Questi dati non identificano direttamente l'utente, salvo associazione con altre informazioni in nostro possesso.</p>
+
+    <h2>7. Diritti dell'utente</h2>
+    <p>In relazione al trattamento dei dati effettuato tramite cookie, l'utente può esercitare i diritti previsti dal Regolamento UE 2016/679 (GDPR), inclusi accesso, rettifica, cancellazione, limitazione, opposizione e portabilità. Per esercitare tali diritti, contattaci all'indirizzo <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>.</p>
+
+    <h2>8. Modifiche alla Cookie Policy</h2>
+    <p>{{ shop.name }} si riserva il diritto di modificare la presente Cookie Policy in qualsiasi momento. Le modifiche saranno pubblicate su questa pagina con l'indicazione della data di ultimo aggiornamento. Ti invitiamo a consultare periodicamente questa sezione per essere sempre informato.</p>
+
+    <h2>9. Contatti</h2>
+    <p>Per qualsiasi domanda relativa all'uso dei cookie, scrivi a:</p>
+    <p><strong>Email:</strong> <a href="mailto:{{ shop.email }}">{{ shop.email }}</a><br>
+    <strong>Sito:</strong> {{ shop.domain }}</p>
+  </div>
+</div>

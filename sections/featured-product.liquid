@@ -1,15 +1,16 @@
-{%- assign product = all_products[section.settings.product] -%}
+{%- if section.settings.random_product -%}
+  {%- assign product_list = collections.all.products -%}
+  {%- if product_list.size > 0 -%}
+    {%- assign random_index = "now" | date: "%s" | modulo: product_list.size -%}
+    {%- assign product = product_list[random_index] -%}
+  {%- else -%}
+    {%- assign product = empty -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign product = all_products[section.settings.product] -%}
+{%- endif -%}
 
-{%- capture section_settings -%}
-{
-  "enableHistoryState": false,
-  "usePlaceholder": {% if product == empty %}true{% else %}false{% endif %},
-  "showInventoryQuantity": {% if section.settings.show_inventory_quantity %}true{% else %}false{% endif %},
-  "inventoryQuantityThreshold": {{ section.settings.inventory_quantity_threshold }},
-  "showPaymentButton": {{ section.settings.show_payment_button | json }},
-  "useAjaxCart": {% if settings.cart_type == 'drawer' %}true{% else %}false{% endif %}
-}
-{%- endcapture -%}
+{%- capture section_settings -%}{"enableHistoryState":false,"usePlaceholder":{% if product == empty %}true{% else %}false{% endif %},"showInventoryQuantity":{% if section.settings.show_inventory_quantity %}true{% else %}false{% endif %},"inventoryQuantityThreshold":{{ section.settings.inventory_quantity_threshold }},"showPaymentButton":{{ section.settings.show_payment_button | json }},"useAjaxCart":{% if settings.cart_type == 'drawer' %}true{% else %}false{% endif %}}{%- endcapture -%}
 
 <section class="Section Section--spacingNormal" data-section-id="{{ section.id }}" data-section-type="featured-product" data-section-settings='{{ section_settings }}'>
   <div class="Container">
@@ -40,7 +41,7 @@
             <div class="AspectRatio AspectRatio--square" style="max-width: {{ product.featured_image.width }}px;">
               {% assign image_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
-              <img class="Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ product.featured_image.alt | escape }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" decoding="async" fetchpriority="low" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+              <img class="Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ product.featured_image.alt | escape }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" decoding="async" loading="eager" fetchpriority="high" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
               <span class="Image__Loader"></span>
 
               <noscript>
@@ -156,6 +157,13 @@
       "type": "product",
       "id": "product",
       "label": "Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "random_product",
+      "label": "Mostra prodotto casuale",
+      "default": false,
+      "info": "Se attivo, mostra un prodotto casuale dalla collezione 'All' ignorando il prodotto selezionato sopra."
     },
     {
       "type": "checkbox",

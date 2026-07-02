@@ -1,1 +1,13 @@
 {{ content_for_index }}
+
+{% include 'trust-badges' %}
+
+<script>
+  (function() {
+    var badges = document.querySelector('.TrustBadges');
+    var target = document.getElementById('shopify-section-featured-collections');
+    if (badges && target && target.parentNode) {
+      target.parentNode.insertBefore(badges, target.nextSibling);
+    }
+  })();
+</script>

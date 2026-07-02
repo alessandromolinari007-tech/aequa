@@ -1,6 +1,6 @@
-<section data-section-id="login" data-section-type="login">
+<section class="AccountPage AccountPage--login" data-section-id="login" data-section-type="login">
   <div class="Container">
-    <div class="PageContent PageContent--fitScreen PageContent--extraNarrow">
+    <div class="AccountPage__Wrapper">
       {%- assign is_recover_active = false -%}
 
       {%- form 'recover_customer_password' -%}
@@ -9,93 +9,66 @@
         {%- endif -%}
       {%- endform -%}
 
-      {%- comment -%}
-      --------------------------------------------------------------------------------------------------------------------
-      CUSTOMER LOGIN FORM
-      --------------------------------------------------------------------------------------------------------------------
-      {%- endcomment -%}
-
       {%- if is_recover_active -%}
         {%- assign login_default_visibility = 'display: none' -%}
       {%- else -%}
         {%- assign login_default_visibility = 'display: block' -%}
       {%- endif -%}
 
-      {%- form 'customer_login', name: 'login', class: 'Form Form--spacingTight', id: 'customer_login', style: login_default_visibility -%}
-        <header class="Form__Header">
-          <h1 class="Form__Title Heading u-h1">{{ 'customer.login.title' | t }}</h1>
-          <p class="Form__Legend">{{ 'customer.login.description' | t }}</p>
-        </header>
+      <!-- LOGIN -->
+      {%- form 'customer_login', name: 'login', class: 'AccountPage__Form', id: 'customer_login', style: login_default_visibility -%}
+        <h1 class="AccountPage__Heading Heading">{{ 'customer.login.title' | t }}</h1>
+        <p class="AccountPage__Subheading">Accedi al tuo account AEQUO</p>
 
         {%- if form.errors -%}
-          <p class="Form__Alert Alert Alert--error">
-            {{- form.errors.messages['form'] -}}
-          </p>
+          <div class="AccountPage__Error">{{ form.errors.messages['form'] }}</div>
         {%- endif -%}
 
-        <div class="Form__Item">
-          <input type="email" class="Form__Input" name="customer[email]" required="required" placeholder="{{ 'customer.login.email' | t }}" aria-label="{{ 'customer.login.email' | t }}" autofocus>
-          <label class="Form__FloatingLabel">{{ 'customer.login.email' | t }}</label>
+        <div class="AccountPage__Field">
+          <input type="email" class="AccountPage__Input" name="customer[email]" required placeholder="Email" aria-label="Email" autofocus>
         </div>
 
-        <div class="Form__Item">
-          <input type="password" class="Form__Input" name="customer[password]" required="required" placeholder="{{ 'customer.login.password' | t }}" aria-label="{{ 'customer.login.password' | t }}">
-          <label class="Form__FloatingLabel">{{ 'customer.login.password' | t }}</label>
-          <button type="button" class="Form__ItemHelp Link Link--primary" data-action="toggle-recover-form">{{ 'customer.login.forgot' | t }}</button>
+        <div class="AccountPage__Field">
+          <input type="password" class="AccountPage__Input" name="customer[password]" required placeholder="Password" aria-label="Password">
         </div>
 
-        <button type="submit" class="Form__Submit Button Button--primary Button--full">{{ 'customer.login.submit' | t }}</button>
+        <button type="button" class="AccountPage__Link AccountPage__Link--right" data-action="toggle-recover-form">Password dimenticata?</button>
 
-        <div class="Form__Hint Form__Hint--center">
-          <span class="Text--subdued">{{ 'customer.login.register_label' | t }}</span>
-          <a href="/account/register" class="Link Link--secondary">{{ 'customer.login.register_link' | t }}</a>
+        <button type="submit" class="AccountPage__Submit">ACCEDI</button>
+
+        <div class="AccountPage__Divider">
+          <span>oppure</span>
         </div>
+
+        <a href="/account/register" class="AccountPage__OutlineButton">CREA UN ACCOUNT</a>
       {%- endform -%}
 
-      {%- comment -%}
-      --------------------------------------------------------------------------------------------------------------------
-      CUSTOMER RECOVERY FORM
-      --------------------------------------------------------------------------------------------------------------------
-      {%- endcomment -%}
-
+      <!-- RECOVER -->
       {%- if is_recover_active -%}
         {%- assign recover_default_visibility = 'display: block' -%}
       {%- else -%}
         {%- assign recover_default_visibility = 'display: none' -%}
       {%- endif -%}
 
-      {%- form 'recover_customer_password', name: 'recover', class: 'Form Form--spacingTight', id: 'recover_customer_password', style: recover_default_visibility -%}
-        <header class="Form__Header">
-          <h1 class="Form__Title Heading u-h1">{{ 'customer.recover_password.title' | t }}</h1>
-
-          {%- unless form.posted_successfully? -%}
-            <p class="Form__Legend">{{ 'customer.recover_password.description' | t }}</p>
-          {%- endunless -%}
-        </header>
+      {%- form 'recover_customer_password', name: 'recover', class: 'AccountPage__Form', id: 'recover_customer_password', style: recover_default_visibility -%}
+        <h1 class="AccountPage__Heading Heading">{{ 'customer.recover_password.title' | t }}</h1>
+        <p class="AccountPage__Subheading">{{ 'customer.recover_password.description' | t }}</p>
 
         {%- if form.errors -%}
-          <p class="Form__Alert Alert Alert--error">
-            {{- form.errors.messages['form'] -}}
-          </p>
+          <div class="AccountPage__Error">{{ form.errors.messages['form'] }}</div>
         {%- endif -%}
 
         {%- if form.posted_successfully? -%}
-          <p class="Form__Alert Alert Alert--success">
-            {{- 'customer.recover_password.success' | t -}}
-          </p>
+          <div class="AccountPage__Success">{{ 'customer.recover_password.success' | t }}</div>
         {%- endif -%}
 
-        <div class="Form__Item">
-          <input type="email" class="Form__Input" name="email" required="required" placeholder="{{ 'customer.recover_password.email' | t }}" aria-label="{{ 'customer.recover_password.email' | t }}" autofocus>
-          <label class="Form__FloatingLabel">{{ 'customer.recover_password.email' | t }}</label>
+        <div class="AccountPage__Field">
+          <input type="email" class="AccountPage__Input" name="email" required placeholder="Email" aria-label="Email" autofocus>
         </div>
 
-        <button type="submit" class="Form__Submit Button Button--primary Button--full">{{ 'customer.recover_password.submit' | t }}</button>
+        <button type="submit" class="AccountPage__Submit">INVIA</button>
 
-        <div class="Form__Hint Form__Hint--center">
-          <span class="Text--subdued">{{ 'customer.recover_password.login_label' | t }}</span>
-          <button type="button" class="Link Link--secondary" data-action="toggle-recover-form">{{ 'customer.recover_password.login_link' | t }}</button>
-        </div>
+        <button type="button" class="AccountPage__Link AccountPage__Link--center" data-action="toggle-recover-form">Torna al login</button>
       {%- endform -%}
     </div>
   </div>

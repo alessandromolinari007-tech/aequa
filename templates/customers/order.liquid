@@ -63,7 +63,7 @@
               <tr>
                 <td>
                   <div class="CartItem__ImageWrapper AspectRatio AspectRatio--square">
-                    <img class="CartItem__Image" src="{{ line_item.image | img_url: '240x' }}" alt="{{ line_item.image.alt | escape }}" style="width:100%;height:100%;object-fit:cover;">
+                    <img class="CartItem__Image" src="{{ line_item.image | img_url: '240x' }}" alt="{{ line_item.image.alt | escape }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
                   </div>
 
                   <div class="CartItem__Info">

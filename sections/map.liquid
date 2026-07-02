@@ -1,11 +1,4 @@
-{% capture section_settings %}
-{
-  "apiKey": {{ section.settings.api_key | json }},
-  "mapAddress": {{ section.settings.map_address | json }},
-  "zoom": {{ section.settings.zoom }},
-  "markerColor": {% if section.settings.map_style == 'standard' or section.settings.map_style == 'silver' or section.settings.map_style == 'retro' %}"#000000"{% else %}"#ffffff"{% endif %}
-}
-{% endcapture %}
+{%- capture section_settings -%}{"apiKey":{{ section.settings.api_key | json }},"mapAddress":{{ section.settings.map_address | json }},"zoom":{{ section.settings.zoom }},"markerColor":{% if section.settings.map_style == 'standard' or section.settings.map_style == 'silver' or section.settings.map_style == 'retro' %}"#000000"{% else %}"#ffffff"{% endif %}}{%- endcapture -%}
 
 <section class="Section Section--spacingNormal" id="section-{{ section.id }}" data-section-type="map" data-section-id="{{ section.id }}" data-section-settings='{{ section_settings | escape }}'>
   <div class="Container">

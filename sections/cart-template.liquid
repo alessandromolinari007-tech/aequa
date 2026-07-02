@@ -1,11 +1,4 @@
-{%- capture section_settings -%}
-{
-  "type": {{ settings.cart_type | json }},
-  "itemCount": {{ cart.item_count }},
-  "drawer": false,
-  "hasShippingEstimator": {% if section.settings.show_shipping_estimator and cart.item_count > 0 %}true{% else %}false{% endif %}
-}
-{%- endcapture -%}
+{%- capture section_settings -%}{"type":{{ settings.cart_type | json }},"itemCount":{{ cart.item_count }},"drawer":false,"hasShippingEstimator":{% if section.settings.show_shipping_estimator and cart.item_count > 0 %}true{% else %}false{% endif %}}{%- endcapture -%}
 
 <section data-section-id="{{ section.id }}" data-section-type="cart" data-section-settings='{{ section_settings }}'>
   {%- if cart.item_count == 0 -%}

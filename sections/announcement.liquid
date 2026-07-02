@@ -14,14 +14,8 @@
       </div>
     </section>
 
-    <script>
-      (function() {
-        var section = document.getElementById('section-{{ section.id }}');
-        if (section) {
-          document.documentElement.style.setProperty('--announcement-bar-height', section.offsetHeight + 'px');
-        }
-      })();
-    </script>
+    <script>(function(){var s=document.getElementById('section-{{ section.id }}');if(s){document.documentElement.style.setProperty('--announcement-bar-height',s.offsetHeight+'px')}})();</script>
+    <style>#section-{{ section.id }} .AnnouncementBar__Wrapper{padding-top:6px!important;padding-bottom:6px!important}#section-{{ section.id }} .AnnouncementBar{font-size:10px!important}</style>
   {%- endunless -%}
 {%- endif -%}
 
@@ -42,22 +36,10 @@
       "default": false
     },
     {
-      "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text",
-      "default": "#ffffff"
-    },
-    {
       "type": "text",
       "id": "content",
       "label": "Text",
-      "default": "Announce something here"
+      "default": "Consegna in 10 giorni"
     },
     {
       "type": "url",

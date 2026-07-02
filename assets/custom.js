@@ -1,21 +1,3 @@
-/**
- * Include your custom JavaScript here.
- *
- * We also offer some hooks so you can plug your own logic. For instance, if you want to be notified when the variant
- * changes on product page, you can attach a listener to the document:
- *
- * document.addEventListener('variant:changed', function(event) {
- *   var variant = event.detail.variant; // Gives you access to the whole variant details
- * });
- *
- * You can also add a listener whenever a product is added to the cart:
- *
- * document.addEventListener('product:added', function(event) {
- *   var variant = event.detail.variant; // Get the variant that was added
- *   var quantity = event.detail.quantity; // Get the quantity that was added
- * });
- */
-
 document.addEventListener('DOMContentLoaded', function() {
   var langSelect = document.querySelector('.LanguageSelector__Select');
   if (langSelect) {
@@ -44,16 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
    * AEQUO COOKIE BANNER — Text replacement & DOM tweaks
    * ------------------------------------------------------------------ */
   function styleCookieBanner() {
-    var selectors = [
-      '.shopify-pc__banner',
-      '#shopify-pc__banner',
-      '[data-testid="cookie-banner"]'
-    ];
-    var banner = null;
-    for (var i = 0; i < selectors.length; i++) {
-      banner = document.querySelector(selectors[i]);
-      if (banner) break;
-    }
+    var banner = document.querySelector('.shopify-pc__banner, #shopify-pc__banner, [data-testid="cookie-banner"]');
 
     if (!banner) return false;
     if (banner.dataset.aequoStyled === '1') return true;
@@ -178,5 +151,120 @@ document.addEventListener('DOMContentLoaded', function() {
       obs.observe(document.body, { childList: true, subtree: true });
     }
   });
+
+  /* ------------------------------------------------------------------
+   * AEQUO: force slideshow video to fullscreen on mobile
+   * ------------------------------------------------------------------ */
+  function forceSlideshowVideoFullscreen() {
+    if (window.innerWidth > 640) return;
+    var videos = document.querySelectorAll('video.Slideshow__Image');
+    videos.forEach(function(video) {
+      var container = video.closest('.Slideshow__ImageContainer');
+      if (!container) return;
+      container.style.height = '100vh';
+      container.style.minHeight = '100vh';
+      container.style.maxHeight = '100vh';
+      container.style.position = 'relative';
+      container.style.overflow = 'hidden';
+      container.style.width = '100vw';
+      container.style.paddingBottom = '0';
+
+      var slide = container.closest('.Slideshow__Slide');
+      if (slide) {
+        slide.style.height = '100vh';
+        slide.style.minHeight = '100vh';
+        slide.style.maxHeight = '100vh';
+      }
+
+      var carousel = container.closest('.Slideshow__Carousel');
+      if (carousel) {
+        var viewport = carousel.querySelector('.flickity-viewport');
+        if (viewport) {
+          viewport.style.height = '100vh';
+          viewport.style.minHeight = '100vh';
+          viewport.style.maxHeight = '100vh';
+        }
+        var slider = carousel.querySelector('.flickity-slider');
+        if (slider) {
+          slider.style.height = '100vh';
+          slider.style.minHeight = '100vh';
+          slider.style.maxHeight = '100vh';
+        }
+      }
+
+      video.style.position = 'absolute';
+      video.style.top = '0';
+      video.style.left = '0';
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.minWidth = '100%';
+      video.style.minHeight = '100%';
+      video.style.maxWidth = 'none';
+      video.style.maxHeight = 'none';
+      video.style.objectFit = 'cover';
+      video.style.objectPosition = 'center';
+      video.style.opacity = '1';
+      video.style.visibility = 'visible';
+      video.style.display = 'block';
+    });
+  }
+
+  forceSlideshowVideoFullscreen();
+  setTimeout(forceSlideshowVideoFullscreen, 500);
+  setTimeout(forceSlideshowVideoFullscreen, 1500);
+  window.addEventListener('resize', forceSlideshowVideoFullscreen);
+
+  /* ------------------------------------------------------------------
+   * AEQUO: horizontal scroll arrows for product grids
+   * ------------------------------------------------------------------ */
+  (function initProductGridArrows() {
+    var wrappers = document.querySelectorAll('.ProductListWrapper');
+    wrappers.forEach(function(wrapper) {
+      var grid = wrapper.querySelector('.ProductList--grid');
+      if (!grid || grid.children.length <= 1) return;
+      if (wrapper.classList.contains('ProductListScroll')) return;
+
+      wrapper.classList.add('ProductListScroll');
+
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.className = 'ProductListScroll__Arrow ProductListScroll__Arrow--prev';
+      prevBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+      prevBtn.setAttribute('aria-label', 'Previous products');
+
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'ProductListScroll__Arrow ProductListScroll__Arrow--next';
+      nextBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+      nextBtn.setAttribute('aria-label', 'Next products');
+
+      function scrollByItems(direction) {
+        var item = grid.children[0];
+        if (!item) return;
+        var gap = 4;
+        var itemWidth = item.offsetWidth + gap;
+        var viewportWidth = grid.clientWidth;
+        var visibleItems = Math.floor(viewportWidth / itemWidth) || 1;
+        grid.scrollBy({ left: direction * itemWidth * visibleItems, behavior: 'smooth' });
+      }
+
+      prevBtn.addEventListener('click', function() { scrollByItems(-1); });
+      nextBtn.addEventListener('click', function() { scrollByItems(1); });
+
+      function updateArrows() {
+        var maxScroll = grid.scrollWidth - grid.clientWidth;
+        prevBtn.setAttribute('aria-hidden', grid.scrollLeft <= 5 ? 'true' : 'false');
+        nextBtn.setAttribute('aria-hidden', grid.scrollLeft >= maxScroll - 5 ? 'true' : 'false');
+      }
+
+      updateArrows();
+
+      wrapper.appendChild(prevBtn);
+      wrapper.appendChild(nextBtn);
+
+      grid.addEventListener('scroll', updateArrows);
+      window.addEventListener('resize', updateArrows);
+    });
+  })();
 
 });

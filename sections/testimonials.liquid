@@ -1,12 +1,4 @@
-{%- capture flickity_options -%}
-{
-  "prevNextButtons": false,
-  "wrapAround": true,
-  "dragThreshold": 16,
-  "pageDots": {% if section.blocks.size > 1 %}true{% else %}false{% endif %},
-  "autoPlay": {% if section.settings.autoplay %}{{ section.settings.cycle_speed | times: 1000 }}{% else %}false{% endif %}
-}
-{%- endcapture -%}
+{%- capture flickity_options -%}{"prevNextButtons":false,"wrapAround":true,"dragThreshold":16,"pageDots":{% if section.blocks.size > 1 %}true{% else %}false{% endif %},"autoPlay":{% if section.settings.autoplay %}{{ section.settings.cycle_speed | times: 1000 }}{% else %}false{% endif %}}{%- endcapture -%}
 
 {%- assign should_show_nav = false -%}
 
@@ -24,7 +16,55 @@
         <div class="Container">
           {%- if block.settings.quote != blank -%}
             <div class="Testimonial__Content">
-              {{ block.settings.quote }}
+              {{ block.settings.quote | replace: '<p>', '<p>&ldquo;' | replace: '</p>', '&rdquo;</p>' }}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.author != blank -%}
+            <div class="Testimonial__Author">
+              - {{ block.settings.author }}
+            </div>
+          {%- endif -%}
+
+          {%- assign rating = block.settings.rating | default: 5 -%}
+          {%- assign rating_int = rating | times: 2 | floor -%}
+          {%- assign full_stars = rating_int | divided_by: 2 -%}
+          {%- assign remainder = rating_int | modulo: 2 -%}
+          {%- assign has_half = false -%}
+          {%- if remainder == 1 -%}{%- assign has_half = true -%}{%- endif -%}
+          {%- assign empty_stars = 5 | minus: full_stars -%}
+          {%- if has_half -%}{%- assign empty_stars = empty_stars | minus: 1 -%}{%- endif -%}
+
+          <div class="Testimonial__Stars" aria-hidden="true">
+            {%- for i in (1..full_stars) -%}
+              <span class="Testimonial__Star">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </span>
+            {%- endfor -%}
+            {%- if has_half -%}
+              <span class="Testimonial__Star Testimonial__Star--half">
+                <svg class="Testimonial__StarEmpty" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <svg class="Testimonial__StarFull" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </span>
+            {%- endif -%}
+            {%- for i in (1..empty_stars) -%}
+              <span class="Testimonial__Star">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </span>
+            {%- endfor -%}
+          </div>
+
+          {%- if block.settings.verified -%}
+            <div class="Testimonial__Verified">
+              Acquisto verificato
             </div>
           {%- endif -%}
 
@@ -50,7 +90,7 @@
 
 {% schema %}
 {
-  "name": "Testimonials",
+  "name": "Recensioni dei Clienti",
   "class": "shopify-section--bordered",
   "max_blocks": 6,
   "settings": [
@@ -86,7 +126,7 @@
   "blocks": [
     {
       "type": "testimonial",
-      "name": "Testimonial",
+      "name": "Recensione",
       "settings": [
         {
           "type": "image_picker",
@@ -97,9 +137,32 @@
         {
           "type": "richtext",
           "id": "quote",
-          "label": "Quote",
-          "default": "<p>Share what your customers are saying about your products, your company...</p>",
-          "info": "For best results, keep the word count consistent in each quote."
+          "label": "Citazione",
+          "default": "<p>La raffinatezza di AEQUO risiede nei dettagli. Ogni creazione racconta una storia di eleganza e artigianalità italiana.</p>",
+          "info": "Per risultati ottimali, mantieni la lunghezza del testo uniforme tra le recensioni."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nome cliente",
+          "default": "Cliente",
+          "info": "es. - Francesco P."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Acquisto verificato",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "unit": "★",
+          "label": "Valutazione stelle",
+          "default": 5
         }
       ]
     }
@@ -107,16 +170,21 @@
   "presets": [
     {
       "category": "Text",
-      "name": "Testimonials",
+      "name": "Recensioni dei Clienti",
       "settings": {},
       "blocks": [
         {
           "type": "testimonial",
-          "settings": {}
+          "settings": {
+            "author": "Francesco P.",
+            "rating": 4.5
+          }
         },
         {
           "type": "testimonial",
-          "settings": {}
+          "settings": {
+            "author": "Sara L."
+          }
         },
         {
           "type": "testimonial",

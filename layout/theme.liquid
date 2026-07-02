@@ -3,7 +3,7 @@
 <html class="no-js" lang="{{ shop.locale }}">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="{{ settings.accent_color }}">
 
     <title>
@@ -26,37 +26,62 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"></noscript>
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <link rel="preload" href="{{ 'theme.scss.css' | asset_url }}" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ 'theme.scss.css' | asset_url }}"></noscript>
+    <link rel="stylesheet" href="{{ 'theme.scss.css' | asset_url }}">
+    <style>@font-face{font-display:swap}body{-webkit-tap-highlight-color:transparent}a,button{touch-action:manipulation}.Drawer[aria-hidden="true"],.Modal[aria-hidden="true"],.Popover[aria-hidden="true"],.NewsletterPopup[aria-hidden="true"],.MegaMenu[aria-hidden="true"]{content-visibility:auto}</style>
 
     {% include 'custom-overrides-inline' %}
+    {% include 'mobile-minimal' %}
+
+    <style>
+      /* === Modern carousel arrows override === */
+      .flickity-prev-next-button,
+      .ProductListScroll__Arrow {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 48px !important;
+        height: 48px !important;
+        background: #ffffff !important;
+        border: none !important;
+        border-radius: 50% !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
+        color: #111111 !important;
+        transition: none !important;
+      }
+      .flickity-prev-next-button:focus-visible,
+      .ProductListScroll__Arrow:focus-visible {
+        outline: 2px solid #111111 !important;
+        outline-offset: 2px !important;
+      }
+      .flickity-prev-next-button svg,
+      .ProductListScroll__Arrow svg {
+        width: 16px !important;
+        height: 16px !important;
+        stroke-width: 2.5px !important;
+        stroke: currentColor !important;
+        fill: none !important;
+        transition: transform 0.3s ease !important;
+      }
+      .flickity-prev-next-button:hover svg,
+      .ProductListScroll__Arrow:hover svg {
+        transform: scale(1.12) !important;
+      }
+      .ProductListScroll__Arrow[aria-hidden="true"] {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    </style>
 
     <link rel="stylesheet" href="{{ 'aequo-cookie-modal.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ 'aequo-cookie-modal.css' | asset_url }}"></noscript>
+    <style>@media(min-width:768px){.shopify-pc__banner,#shopify-pc__banner,[data-testid="cookie-banner"]{display:none!important}}@media(max-width:767px){.shopify-pc__banner,#shopify-pc__banner,[data-testid="cookie-banner"]{top:50%!important;bottom:auto!important;position:fixed!important;transform:translateY(-50%)!important;max-width:90vw!important;margin:0 auto!important;left:5vw!important;right:5vw!important;border-radius:12px!important;padding:16px!important;font-size:12px!important}.shopify-pc__banner__btns button{font-size:12px!important;padding:8px 16px!important}}</style>
 
-    <script>
-      window.lazySizesConfig = {
-        loadHidden: false,
-        hFac: 0.5,
-        expFactor: 2,
-        ricTimeout: 150,
-        lazyClass: 'Image--lazyLoad',
-        loadingClass: 'Image--lazyLoading',
-        loadedClass: 'Image--lazyLoaded'
-      };
-
-      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-
-      (function() {
-        document.documentElement.className += ((window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')) ? ' supports-sticky' : ' no-supports-sticky');
-        document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-supports-hover' : ' supports-hover';
-      }());
-    </script>
+    <script>document.documentElement.className=document.documentElement.className.replace('no-js','js');(function(){var d=document.documentElement.classList;d.add((window.CSS&&window.CSS.supports('(position:sticky) or (position:-webkit-sticky)')?'supports-sticky':'no-supports-sticky'));d.add((window.matchMedia('(-moz-touch-enabled:1),(hover:none)')).matches?'no-supports-hover':'supports-hover');})();</script>
 
     {% if settings.currency_conversion_enabled %}
       <script src="//cdn.shopify.com/s/javascripts/currencies.js" defer></script>
@@ -72,9 +97,71 @@
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
     {% include 'microdata-schema' %}
 
+    <style>
+      @media screen and (max-width: 640px) {
+        /* AEQUO: force ALL slideshow slides to fullscreen on mobile */
+        .Slideshow,
+        .Slideshow__Carousel,
+        .Slideshow__Carousel .flickity-viewport,
+        .Slideshow__Carousel .flickity-slider,
+        .Slideshow__Slide,
+        .Slideshow__ImageContainer {
+          height: 100vh !important;
+          min-height: 100vh !important;
+          max-height: 100vh !important;
+        }
+
+        .Slideshow__ImageContainer {
+          position: relative !important;
+          overflow: hidden !important;
+          width: 100vw !important;
+          padding-bottom: 0 !important;
+        }
+
+        .Slideshow__ImageContainer::before {
+          content: none !important;
+          display: none !important;
+          padding-bottom: 0 !important;
+        }
+
+        .Slideshow__Image {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          min-width: 100% !important;
+          min-height: 100% !important;
+          max-width: none !important;
+          max-height: none !important;
+          object-fit: cover !important;
+          object-position: center !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          display: block !important;
+        }
+
+        .ImageHero--videoFullscreen {
+          min-height: 100vh !important;
+          height: 100vh !important;
+        }
+
+        .ImageHero--videoFullscreen .ImageHero__VideoHolder,
+        .ImageHero--videoFullscreen iframe {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          min-width: 100% !important;
+          min-height: 100% !important;
+        }
+      }
+    </style>
+
   </head>
 
-  <body class="prestige--v1 {% if template.directory %}template-{{ template.directory | handle }}{% endif %} template-{{ template.name | handle }}">
+    <body class="prestige--v1 {% if template.directory %}template-{{ template.directory | handle }}{% endif %} template-{{ template.name | handle }}">
     <a class="PageSkipLink u-visually-hidden" href="#main">{{ 'header.navigation.skip_to_content' | t }}</a>
     <span class="LoadingBar"></span>
     <div class="PageOverlay"></div>
@@ -97,12 +184,6 @@
       {% section 'footer' %}
     </div>
 
-    {%- comment -%}
-    --------------------------------------------------------------------------------------------------------------------
-    SEARCH FORM (available globally)
-    --------------------------------------------------------------------------------------------------------------------
-    {%- endcomment -%}
-
     <div id="Search" class="Search Modal Modal--fullScreen" aria-hidden="true" data-scrollable>
       <div class="Search__SearchBar">
         <form action="/search" method="get" role="search" class="Search__Form">
@@ -122,14 +203,15 @@
         {%- endif -%}
       </div>
     </div>
+
   {% include 'banana-stand-footer' %}
 
 {% include 'adolab-get-clicked-seo' %}
 
-    <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
-
+    <script>window.lazySizesConfig={loadHidden:false,hFac:0.5,expFactor:2,ricTimeout:150,lazyClass:'Image--lazyLoad',loadingClass:'Image--lazyLoading',loadedClass:'Image--lazyLoaded'};</script>
+    <script src="{{ 'lazysizes.min.js' | asset_url }}" defer></script>
     <script>
-      window.theme = {
+      window.theme={
         template: {{ template.name | json }},
         shopCurrency: {{ shop.currency | json }},
         moneyFormat: {{ shop.money_format | json }},
@@ -143,38 +225,8 @@
         showImageZooming: {{ settings.show_image_zooming | json }}
       };
 
-      window.languages = {
-        cartAddNote: {{ 'cart.general.add_note' | t | json }},
-        cartEditNote: {{ 'cart.general.edit_note' | t | json }},
-        productImageLoadingError: {{ 'product.slideshow.image_loading_error' | t | json }},
-        productFormAddToCart: {% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | json }}{% else %}{{ 'product.form.add_to_cart' | t | json }}{% endif %},
-        productFormUnavailable: {{ 'product.form.unavailable' | t | json }},
-        productFormSoldOut: {{ 'product.form.sold_out' | t | json }},
-        shippingEstimatorOneResult: {{ 'cart.shipping_estimator.one_result_title' | t | json }},
-        shippingEstimatorMoreResults: {{ 'cart.shipping_estimator.more_results_title' | t | json }},
-        shippingEstimatorNoResults: {{ 'cart.shipping_estimator.no_results_title' | t | json }}
-      };
-
-      (function() {
-        var resizeTick = false;
-        var setWindowHeight = function() {
-          document.documentElement.style.setProperty('--window-height', window.innerHeight + 'px');
-          resizeTick = false;
-        };
-        setWindowHeight();
-        window.addEventListener('resize', function() {
-          if (!resizeTick) {
-            window.requestAnimationFrame(setWindowHeight);
-            resizeTick = true;
-          }
-        }, { passive: true });
-        window.addEventListener('orientationchange', function() {
-          if (!resizeTick) {
-            window.requestAnimationFrame(setWindowHeight);
-            resizeTick = true;
-          }
-        }, { passive: true });
-      })();
+      window.languages={cartAddNote:{{'cart.general.add_note'|t|json}},cartEditNote:{{'cart.general.edit_note'|t|json}},productImageLoadingError:{{'product.slideshow.image_loading_error'|t|json}},productFormAddToCart:{%if product.template_suffix=='pre-order'%}{{'product.form.pre_order'|t|json}}{%else%}{{'product.form.add_to_cart'|t|json}}{%endif%},productFormUnavailable:{{'product.form.unavailable'|t|json}},productFormSoldOut:{{'product.form.sold_out'|t|json}},shippingEstimatorOneResult:{{'cart.shipping_estimator.one_result_title'|t|json}},shippingEstimatorMoreResults:{{'cart.shipping_estimator.more_results_title'|t|json}},shippingEstimatorNoResults:{{'cart.shipping_estimator.no_results_title'|t|json}}};
+      (function(){var t=false;var h=function(){document.documentElement.style.setProperty('--window-height',window.innerHeight+'px');t=false};h();window.addEventListener('resize',function(){if(!t){window.requestAnimationFrame(h);t=true}},{passive:true});window.addEventListener('orientationchange',function(){if(!t){window.requestAnimationFrame(h);t=true}},{passive:true});})();
     </script>
 
 </body>

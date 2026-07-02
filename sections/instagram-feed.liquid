@@ -1,12 +1,4 @@
-{%- capture flickity_config -%}
-{
-  "wrapAround": true,
-  "pageDots": false,
-  "setGallerySize": false,
-  "prevNextButtons": true,
-  "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
-}
-{%- endcapture -%}
+{%- capture flickity_config -%}{"wrapAround":true,"pageDots":false,"setGallerySize":false,"prevNextButtons":true,"arrowShape":{"x0":20,"x1":60,"y1":40,"x2":60,"y2":35,"x3":25}}{%- endcapture -%}
 
 <section class="Section Section--spacingNormal" data-section-id="{{ section.id }}" data-section-type="instagram">
   {%- if section.settings.subheading != blank or section.settings.title != blank -%}

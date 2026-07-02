@@ -1,7 +1,31 @@
-<div class="EmptyState">
+<div class="EmptyState EmptyState--luxury" id="404-content">
   <div class="Container">
-    <h3 class="EmptyState__Title Heading u-h5">{{ '404.general.title' | t }}</h3>
-    <p class="EmptyState__Description Text--subdued">{{ '404.general.content' | t }}</p>
-    <a href="/" class="EmptyState__Action Button Button--primary">{{ '404.general.button' | t }}</a>
+    <div class="EmptyState__Code">404</div>
+    <h1 class="EmptyState__Title Heading">{{ '404.general.title' | t }}</h1>
+    <p class="EmptyState__Description">{{ '404.general.content' | t }}</p>
+    <a href="/" class="EmptyState__Action">{{ '404.general.button' | t }}</a>
   </div>
 </div>
+
+<div id="coming-soon-content" style="display:none;">
+  <div class="EmptyState EmptyState--luxury">
+    <div class="Container">
+      <div class="EmptyState__Code" style="font-size: 48px; letter-spacing: 0.3em;">PROSSIMAMENTE</div>
+      <h1 class="EmptyState__Title Heading">PRODOTTI IN ARRIVO</h1>
+      <p class="EmptyState__Description">La sezione donna sarà presto disponibile. Torna a trovarci!</p>
+      <a href="/" class="EmptyState__Action">Torna alla home</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var path = window.location.pathname;
+    if (path === '/pages/donna' || path === '/pages/donna/' || path.indexOf('/pages/donna') === 0) {
+      var el404 = document.getElementById('404-content');
+      var elSoon = document.getElementById('coming-soon-content');
+      if (el404) el404.style.display = 'none';
+      if (elSoon) elSoon.style.display = 'block';
+    }
+  });
+</script>

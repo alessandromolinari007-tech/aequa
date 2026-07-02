@@ -1,0 +1,93 @@
+<div id="account-drawer-overlay" class="AccountDrawerOverlay" aria-hidden="true"></div>
+<div id="account-drawer" class="Drawer Drawer--fromRight" aria-hidden="true" tabindex="-1">
+  <div class="Drawer__Header Drawer__Header--bordered">
+    <div class="Drawer__Title">IL TUO ACCOUNT</div>
+    <button type="button" class="Drawer__Close Icon-Wrapper Icon-Wrapper--clickable js-aequo-account-close" aria-label="Chiudi">
+      {%- include 'icon' with 'close' -%}
+    </button>
+  </div>
+
+  <div class="Drawer__Content">
+    <div class="AccountDrawer">
+
+      <!-- LOGIN -->
+      <div class="AccountDrawer__Panel AccountDrawer__Panel--login is-active">
+        <h2 class="AccountDrawer__Heading Heading">ACCEDI</h2>
+        {%- form 'customer_login', name: 'drawer_login', class: 'AccountDrawer__Form', id: 'drawer_customer_login' -%}
+          {%- if form.errors -%}
+            <div class="AccountDrawer__Error">{{ form.errors.messages['form'] }}</div>
+          {%- endif -%}
+          <div class="AccountDrawer__Field">
+            <input type="email" name="customer[email]" required placeholder="Email" class="AccountDrawer__Input" aria-label="Email">
+          </div>
+          <div class="AccountDrawer__Field">
+            <input type="password" name="customer[password]" required placeholder="Password" class="AccountDrawer__Input" aria-label="Password">
+          </div>
+          <button type="submit" class="AccountDrawer__Submit">ACCEDI</button>
+          <button type="button" class="AccountDrawer__Link" data-action="show-recover">Password dimenticata?</button>
+        {%- endform -%}
+        <div class="AccountDrawer__Footer">
+          <span class="AccountDrawer__Text">Non hai un account?</span>
+          <button type="button" class="AccountDrawer__Link AccountDrawer__Link--strong" data-action="show-register">Registrati</button>
+        </div>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="AccountDrawer__Panel AccountDrawer__Panel--register">
+        <h2 class="AccountDrawer__Heading Heading">REGISTRATI</h2>
+        {%- form 'create_customer', name: 'drawer_register', class: 'AccountDrawer__Form', id: 'drawer_create_customer' -%}
+          {%- if form.errors -%}
+            <div class="AccountDrawer__Error">
+              {%- for field in form.errors -%}
+                {%- if field == 'form' -%}
+                  {{ form.errors.messages[field] }}
+                {%- else -%}
+                  <strong>{{ form.errors.translated_fields[field] }}</strong> {{ form.errors.messages[field] }}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          <div class="AccountDrawer__Field">
+            <input type="text" name="customer[first_name]" placeholder="Nome" required class="AccountDrawer__Input" aria-label="Nome">
+          </div>
+          <div class="AccountDrawer__Field">
+            <input type="text" name="customer[last_name]" placeholder="Cognome" required class="AccountDrawer__Input" aria-label="Cognome">
+          </div>
+          <div class="AccountDrawer__Field">
+            <input type="email" name="customer[email]" placeholder="Email" required class="AccountDrawer__Input" aria-label="Email">
+          </div>
+          <div class="AccountDrawer__Field">
+            <input type="password" name="customer[password]" placeholder="Password" required class="AccountDrawer__Input" aria-label="Password">
+          </div>
+          <button type="submit" class="AccountDrawer__Submit">REGISTRATI</button>
+        {%- endform -%}
+        <div class="AccountDrawer__Footer">
+          <span class="AccountDrawer__Text">Hai già un account?</span>
+          <button type="button" class="AccountDrawer__Link AccountDrawer__Link--strong" data-action="show-login">Accedi</button>
+        </div>
+      </div>
+
+      <!-- RECOVER -->
+      <div class="AccountDrawer__Panel AccountDrawer__Panel--recover">
+        <h2 class="AccountDrawer__Heading Heading">RECUPERA PASSWORD</h2>
+        {%- form 'recover_customer_password', name: 'drawer_recover', class: 'AccountDrawer__Form', id: 'drawer_recover_customer_password' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="AccountDrawer__Success">Ti abbiamo inviato un'email con le istruzioni per reimpostare la password.</div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <div class="AccountDrawer__Error">{{ form.errors.messages['form'] }}</div>
+            {%- endif -%}
+            <div class="AccountDrawer__Field">
+              <input type="email" name="email" placeholder="Email" required class="AccountDrawer__Input" aria-label="Email">
+            </div>
+            <button type="submit" class="AccountDrawer__Submit">INVIA</button>
+          {%- endif -%}
+        {%- endform -%}
+        <div class="AccountDrawer__Footer">
+          <button type="button" class="AccountDrawer__Link AccountDrawer__Link--strong" data-action="show-login">Torna al login</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

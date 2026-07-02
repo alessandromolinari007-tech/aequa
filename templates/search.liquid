@@ -7,11 +7,9 @@
         {%- if search.performed -%}
           {%- assign filtered_terms = search.terms | replace: '*', '' -%}
           <p>{{ 'search.general.no_results_with_terms' | t: terms: filtered_terms }}</p>
-        {%- else -%}
-          <p>{{ 'search.general.content' | t }}</p>
         {%- endif -%}
 
-        <div class="EmptyState__Action" >
+        <div class="EmptyState__Action">
           <form method="GET" action="/search" class="Form">
             <input class="Form__Input" type="text" name="q" autocomplete="off" autocorrect="off" aria-label="{{ 'search.general.input_placeholder' | t }}" placeholder="{{ 'search.general.input_placeholder' | t }}">
             <input type="hidden" name="type" value="product">
@@ -57,7 +55,7 @@
                       </h2>
 
                       <p class="ArticleItem__Excerpt">{{ result.content | strip_html | truncate: 150 }}</p>
-                      <a href="{{ article.url }}" class="ArticleItem__Link Link Link--underline">{{ 'blog.article.read_more' | t }}</a>
+                      <a href="{{ result.url }}" class="ArticleItem__Link Link Link--underline">{{ 'blog.article.read_more' | t }}</a>
                     </div>
                   </article>
                 {%- endif -%}
