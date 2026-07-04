@@ -36,7 +36,15 @@
         {%- endfor -%}
       </div>
     {%- else -%}
-      <h2 class="SectionHeader__Heading Heading u-h1" style="text-align:left !important;font-weight:500 !important;font-size:3em !important;font-family:'Playfair Display','Didot','Bodoni MT','Times New Roman',serif !important;letter-spacing:0.02em !important;text-transform:none !important;">Best Sellers</h2>
+      {%- assign first_block = section.blocks[0] -%}
+      {%- assign first_collection = collections[first_block.settings.collection] -%}
+      {%- capture section_heading -%}
+        {%- if first_block.settings.title != blank -%}{{ first_block.settings.title }}
+        {%- elsif first_collection != empty -%}{{ first_collection.title }}
+        {%- else -%}Best Sellers{%- endif -%}
+      {%- endcapture -%}
+      <h2 class="SectionHeader__Heading Heading u-h1" style="text-align:left !important;font-weight:500 !important;font-size:3em !important;font-family:'Playfair Display','Didot','Bodoni MT','Times New Roman',serif !important;letter-spacing:0.02em !important;text-transform:none !important;">{{ section_heading }}</h2>
+      {%- if first_collection == empty -%}
       <p style="text-align:left;margin-top:6px;font-size:12px;letter-spacing:0.5px;">
         <span>spedizione rapida</span>
         <span style="margin:0 8px;opacity:0.4;">|</span>
@@ -44,8 +52,20 @@
         <span style="margin:0 8px;opacity:0.4;">|</span>
         <span>Design unico</span>
       </p>
+      {%- endif -%}
     {%- endif -%}
   </header>
+
+  {%- assign horizontal_spacing = 0 -%}
+  {%- case settings.product_list_horizontal_spacing -%}
+    {%- when 'extra_small' -%}{%- assign horizontal_spacing = 20 -%}
+    {%- when 'small' -%}{%- assign horizontal_spacing = 40 -%}
+    {%- when 'medium' -%}{%- assign horizontal_spacing = 60 -%}
+    {%- when 'large' -%}{%- assign horizontal_spacing = 80 -%}
+    {%- when 'extra_large' -%}{%- assign horizontal_spacing = 100 -%}
+  {%- endcase -%}
+  {%- assign half_spacing = horizontal_spacing | divided_by: 2 -%}
+  {%- assign carousel_desktop_padding = 90 | plus: half_spacing -%}
 
   <style>
     [data-section-id="{{ section.id }}"] .SectionHeader--aligned {
@@ -55,6 +75,10 @@
     [data-section-id="{{ section.id }}"].Section--carousel .SectionHeader--aligned {
       padding-left: 0 !important;
       padding-right: 0 !important;
+    }
+    [data-section-id="{{ section.id }}"].Section--carousel .ProductItem__Wrapper--card {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
     }
     @media screen and (max-width: 640px) {
       [data-section-id="{{ section.id }}"].Section--grid .SectionHeader--aligned {
@@ -70,8 +94,8 @@
     }
     @media screen and (min-width: 1008px) {
       [data-section-id="{{ section.id }}"].Section--carousel .SectionHeader--aligned {
-        padding-left: 120px !important;
-        padding-right: 120px !important;
+        padding-left: {{ carousel_desktop_padding }}px !important;
+        padding-right: {{ carousel_desktop_padding }}px !important;
       }
       [data-section-id="{{ section.id }}"].Section--grid .SectionHeader--aligned {
         padding-left: 50px !important;
@@ -161,7 +185,7 @@
       {%- if block.settings.button_text != blank -%}
         <div class="Container">
           <div class="SectionFooter">
-            <a href="{% if collection.url != blank %}{{ collection.url }}{% else %}/collections/all{% endif %}" class="Button Button--primary">{{ block.settings.button_text | escape }}</a>
+            <a href="{% if collection.url != blank %}{{ collection.url }}{% else %}/collections/all{% endif %}" class="Button Button--primary btn-silver-premium">{{ block.settings.button_text | escape }}</a>
           </div>
         </div>
       {%- endif -%}

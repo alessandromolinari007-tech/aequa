@@ -140,6 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  function debounce(fn, wait) {
+    var t;
+    return function() {
+      var args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function() { fn.apply(null, args); }, wait);
+    };
+  }
+
   var schedule = window.requestIdleCallback || function(cb) { setTimeout(cb, 100); };
   schedule(function() {
     if (!styleCookieBanner()) {
@@ -149,70 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       obs.observe(document.body, { childList: true, subtree: true });
+      setTimeout(function() { obs.disconnect(); }, 8000);
     }
   });
-
-  /* ------------------------------------------------------------------
-   * AEQUO: force slideshow video to fullscreen on mobile
-   * ------------------------------------------------------------------ */
-  function forceSlideshowVideoFullscreen() {
-    if (window.innerWidth > 640) return;
-    var videos = document.querySelectorAll('video.Slideshow__Image');
-    videos.forEach(function(video) {
-      var container = video.closest('.Slideshow__ImageContainer');
-      if (!container) return;
-      container.style.height = '100vh';
-      container.style.minHeight = '100vh';
-      container.style.maxHeight = '100vh';
-      container.style.position = 'relative';
-      container.style.overflow = 'hidden';
-      container.style.width = '100vw';
-      container.style.paddingBottom = '0';
-
-      var slide = container.closest('.Slideshow__Slide');
-      if (slide) {
-        slide.style.height = '100vh';
-        slide.style.minHeight = '100vh';
-        slide.style.maxHeight = '100vh';
-      }
-
-      var carousel = container.closest('.Slideshow__Carousel');
-      if (carousel) {
-        var viewport = carousel.querySelector('.flickity-viewport');
-        if (viewport) {
-          viewport.style.height = '100vh';
-          viewport.style.minHeight = '100vh';
-          viewport.style.maxHeight = '100vh';
-        }
-        var slider = carousel.querySelector('.flickity-slider');
-        if (slider) {
-          slider.style.height = '100vh';
-          slider.style.minHeight = '100vh';
-          slider.style.maxHeight = '100vh';
-        }
-      }
-
-      video.style.position = 'absolute';
-      video.style.top = '0';
-      video.style.left = '0';
-      video.style.width = '100%';
-      video.style.height = '100%';
-      video.style.minWidth = '100%';
-      video.style.minHeight = '100%';
-      video.style.maxWidth = 'none';
-      video.style.maxHeight = 'none';
-      video.style.objectFit = 'cover';
-      video.style.objectPosition = 'center';
-      video.style.opacity = '1';
-      video.style.visibility = 'visible';
-      video.style.display = 'block';
-    });
-  }
-
-  forceSlideshowVideoFullscreen();
-  setTimeout(forceSlideshowVideoFullscreen, 500);
-  setTimeout(forceSlideshowVideoFullscreen, 1500);
-  window.addEventListener('resize', forceSlideshowVideoFullscreen);
 
   /* ------------------------------------------------------------------
    * AEQUO: horizontal scroll arrows for product grids
@@ -263,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
       wrapper.appendChild(nextBtn);
 
       grid.addEventListener('scroll', updateArrows);
-      window.addEventListener('resize', updateArrows);
+      window.addEventListener('resize', debounce(updateArrows, 150));
     });
   })();
 

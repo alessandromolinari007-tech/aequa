@@ -97,68 +97,6 @@
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
     {% include 'microdata-schema' %}
 
-    <style>
-      @media screen and (max-width: 640px) {
-        /* AEQUO: force ALL slideshow slides to fullscreen on mobile */
-        .Slideshow,
-        .Slideshow__Carousel,
-        .Slideshow__Carousel .flickity-viewport,
-        .Slideshow__Carousel .flickity-slider,
-        .Slideshow__Slide,
-        .Slideshow__ImageContainer {
-          height: 100vh !important;
-          min-height: 100vh !important;
-          max-height: 100vh !important;
-        }
-
-        .Slideshow__ImageContainer {
-          position: relative !important;
-          overflow: hidden !important;
-          width: 100vw !important;
-          padding-bottom: 0 !important;
-        }
-
-        .Slideshow__ImageContainer::before {
-          content: none !important;
-          display: none !important;
-          padding-bottom: 0 !important;
-        }
-
-        .Slideshow__Image {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          height: 100% !important;
-          min-width: 100% !important;
-          min-height: 100% !important;
-          max-width: none !important;
-          max-height: none !important;
-          object-fit: cover !important;
-          object-position: center !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-          display: block !important;
-        }
-
-        .ImageHero--videoFullscreen {
-          min-height: 100vh !important;
-          height: 100vh !important;
-        }
-
-        .ImageHero--videoFullscreen .ImageHero__VideoHolder,
-        .ImageHero--videoFullscreen iframe {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          height: 100% !important;
-          min-width: 100% !important;
-          min-height: 100% !important;
-        }
-      }
-    </style>
-
   </head>
 
     <body class="prestige--v1 {% if template.directory %}template-{{ template.directory | handle }}{% endif %} template-{{ template.name | handle }}">

@@ -68,6 +68,67 @@
     color: #ffffff !important;
     text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3) !important;
   }
+
+  /* === Silver Premium CTA Button === */
+  .btn-silver-premium,
+  .btn-silver-premium.Button {
+    position: relative;
+    display: inline-block;
+    padding: 14px 28px;
+    line-height: normal;
+    border: 1px solid #d1d1d1 !important;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.2em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
+    background: linear-gradient(135deg, #4a4a4a 0%, #656565 20%, #8a8a8a 40%, #606060 60%, #757575 80%, #3d3d3d 100%) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    -webkit-transition: box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-silver-premium.Button::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .btn-silver-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60px;
+    height: 100%;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), color-stop(50%, rgba(255,255,255,0.9)), to(rgba(255,255,255,0)));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+    -webkit-transform: skewX(-45deg);
+    transform: skewX(-45deg);
+    z-index: 2;
+    pointer-events: none;
+    -webkit-transition: left 0.6s ease-in-out;
+    transition: left 0.6s ease-in-out;
+  }
+
+  @media (-moz-touch-enabled: 0), (hover: hover) {
+    .btn-silver-premium:hover,
+    .btn-silver-premium.Button:hover {
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      -webkit-transform: translateY(-2px);
+      transform: translateY(-2px);
+    }
+
+    .btn-silver-premium:hover::before {
+      left: 150%;
+    }
+  }
 </style>
 <div class="Slideshow {% if section.settings.show_fullscreen %}Slideshow--fullscreen{% endif %}{% if has_video %} Slideshow--hasVideo{% endif %}">
     <div class="Slideshow__Carousel {% if section.settings.show_arrow %}Slideshow__Carousel--withScrollButton{% endif %} Carousel Carousel--fadeIn {% if section.settings.show_fullscreen %}Carousel--fixed{% endif %} Carousel--insideDots"
@@ -180,11 +241,11 @@
                   <div class="SectionHeader__ButtonWrapper">
                     <div class="ButtonGroup ButtonGroup--spacingSmall {% if has_two_buttons %}ButtonGroup--sameSize{% endif %}">
                       {%- if block.settings.button_1_text != blank -%}
-                        <a href="{{ block.settings.button_1_link }}" class="ButtonGroup__Item Button">{{ block.settings.button_1_text | escape }}</a>
+                        <a href="{{ block.settings.button_1_link }}" class="ButtonGroup__Item Button btn-silver-premium">{{ block.settings.button_1_text | escape }}</a>
                       {%- endif -%}
 
                       {%- if block.settings.button_2_text != blank -%}
-                        <a href="{{ block.settings.button_2_link }}" class="Slideshow__Button ButtonGroup__Item Button">{{ block.settings.button_2_text | escape }}</a>
+                        <a href="{{ block.settings.button_2_link }}" class="Slideshow__Button ButtonGroup__Item Button btn-silver-premium">{{ block.settings.button_2_text | escape }}</a>
                       {%- endif -%}
                     </div>
                   </div>
