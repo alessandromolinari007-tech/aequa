@@ -5,7 +5,7 @@
         <div class="TrustBadges__Item" {{ block.shopify_attributes }}>
           {%- if block.settings.icon != blank -%}
             <div class="TrustBadges__IconWrapper">
-              <img src="{{ block.settings.icon | img_url: '100x' }}" alt="{{ block.settings.title | escape }}" class="TrustBadges__Icon" loading="lazy" width="40" height="40">
+              <img src="{{ block.settings.icon | img_url: '100x' }}" alt="{{ block.settings.title | escape }}" class="TrustBadges__Icon" width="40" height="40">
             </div>
           {%- else -%}
             <div class="TrustBadges__IconWrapper">
@@ -39,95 +39,7 @@
   </div>
 </section>
 
-<style>
-  .TrustBadges {
-    padding: 40px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    background: #ffffff;
-  }
-  .TrustBadges__Grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 0;
-  }
-  .TrustBadges__Item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 32px;
-    flex: 1 1 auto;
-    justify-content: center;
-    cursor: default;
-  }
-  .TrustBadges__Item:not(:last-child) {
-    border-right: none;
-  }
-  .TrustBadges__IconWrapper {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #F5F5F5;
-    color: #111111;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  .TrustBadges__IconWrapper svg,
-  .TrustBadges__IconWrapper img {
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .TrustBadges__Item:hover .TrustBadges__IconWrapper {
-    transform: scale(1.15);
-    background: #F2C94C;
-    color: #111111;
-    box-shadow: 0 4px 14px rgba(242, 201, 76, 0.35);
-  }
-  .TrustBadges__Item:hover .TrustBadges__IconWrapper svg,
-  .TrustBadges__Item:hover .TrustBadges__IconWrapper img {
-    transform: scale(1.1);
-  }
-  .TrustBadges__Icon {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
-    display: block;
-  }
-  .TrustBadges__Content {
-    text-align: left;
-  }
-  .TrustBadges__Title {
-    margin: 0 0 3px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #111111;
-  }
-  .TrustBadges__Subtitle {
-    margin: 0;
-    font-size: 12px;
-    color: #999999;
-    line-height: 1.4;
-  }
-  @media (max-width: 767px) {
-    .TrustBadges__Grid {
-      flex-direction: column;
-      gap: 0;
-    }
-    .TrustBadges__Item {
-      width: 100%;
-      justify-content: flex-start;
-      padding: 14px 20px;
-      border-right: none !important;
-      border-bottom: none;
-    }
-  }
-</style>
+<style>.TrustBadges{padding:40px 0;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06);background:#fff}.TrustBadges__Grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:0}.TrustBadges__Item{display:flex;align-items:center;gap:16px;padding:20px 32px;flex:1 1 auto;justify-content:center;cursor:default}.TrustBadges__Item:not(:last-child){border-right:none}.TrustBadges__IconWrapper{flex-shrink:0;width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#F5F5F5;color:#111;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background-color .3s ease,box-shadow .3s ease}.TrustBadges__IconWrapper svg,.TrustBadges__IconWrapper img{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}.TrustBadges__Item:hover .TrustBadges__IconWrapper{transform:scale(1.15);background:#F2C94C;color:#111;box-shadow:0 4px 14px rgba(242,201,76,.35)}.TrustBadges__Item:hover .TrustBadges__IconWrapper svg,.TrustBadges__Item:hover .TrustBadges__IconWrapper img{transform:scale(1.1)}.TrustBadges__Icon{width:22px;height:22px;object-fit:contain;display:block}.TrustBadges__Content{text-align:left}.TrustBadges__Title{margin:0 0 3px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#111}.TrustBadges__Subtitle{margin:0;font-size:12px;color:#999;line-height:1.4}@media(max-width:767px){.TrustBadges__Grid{flex-direction:column;gap:0}.TrustBadges__Item{width:100%;justify-content:flex-start;padding:14px 20px;border-right:none!important;border-bottom:none}}</style>
 
 {% schema %}
 {

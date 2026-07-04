@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="{{ settings.accent_color }}">
 
-    <title>
-      {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-    </title>
+    <title>{{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
 
     {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
@@ -31,55 +29,20 @@
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
+    <link rel="preload" href="{{ 'libs.min.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'theme.min.js' | asset_url }}" as="script">
+
     <link rel="stylesheet" href="{{ 'theme.scss.css' | asset_url }}">
-    <style>@font-face{font-display:swap}body{-webkit-tap-highlight-color:transparent}a,button{touch-action:manipulation}.Drawer[aria-hidden="true"],.Modal[aria-hidden="true"],.Popover[aria-hidden="true"],.NewsletterPopup[aria-hidden="true"],.MegaMenu[aria-hidden="true"]{content-visibility:auto}</style>
+    <style>@font-face{font-display:swap}body{-webkit-tap-highlight-color:transparent}a,button{touch-action:manipulation}.Drawer[aria-hidden=true],.Modal[aria-hidden=true],.Popover[aria-hidden=true],.NewsletterPopup[aria-hidden=true],.MegaMenu[aria-hidden=true]{content-visibility:auto}</style>
 
     {% include 'custom-overrides-inline' %}
     {% include 'mobile-minimal' %}
 
-    <style>
-      /* === Modern carousel arrows override === */
-      .flickity-prev-next-button,
-      .ProductListScroll__Arrow {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 48px !important;
-        height: 48px !important;
-        background: #ffffff !important;
-        border: none !important;
-        border-radius: 50% !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
-        color: #111111 !important;
-        transition: none !important;
-      }
-      .flickity-prev-next-button:focus-visible,
-      .ProductListScroll__Arrow:focus-visible {
-        outline: 2px solid #111111 !important;
-        outline-offset: 2px !important;
-      }
-      .flickity-prev-next-button svg,
-      .ProductListScroll__Arrow svg {
-        width: 16px !important;
-        height: 16px !important;
-        stroke-width: 2.5px !important;
-        stroke: currentColor !important;
-        fill: none !important;
-        transition: transform 0.3s ease !important;
-      }
-      .flickity-prev-next-button:hover svg,
-      .ProductListScroll__Arrow:hover svg {
-        transform: scale(1.12) !important;
-      }
-      .ProductListScroll__Arrow[aria-hidden="true"] {
-        opacity: 0 !important;
-        pointer-events: none !important;
-      }
-    </style>
+    <style>.flickity-prev-next-button,.ProductListScroll__Arrow{display:flex!important;align-items:center!important;justify-content:center!important;width:48px!important;height:48px!important;background:#fff!important;border:none!important;border-radius:50%!important;box-shadow:0 2px 8px rgba(0,0,0,.12)!important;color:#111!important;transition:none!important}.flickity-prev-next-button:focus-visible,.ProductListScroll__Arrow:focus-visible{outline:2px solid #111!important;outline-offset:2px!important}.flickity-prev-next-button svg,.ProductListScroll__Arrow svg{width:16px!important;height:16px!important;stroke-width:2.5px!important;stroke:currentColor!important;fill:none!important;transition:transform .3s ease!important}.flickity-prev-next-button:hover svg,.ProductListScroll__Arrow:hover svg{transform:scale(1.12)!important}.ProductListScroll__Arrow[aria-hidden=true]{opacity:0!important;pointer-events:none!important}</style>
 
     <link rel="stylesheet" href="{{ 'aequo-cookie-modal.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ 'aequo-cookie-modal.css' | asset_url }}"></noscript>
-    <style>@media(min-width:768px){.shopify-pc__banner,#shopify-pc__banner,[data-testid="cookie-banner"]{display:none!important}}@media(max-width:767px){.shopify-pc__banner,#shopify-pc__banner,[data-testid="cookie-banner"]{top:50%!important;bottom:auto!important;position:fixed!important;transform:translateY(-50%)!important;max-width:90vw!important;margin:0 auto!important;left:5vw!important;right:5vw!important;border-radius:12px!important;padding:16px!important;font-size:12px!important}.shopify-pc__banner__btns button{font-size:12px!important;padding:8px 16px!important}}</style>
+    <style>@media(min-width:768px){.shopify-pc__banner,#shopify-pc__banner,[data-testid=cookie-banner]{display:none!important}}@media(max-width:767px){.shopify-pc__banner,#shopify-pc__banner,[data-testid=cookie-banner]{top:50%!important;bottom:auto!important;position:fixed!important;transform:translateY(-50%)!important;max-width:90vw!important;margin:0 auto!important;left:5vw!important;right:5vw!important;border-radius:12px!important;padding:16px!important;font-size:12px!important}.shopify-pc__banner__btns button{font-size:12px!important;padding:8px 16px!important}}</style>
 
     <script>document.documentElement.className=document.documentElement.className.replace('no-js','js');(function(){var d=document.documentElement.classList;d.add((window.CSS&&window.CSS.supports('(position:sticky) or (position:-webkit-sticky)')?'supports-sticky':'no-supports-sticky'));d.add((window.matchMedia('(-moz-touch-enabled:1),(hover:none)')).matches?'no-supports-hover':'supports-hover');})();</script>
 
@@ -147,7 +110,7 @@
 {% include 'adolab-get-clicked-seo' %}
 
     <script>window.lazySizesConfig={loadHidden:false,hFac:0.5,expFactor:2,ricTimeout:150,lazyClass:'Image--lazyLoad',loadingClass:'Image--lazyLoading',loadedClass:'Image--lazyLoaded'};</script>
-    <script src="{{ 'lazysizes.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'lazysizes.min.js' | asset_url }}"></script>
     <script>
       window.theme={
         template: {{ template.name | json }},
